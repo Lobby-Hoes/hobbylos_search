@@ -4,31 +4,13 @@
   --sec-4-link: #cecece;
 }
 
-.w-layout-blockcontainer {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-}
-
-@media screen and (max-width: 991px) {
-  .w-layout-blockcontainer {
-    max-width: 728px;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .w-layout-blockcontainer {
-    max-width: none;
-  }
-}
-
 .body {
   color: #fff;
   text-align: center;
   mix-blend-mode: normal;
   background-color: #292626;
   background-image: url('../images/Screenshot_20230626-052055~2-01.jpg'), url('../images/64daad2482082a96ece7361b_Screenshot_20230626-052055~2-01.jpg');
+  background-image: image-set(url('../images/Screenshot_20230626-052055_2-01.webp'),url('../images/Screenshot_20230626-052055~2-01.jpg')),image-set(url('../images/64daad2482082a96ece7361b_Screenshot_20230626-052055_2-01-p-800.webp'),url('../images/64daad2482082a96ece7361b_Screenshot_20230626-052055~2-01.jpg'));
   background-position: 50% 0, 50% 0;
   background-repeat: no-repeat, repeat;
   background-size: cover, cover;
@@ -52,29 +34,6 @@
   margin-bottom: auto;
 }
 
-.utility-page-wrap {
-  width: 100vw;
-  height: 100vh;
-  max-height: 100%;
-  max-width: 100%;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-}
-
-.utility-page-content {
-  width: 260px;
-  text-align: center;
-  flex-direction: column;
-  display: flex;
-}
-
-.utility-page-form {
-  flex-direction: column;
-  align-items: stretch;
-  display: flex;
-}
-
 .search-input {
   height: auto;
   max-height: 3vw;
@@ -84,18 +43,6 @@
   margin-left: auto;
   margin-right: auto;
   font-size: 1.2vw;
-}
-
-.search-button {
-  max-height: 3vw;
-  background-color: #fff;
-  background-image: url('../images/lupe.png');
-  background-position: 50%;
-  background-repeat: no-repeat;
-  background-size: contain;
-  border-radius: 10px;
-  margin-left: -90px;
-  margin-right: auto;
 }
 
 .search {
@@ -118,6 +65,7 @@
   width: 100%;
   height: auto;
   background-image: url('../images/hobbylos-logo-2.png');
+  background-image: image-set(url('../images/hobbylos-logo-2.webp'),url('../images/hobbylos-logo-2.png'));
   background-position: 100% 0, 100% 0;
   background-repeat: no-repeat;
   background-size: cover;
@@ -138,6 +86,7 @@
   -webkit-text-fill-color: inherit;
   mix-blend-mode: normal;
   background-image: url('../images/Screenshot_20230626-052055~2-01.jpg');
+  background-image: image-set(url('../images/Screenshot_20230626-052055_2-01.webp'),url('../images/Screenshot_20230626-052055~2-01.jpg'));
   background-position: 50% 0;
   background-repeat: no-repeat;
   background-size: cover;
@@ -158,23 +107,6 @@
 
 .navigation-wrapper:hover {
   overflow: visible;
-}
-
-.paragraph {
-  height: 20px;
-  overflow: hidden;
-}
-
-.paragraph:hover {
-  overflow: visible;
-}
-
-.link {
-  color: #fff;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: 40px;
 }
 
 .heading {
@@ -198,32 +130,6 @@
   text-decoration: none;
 }
 
-.navi-link.login-icon {
-  background-image: url('../images/kindpng_1114773.png');
-  background-position: 50%;
-  background-size: cover;
-}
-
-.link-block {
-  width: 80px;
-  height: 10px;
-  max-height: none;
-  background-image: url('../images/kindpng_1114773.png');
-  background-position: 50%;
-  background-size: cover;
-  border: 1px #000;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-}
-
-.link-block-2 {
-  background-image: url('../images/kindpng_1114773.png');
-  background-position: 50%;
-  background-size: cover;
-  border-radius: 20px;
-}
-
 .season-text-box-wrapper {
   min-height: 10vw;
   grid-column-gap: 16px;
@@ -243,7 +149,6 @@
 .season-text-box {
   min-width: 50vw;
   min-height: 5vw;
-  /* width: 30%; */
   height: 30%;
   color: #fff;
   background-color: rgba(255, 255, 255, .31);
@@ -269,58 +174,6 @@
   font-size: 1.89vw;
   font-weight: 400;
   line-height: 1.3em;
-}
-
-.paragraph-2 {
-  direction: ltr;
-  -webkit-text-stroke-width: 0px;
-  white-space: normal;
-  word-break: normal;
-  margin: auto;
-}
-
-.block-quote {
-  z-index: 98;
-  width: auto;
-  text-align: center;
-  margin-top: 3%;
-  margin-bottom: 0;
-  padding: 2%;
-  font-size: 1.2vw;
-  line-height: 1em;
-  position: relative;
-}
-
-.link-block-4 {
-  width: 40%;
-  height: 25%;
-  margin-bottom: 3%;
-  font-style: normal;
-  text-decoration: none;
-  overflow: hidden;
-}
-
-.heading-2 {
-  color: var(--spotify-green);
-  text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
-  white-space: normal;
-  margin-top: 4px;
-  margin-bottom: 0;
-  padding-right: .25em;
-  font-size: 1.3vw;
-  font-weight: 400;
-  line-height: 1.2em;
-}
-
-.text-emoji-wrapper {
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  display: flex;
-}
-
-.image {
-  height: 1em;
 }
 
 .section-3 {
@@ -437,26 +290,6 @@
   color: #727272;
 }
 
-.body-2 {
-  color: #fff;
-  text-align: center;
-  mix-blend-mode: normal;
-  background-color: #292626;
-  background-image: none;
-  background-position: 0 0;
-  background-repeat: repeat;
-  background-size: auto;
-  background-attachment: scroll;
-  border: 1px #000;
-  margin-left: auto;
-  margin-right: auto;
-  font-family: Bebas Neue, sans-serif;
-  font-size: 1.4vw;
-  font-weight: 400;
-  line-height: 1vw;
-  display: block;
-}
-
 .paragraph-3 {
   line-height: 2vw;
 }
@@ -512,6 +345,7 @@
   .body {
     -webkit-text-fill-color: inherit;
     background-image: url('../images/Screenshot_20230626-052055~2-01.jpg'), url('../images/64daad2482082a96ece7361b_Screenshot_20230626-052055~2-01.jpg');
+    background-image: image-set(url('../images/Screenshot_20230626-052055_2-01.webp'),url('../images/Screenshot_20230626-052055~2-01.jpg')),image-set(url('../images/64daad2482082a96ece7361b_Screenshot_20230626-052055_2-01-p-800.webp'),url('../images/64daad2482082a96ece7361b_Screenshot_20230626-052055~2-01.jpg'));
     background-position: 50% 0, 50% 0;
     background-repeat: no-repeat, repeat;
     background-size: cover, cover;
@@ -524,7 +358,7 @@
   }
 
   .heading {
-    font-size: 2.1em;
+    font-size: 12px;
   }
 
   .heading-mini {
@@ -566,11 +400,11 @@
 
   .section-3 {
     margin-top: 0;
-    font-size: 2vw;
+    font-size: 12px;
   }
 
   .section-4 {
-    font-size: 2.2vw;
+    font-size: 12px;
   }
 
   .section-5 {
@@ -603,6 +437,7 @@
 @media screen and (max-width: 767px) {
   .body {
     background-image: url('../images/Screenshot_20230626-052055~2-01.jpg'), url('../images/64daad2482082a96ece7361b_Screenshot_20230626-052055~2-01.jpg');
+    background-image: image-set(url('../images/Screenshot_20230626-052055_2-01.webp'),url('../images/Screenshot_20230626-052055~2-01.jpg')),image-set(url('../images/64daad2482082a96ece7361b_Screenshot_20230626-052055_2-01-p-800.webp'),url('../images/64daad2482082a96ece7361b_Screenshot_20230626-052055~2-01.jpg'));
     background-position: 50% 0, 50% 0;
     background-repeat: no-repeat, repeat;
     background-size: cover, cover;
@@ -614,11 +449,11 @@
   }
 
   .section-3 {
-    font-size: 2.2vw;
+    font-size: 12px;
   }
 
   .section-4 {
-    font-size: 2.5vw;
+    font-size: 12px;
   }
 
   .section-5 {
