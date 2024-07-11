@@ -1,0 +1,218 @@
+<!----------------------------------
+@eleander56 eleander@hobbylos.online
+----------------------------------->
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <script rel="preconnect" src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta property="og:url" content="https://search.hobbylos.online/">
+  <meta property="og:image" content="https://hobbylos.online/img/search.PNG">
+  <meta property="og:description" content="Hobbylos durchsuchen. Die Suchemaschine für alles, was bisher im Podcast gesagt wurde.">
+  <meta property="og:title" content="Hobbylos Suche - Search für Hobbylos, den Podcast Nr. 1">
+  <meta name="description" content="Hobbylos durchsuchen. Die Suchemaschine für alles, was bisher im Podcast gesagt wurde."/>
+  <meta name="keywords" content="Hobbylos Search, Suchmaschine, Search, Hobbylos, suchen, Hobbylos durchsuchen, Rezo, Julien Bam, Julien, Bam, Lobbyhoes, Nerds">
+  <meta name="robots" content="index, follow">
+  <meta name="audience" content="Alle">
+  <meta http-equiv="content-language" content="de">
+  <meta name="page-topic" content="entertainment">
+  <link href="css/init.css" rel="stylesheet" type="text/css">
+  <link href="css/main.css" rel="stylesheet" type="text/css">
+  <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon">
+  <link href="images/favicon.png" rel="apple-touch-icon">
+  <style>
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+    .dropdown-content {
+        display: none;
+        /* position: absolute; */
+        font-size: medium;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+    .dropdown-content a:hover {background-color: #ddd;}
+    .dropbtn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+    }
+    .dropdown:hover .dropbtn {background-color: #3e8e41;}
+    .search-box {
+        margin-bottom: 10px;
+    }
+    .time-inputs input {
+        width: 50px;
+        padding: 5px;
+        margin: 2px;
+        text-align: center;
+    }
+    .time-inputs {
+        margin-bottom: 10px;
+    }
+    .selected-option {
+        margin-top: 10px;
+        font-weight: bold;
+    }
+    .abgeben {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 12px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    .abgeben:hover {
+        background-color: #45a049;
+        transform: scale(1.05);
+    }
+  </style>
+  <script>
+    function get_query_param(name) {
+      const urlSearchParams = new URLSearchParams(window.location.search);
+      return urlSearchParams.get(name);
+    }
+    function set_title_from_query_param() {
+      const qValue = get_query_param('q');
+      if (qValue !== null) {
+        document.title = qValue + " - Hobbylos Suche";
+      }
+      else{
+        document.title = "Hobbylos Suche - Search für Hobbylos, den Podcast Nr. 1";
+      }
+    }
+    window.onload = set_title_from_query_param;
+  </script>
+</head>
+<body class="body" style="text-transform: uppercase;">
+  <section class="section-2">
+    <div class="navigation-wrapper">
+      <a href="./index.html" class="navi-link w-inline-block">
+        <h3 class="heading">Home</h3>
+      </a>
+      <a href="#instagram" class="navi-link w-inline-block">
+        <h3 class="heading">Über uns </h3>
+      </a>
+      <a href="https://api.whatsapp.com/send?phone=+4915678159173&text=Hey%20ich%20war%20auf%20https://search.hobbylos.online/%20und%20habe%20eine%20Frage/Feedback/einen%20Fehler%20gefunden:%0A" target="_blank" class="navi-link w-inline-block">
+        <h3 class="heading">Kontakt</h3>
+      </a>
+    </div>
+  </section>
+  <section class="search-wrapper" style="font-family: sans-serif;">
+    <h1>Vote für deinen Lieblingsmoment</h1>
+    <div class="dropdown">
+        <button class="dropbtn" onclick="toggleDropdown()">Folge auswählen</button>
+        <div id="dropdownContent" class="dropdown-content">
+            <input type="text" placeholder="Suchen..." id="searchInput" class="search-box" onkeyup="filterFunction()">
+        </div>
+    </div>
+    <div id="selectedOption" class="selected-option"></div>
+    <h2>Zeitauswahl (HH:MM:SS)</h2>
+    <div class="time-inputs">
+        <input type="number" id="hours" placeholder="HH" min="0" max="23" oninput="updateLink()"> :
+        <input type="number" id="minutes" placeholder="MM" min="0" max="59" oninput="updateLink()"> :
+        <input type="number" id="seconds" placeholder="SS" min="0" max="59" oninput="updateLink()">
+    </div>
+    <p id="error" style="color: red;"></p>
+    <button onclick="submitData()" class="abgeben">Vote Abgeben</button>
+  </section>
+  <section class="season-text-box-wrapper" id="season-text-box-wrapper" style="font-family: sans-serif;"></section>
+  <script>
+    let selectedOption = '';
+    let id_to_name;
+    fetch("https://vote-api.hobbylos.online/get_spotify_names_and_ids")
+    .then(response => response.json())
+    .then(data => {
+        id_to_name = data;
+        const dropdownContent = document.getElementById('dropdownContent');
+        for (const [id, name] of Object.entries(data)) {
+            const link = document.createElement('a');
+            link.href = "#";
+            link.setAttribute('onclick', `selectOption('${id}')`);
+            link.textContent = name;
+            dropdownContent.appendChild(link);
+        }
+    })
+    .catch(error => {console.error('Fehler:', error);});
+    function toggleDropdown() {
+        var dropdownContent = document.getElementById("dropdownContent");
+        if (dropdownContent.style.display === "block") {
+            dropdownContent.style.display = "none";
+            document.getElementById("selectedOption").textContent = '';
+            selectedOption = '';} 
+        else {dropdownContent.style.display = "block";}
+    }
+    function filterFunction() {
+        var input, filter, a, i;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        div = document.getElementById("dropdownContent");
+        a = div.getElementsByTagName("a");
+        for (i = 0; i < a.length; i++) {
+            if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {a[i].style.display = "";} 
+            else {a[i].style.display = "none";}
+        }
+    }
+    function selectOption(option) {
+        selectedOption = option;
+        updateLink();
+        document.getElementById("error").innerHTML = "";
+        document.getElementById("dropdownContent").style.display = "none";
+    }
+    function updateLink() {
+        const hours = Number(document.getElementById('hours').value);
+        const minutes = Number(document.getElementById('minutes').value);
+        const seconds = Number(document.getElementById('seconds').value);
+        const s = seconds + (minutes * 60) + (hours * 3600);
+        if (selectedOption) {
+            document.getElementById("selectedOption").innerHTML = '<h3>Reinhören: <a href="https://open.spotify.com/episode/' + selectedOption + '?go=1&t=' + s + '&utm_source=search.hobbylos.online">"'+id_to_name[selectedOption]+'" ab '+hours+'h '+minutes+'m '+seconds+'s</a></h3>';
+        }
+    }
+    function submitData() {
+        const hours = Number(document.getElementById('hours').value);
+        const minutes = Number(document.getElementById('minutes').value);
+        const seconds = Number(document.getElementById('seconds').value);
+        const s = seconds + (minutes * 60) + (hours * 3600);
+        if (!selectedOption) {
+            document.getElementById("error").innerHTML = '<h1>Bitte wähle eine Folge aus dem Dropdown-Menü.</h1>';
+            return;
+        }
+        const url = `https://vote-api.hobbylos.online?spotify_id=${encodeURIComponent(selectedOption)}&s=${s}`;
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("error").innerHTML = '<b><h1 style="color:green;">Erfolgreich abgestimmt</h1></b>';
+            document.getElementById("selectedOption").innerHTML = "";
+            document.getElementById('hours').value = "";
+            document.getElementById('minutes').value = "";
+            document.getElementById('seconds').value = "";
+            selectedOption = "";
+        })
+        .catch(error => {
+            console.error('Fehler:', error);
+            document.getElementById("error").innerHTML = '<h1>Fehler beim Senden</h1>';
+        });
+        document.getElementById("selectedOption").innerHTML = '<h3>Reinhören: <a href="https://open.spotify.com/episode/' + selectedOption + '?go=1&t=' + s + '&utm_source=search.hobbylos.online">"'+id_to_name[selectedOption]+'" ab '+hours+'h '+minutes+'m '+seconds+'s</a></h3>';
+    }
+</script>
+</body>
+</html>
