@@ -133,7 +133,7 @@
         <input type="number" id="seconds" placeholder="SS" min="0" max="59" oninput="updateLink()">
     </div>
     <p id="error" style="color: red;"></p>
-    <button onclick="submitData()" class="abgeben">Vote Abgeben</button>
+    <button onclick="submitData()" id="abgeben" class="abgeben">Vote Abgeben</button>
   </section>
   <section class="season-text-box-wrapper" id="season-text-box-wrapper" style="font-family: sans-serif;"></section>
   <script>
@@ -148,12 +148,13 @@
             const link = document.createElement('a');
             link.href = "#";
             link.setAttribute('onclick', `selectOption('${id}')`);
-            link.textContent = name;
+            link.textContent = name.name;
             dropdownContent.appendChild(link);
         }
     })
     .catch(error => {console.error('Fehler:', error);});
     function toggleDropdown() {
+        document.getElementById("abgeben").style.display = "inline-block";
         var dropdownContent = document.getElementById("dropdownContent");
         if (dropdownContent.style.display === "block") {
             dropdownContent.style.display = "none";
@@ -173,21 +174,24 @@
         }
     }
     function selectOption(option) {
+        document.getElementById("abgeben").style.display = "inline-block";
         selectedOption = option;
         updateLink();
         document.getElementById("error").innerHTML = "";
         document.getElementById("dropdownContent").style.display = "none";
     }
     function updateLink() {
+        document.getElementById("abgeben").style.display = "inline-block";
         const hours = Number(document.getElementById('hours').value);
         const minutes = Number(document.getElementById('minutes').value);
         const seconds = Number(document.getElementById('seconds').value);
         const s = seconds + (minutes * 60) + (hours * 3600);
         if (selectedOption) {
-            document.getElementById("selectedOption").innerHTML = '<h3>Reinhören: <a href="https://open.spotify.com/episode/' + selectedOption + '?go=1&t=' + s + '&utm_source=search.hobbylos.online">"'+id_to_name[selectedOption]+'" ab '+hours+'h '+minutes+'m '+seconds+'s</a></h3>';
+            document.getElementById("selectedOption").innerHTML = '<h3>Reinhören: <a href="https://open.spotify.com/episode/' + selectedOption + '?go=1&t=' + s + '&utm_source=search.hobbylos.online">"'+id_to_name[selectedOption].name+'" ab '+hours+'h '+minutes+'m '+seconds+'s</a></h3>';
         }
     }
     function submitData() {
+        document.getElementById("abgeben").style.display = "none";
         const hours = Number(document.getElementById('hours').value);
         const minutes = Number(document.getElementById('minutes').value);
         const seconds = Number(document.getElementById('seconds').value);
@@ -211,7 +215,7 @@
             console.error('Fehler:', error);
             document.getElementById("error").innerHTML = '<h1>Fehler beim Senden</h1>';
         });
-        document.getElementById("selectedOption").innerHTML = '<h3>Reinhören: <a href="https://open.spotify.com/episode/' + selectedOption + '?go=1&t=' + s + '&utm_source=search.hobbylos.online">"'+id_to_name[selectedOption]+'" ab '+hours+'h '+minutes+'m '+seconds+'s</a></h3>';
+        document.getElementById("selectedOption").innerHTML = '<h3>Reinhören: <a href="https://open.spotify.com/episode/' + selectedOption + '?go=1&t=' + s + '&utm_source=search.hobbylos.online">"'+id_to_name[selectedOption].name+'" ab '+hours+'h '+minutes+'m '+seconds+'s</a></h3>';
     }
 </script>
 </body>
