@@ -178,13 +178,18 @@
     let offset_value = get_query_variable("offset");
     let limit_value = get_query_variable("limit");
     let query_Value = get_query_variable("q");
+    let sort_value = get_query_variable("sort_by_time");
 
     if (!offset_value) {offset_value = 0;}
     if (!limit_value) {limit_value = 25;}
     if (query_Value) {
       set_title_from_query_param();
       search_term.value = query_Value.split("+").join(" ");
-      api_request(api_url + query_Value + "&offset="+offset_value+"&limit="+limit_value);
+      if (!sort_value) {api_request(api_url + query_Value + "&offset="+offset_value+"&limit="+limit_value);}
+      else {
+        api_request(api_url + query_Value + "&offset="+offset_value+"&limit="+limit_value+"&sort_by_time="+sort_value);
+        document.getElementById("dropdown-button").innerText = convert_to_text[sort_value];
+      }
     }
     document.getElementById('searchForm').addEventListener("submit", event => {
       event.preventDefault();
@@ -299,6 +304,7 @@
     }
     function selectOption(option) {
         selectedOption = option;
+        update_get_url("sort_by_time",option);
         document.getElementById("dropdown-button").innerText = convert_to_text[option];
         document.getElementById("dropdownContent").style.display = "none";
         value_submited();
