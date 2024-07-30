@@ -171,7 +171,7 @@
   letter-spacing: .1em;
   column-count: .5;
   word-break: normal;
-  margin: auto;
+  /* margin: auto; */
   font-size: 1.89vw;
   font-weight: 400;
   line-height: 1.3em;
