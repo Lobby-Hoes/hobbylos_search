@@ -166,6 +166,7 @@
 }
 
 .heading-text-box {
+  margin-top: 10px;
   direction: ltr;
   letter-spacing: .1em;
   column-count: .5;
