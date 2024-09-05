@@ -195,6 +195,9 @@
       event.preventDefault();
       value_submited();
     });
+    function display_error(error_type, error_message) {
+      results_container.innerHTML = '<div style="text-shadow: 1px 5px 10px rgba(100,0,0,0.75);"><h1 class="error">'+error_type+'</h1><p>'+error_message+'</p></div>'
+    }
     function value_submited() {
       results_container.innerHTML = '<h1 class="error" style="text-shadow: 1px 5px 10px rgba(0,0,0,0.75);">loading...</h1>';
       update_get_url('q',search_term.value);
@@ -213,7 +216,7 @@
       fetch(search_url)
           .then(response => response.json())
           .then(data => {display_search_results(data);})
-          .catch(error => {results_container.innerHTML = '<div style="text-shadow: 1px 5px 10px rgba(100,0,0,0.75);"><h1 class="error">loading Error</h1><p>'+error+'</p></div>'}
+          .catch(error => {display_error("loading error...",error);}
       );
     }
     function display_search_results(data) {
@@ -241,14 +244,20 @@
           count_all.style = "text-shadow: 1px 1px 10px rgba(0,0,0,0.75); font-size: 3.5vw;";
           results_container.appendChild(count_all);
         } catch (error) {console.log(error);}
-        data.search.forEach(function(result) {
-          const sp_link = '<a href="https://open.spotify.com/episode/'+result.f+'?go=1&t='+result.s+'&utm_source=search.hobbylos.online" target="_blank" class="w-inline-block">'+result.text+'</a>';
-          const result_element = document.createElement('div');
-          result_element.innerHTML = `<div class="text-wrapper"><h4 class="heading-text-box">${result.n}<div class="text-wrapper">${sp_link}</div></h4>`;
-          result_element.classList = "season-text-box";
-          results_container.appendChild(result_element);
-          i = i + 1;
-        })
+        try {
+          console.log(data);
+          data.search.forEach(function(result) {
+            const sp_link = '<a href="https://open.spotify.com/episode/'+result.f+'?go=1&t='+result.s+'&utm_source=search.hobbylos.online" target="_blank" class="w-inline-block">'+result.text+'</a>';
+            const result_element = document.createElement('div');
+            result_element.innerHTML = `<div class="text-wrapper"><h4 class="heading-text-box">${result.n}<div class="text-wrapper">${sp_link}</div></h4>`;
+            result_element.classList = "season-text-box";
+            results_container.appendChild(result_element);
+            i = i + 1;
+          })
+        } catch (error) {
+          display_error("Vertippt?",search_term.value + " wurde nicht gefunden.");
+          return;
+        }
         if ("previous" in data) {
           previous = data.previous;
           const previous_button = document.createElement('button');
