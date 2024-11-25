@@ -140,7 +140,6 @@
   grid-auto-columns: 1fr;
   justify-content: center;
   align-items: stretch;
-  justify-items: baseline;
   margin-top: 5%;
   text-decoration: none;
   display: inline-block;
