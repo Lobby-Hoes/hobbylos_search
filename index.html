@@ -199,7 +199,7 @@
       results_container.innerHTML = '<div style="text-shadow: 1px 5px 10px rgba(100,0,0,0.75);"><h1 class="error">'+error_type+'</h1><p>'+error_message+'</p></div>'
     }
     function value_submited() {
-      results_container.innerHTML = '<h1 class="error" style="text-shadow: 1px 5px 10px rgba(0,0,0,0.75);">loading...</h1>';
+      results_container.innerHTML = '<h1 class="error" style="text-shadow: 1px 5px 10px rgba(0,0,0,0.75);">searching...</h1>';
       update_get_url('q',search_term.value);
       if (selectedOption) {api_request(api_url + search_term.value + "&sort_by_time=" + selectedOption);} 
       else {api_request(api_url + search_term.value);}
