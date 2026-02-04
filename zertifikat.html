@@ -157,9 +157,13 @@
             .catch(error => {console.error('There was a problem with the fetch operation:', error);});
         }
         function spotify_logout() {
-            const url = 'https://api.hobbylos.online/logout?token=' + localStorage.getItem('bearer_token');
+            const token = localStorage.getItem('bearer_token');
             localStorage.removeItem("bearer_token");
-            fetch(`${url}`, {method: 'GET'})
+            fetch('https://api.hobbylos.online/logout', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({token: token})
+            })
             .then(response => {if (!response.ok) {throw new Error('Network response was not ok');}})
             .catch(error => {console.error('There was a problem with the fetch operation:', error);});
             location.reload();

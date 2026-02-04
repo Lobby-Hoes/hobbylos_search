@@ -199,11 +199,31 @@
       event.preventDefault();
       value_submited();
     });
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
     function display_error(error_type, error_message) {
-      results_container.innerHTML = '<div style="text-shadow: 1px 5px 10px rgba(100,0,0,0.75);"><h1 class="error">'+error_type+'</h1><p>'+error_message+'</p></div>'
+      results_container.innerHTML = '';
+      const wrapper = document.createElement('div');
+      wrapper.style = "text-shadow: 1px 5px 10px rgba(100,0,0,0.75);";
+      const h1 = document.createElement('h1');
+      h1.className = 'error';
+      h1.textContent = error_type;
+      const p = document.createElement('p');
+      p.textContent = error_message;
+      wrapper.appendChild(h1);
+      wrapper.appendChild(p);
+      results_container.appendChild(wrapper);
     }
     function value_submited() {
-      results_container.innerHTML = '<h1 class="error" style="text-shadow: 1px 5px 10px rgba(0,0,0,0.75);">searching...</h1>';
+      results_container.innerHTML = '';
+      const searchingH1 = document.createElement('h1');
+      searchingH1.className = 'error';
+      searchingH1.style = 'text-shadow: 1px 5px 10px rgba(0,0,0,0.75);';
+      searchingH1.textContent = 'searching...';
+      results_container.appendChild(searchingH1);
       update_get_url('q',search_term.value);
       if (selectedOption) {api_request(api_url + search_term.value + "&sort_by_time=" + selectedOption);} 
       else {api_request(api_url + search_term.value);}
@@ -227,7 +247,7 @@
       results_container.innerHTML = '';
       if (!data.Error) {
         const link = document.createElement('span');
-        link.innerHTML = "Teile das Ergebniss mit deinen Freunden";
+        link.textContent = "Teile das Ergebniss mit deinen Freunden";
         link.style = "color: #fff;border: 1px #000;font-size: 1.5em;font-weight: 400;line-height: 1em;";
         link.addEventListener("click", function() {
           if (navigator.share) {
@@ -244,17 +264,36 @@
         i = 0;
         try {
           const count_all = document.createElement('h1');
-          count_all.innerHTML = data.count_all;
+          count_all.textContent = data.count_all;
           count_all.style = "text-shadow: 1px 1px 10px rgba(0,0,0,0.75); font-size: 3.5vw;";
           results_container.appendChild(count_all);
         } catch (error) {console.log(error);}
         try {
           console.log(data);
           data.search.forEach(function(result) {
-            const sp_link = '<a href="https://open.spotify.com/episode/'+result.f+'?go=1&t='+result.s+'&utm_source=search.hobbylos.online" target="_blank" class="w-inline-block">'+result.text+'</a>';
             const result_element = document.createElement('div');
-            result_element.innerHTML = `<div class="text-wrapper"><h4 class="heading-text-box">${result.n}<div class="text-wrapper">${sp_link}</div></h4>`;
             result_element.classList = "season-text-box";
+
+            const textWrapper = document.createElement('div');
+            textWrapper.className = 'text-wrapper';
+
+            const h4 = document.createElement('h4');
+            h4.className = 'heading-text-box';
+            h4.textContent = result.n;
+
+            const innerWrapper = document.createElement('div');
+            innerWrapper.className = 'text-wrapper';
+
+            const sp_link = document.createElement('a');
+            sp_link.href = 'https://open.spotify.com/episode/' + encodeURIComponent(result.f) + '?go=1&t=' + encodeURIComponent(result.s) + '&utm_source=search.hobbylos.online';
+            sp_link.target = '_blank';
+            sp_link.className = 'w-inline-block';
+            sp_link.textContent = result.text;
+
+            innerWrapper.appendChild(sp_link);
+            h4.appendChild(innerWrapper);
+            textWrapper.appendChild(h4);
+            result_element.appendChild(textWrapper);
             results_container.appendChild(result_element);
             i = i + 1;
           })
@@ -266,7 +305,7 @@
           previous = data.previous;
           const previous_button = document.createElement('button');
           previous_button.onclick = previous_results;
-          previous_button.innerHTML = "Previous";
+          previous_button.textContent = "Previous";
           previous_button.classList = "button";
           previous_button.style = "font-size: 4vw; min-height: 5vw; max-height: 5vw; height: 30%; margin-top: 1vw; margin-bottom: 2vw;";
           results_container.appendChild(previous_button);
@@ -276,7 +315,7 @@
           if ("next" in data) {von_wo_bis_wo = document.createElement('span');}
           else if ("previous" in data) {von_wo_bis_wo = document.createElement('span');}
           else {von_wo_bis_wo = document.createElement('div');}
-          von_wo_bis_wo.innerHTML = " (" + data.v + " - " + data.b + ") ";
+          von_wo_bis_wo.textContent = " (" + data.v + " - " + data.b + ") ";
           von_wo_bis_wo.style = "font-size: 4vw; min-height: 5vw; max-height: 5vw; height: 30%; margin-top: 1vw; margin-bottom: 2vw;";
           results_container.appendChild(von_wo_bis_wo);
         } catch (error) {console.log(error);}
@@ -288,13 +327,20 @@
           next = data.next;
           const next_button = document.createElement('button');
           next_button.onclick = next_results;
-          next_button.innerHTML = "Next";
+          next_button.textContent = "Next";
           next_button.classList = "button";
           next_button.style = "font-size: 4vw; min-height: 5vw; max-height: 5vw; height: 30%; margin-top: 1vw; margin-bottom: 2vw;";
           results_container.appendChild(next_button);
         }
         ende_element.classList = "";
-      }else{results_container.innerHTML = '<h1 class="error" style="text-shadow: 1px 5px 10px rgba(100,0,0,0.75);">'+data.Error+'</h1>';}
+      }else{
+        results_container.innerHTML = '';
+        const errorH1 = document.createElement('h1');
+        errorH1.className = 'error';
+        errorH1.style = 'text-shadow: 1px 5px 10px rgba(100,0,0,0.75);';
+        errorH1.textContent = data.Error;
+        results_container.appendChild(errorH1);
+      }
     }
     function previous_results() {api_request(previous);}
     function next_results() {api_request(next);}
