@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Hobbylos Habit Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .day {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        .completed {
+            background-color: #c8e6c9;
+        }
+        .failed {
+            background-color: #ffcdd2;
+        }
+        .button {
+            display: inline-block;
+            background-color: #1DB954;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #169c3e;
+        }
+        .new-habit-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+            width: 100%;
+        }
+        .new-habit-input {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .days-selector {
+            margin: 20px 0;
+            text-align: center;
+            width: 100%;
+        }
+        .days-selector select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        @media (max-width: 480px) {
+            .calendar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .day {
+                font-size: 0.8em;
+                padding: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hobbylos Habit Tracker</h1>
+        <div class="days-selector">
+            <label for="days-select">Zeige die letzten:</label>
+            <select id="days-select" onchange="updateCalendar()">
+                <option value="7" selected>7 Tage</option>
+                <option value="14">14 Tage</option>
+                <option value="31">31 Tage</option>
+                <option value="45">45 Tage</option>
+                <option value="60">60 Tage</option>
+            </select>
+        </div>
+        <div id="calendar" class="calendar"></div>
+        <a href="./habit-private-aiusdhs9328husa9d8z">Ich bin Rezo oder Ju</a>
+    </div>
+    <script>
+        let who;
+        function getUrlParameter(name, url=location.search) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(url);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+        function get_who() {
+            let who_param = getUrlParameter('who');
+            if (who_param !== '') {localStorage.setItem('who', who_param);}
+            else { who_param = localStorage.getItem('who'); }
+            if (who_param == null || who_param == '') {who = "";}
+            else {who = localStorage.getItem('who');}
+            return who;
+        }
+        who = get_who();
+        async function fetchHabits() {
+            try {
+                const response = await fetch('https://api.hobbylos.online/get_habits');
+                if (!response.ok) {throw new Error('Failed to fetch habits');}
+                const data = await response.json();
+                return data;
+            } catch (error) {return {"fehler": ["2024-01-01"]};}
+        }
+        async function renderCalendar(habits) {
+            const calendarDiv = document.getElementById('calendar');
+            calendarDiv.innerHTML = ''; // Clear existing content
+            const daysSelect = document.getElementById('days-select');
+            const numberOfDays = parseInt(daysSelect.value, 10);
+            const today = new Date();
+            const daysToShow = [];
+            for (let i = 0; i < numberOfDays; i++) {
+                const date = new Date();
+                date.setDate(today.getDate() - i);
+                daysToShow.push(date);
+            }
+            daysToShow.reverse();
+            const habitNames = Object.keys(habits);
+            daysToShow.forEach(date => {
+                const dayDiv = document.createElement('div');
+                dayDiv.classList.add('day');
+                dayDiv.innerHTML = `<strong>${date.toLocaleDateString('de-DE', { month: 'short', day: 'numeric' })}</strong>`;
+                habitNames.forEach(habit => {
+                    const habitDates = habits[habit].map(d => new Date(d).toISOString().split('T')[0]);
+                    const habitDiv = document.createElement('div');
+                    habitDiv.innerHTML = habit;
+                    if (habitDates.includes(date.toISOString().split('T')[0])) {
+                        habitDiv.classList.add('completed');
+                        habitDiv.innerHTML += ' ✔';
+                    } else {
+                        habitDiv.classList.add('failed');
+                        habitDiv.innerHTML += ' ✘';
+                    }
+                    dayDiv.appendChild(habitDiv);
+                });
+                calendarDiv.appendChild(dayDiv);
+            });
+        }
+        async function updateCalendar() {
+            const habits = await fetchHabits();
+            renderCalendar(habits);
+        }
+        document.addEventListener('DOMContentLoaded', async () => {updateCalendar();});
+    </script>
+</body>
+</html>

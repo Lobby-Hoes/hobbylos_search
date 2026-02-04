@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Hobbylos Habit Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .day {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        .completed {
+            background-color: #c8e6c9;
+        }
+        .failed {
+            background-color: #ffcdd2;
+        }
+        .button {
+            display: inline-block;
+            background-color: #1DB954;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #169c3e;
+        }
+        .new-habit-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+            width: 100%;
+        }
+        .new-habit-input {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .days-selector {
+            margin: 20px 0;
+            text-align: center;
+            width: 100%;
+        }
+        .days-selector select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        @media (max-width: 480px) {
+            .calendar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .day {
+                font-size: 0.8em;
+                padding: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hobbylos Habit Tracker</h1>
+        <h1 style="display: none; color: red; border: black; border-radius: 1px;" id="error_message"></h1>
+        <div class="days-selector">
+            <label for="days-select">Zeige die letzten:</label>
+            <select id="days-select" onchange="updateCalendar()">
+                <option value="7" selected>7 Tage</option>
+                <option value="14">14 Tage</option>
+                <option value="31">31 Tage</option>
+                <option value="45">45 Tage</option>
+                <option value="60">60 Tage</option>
+            </select>
+        </div>
+        <div id="calendar" class="calendar"></div>
+        <a href="./habit-public-oa7sndzma8dn0a7" id="link-back" style="margin-bottom: 10px;">Ich bin <strong>nicht</strong> Rezo oder Ju</a>
+        <div class="new-habit-container" id="new-habit-container">
+            <input type="text" id="new-habit-input" class="new-habit-input" placeholder="Enter new habit name">
+            <button class="button" onclick="addNewHabit()">Add New Habit</button>
+        </div>
+        <button id="spotify-login-button" class="button" onclick="spotify_login()">Spotify Login</button>
+        <button id="spotify-logout-button" class="button" onclick="spotify_logout()">Spotify Logout</button>
+    </div>
+
+    <script>
+        let bearer_token;
+        function getUrlParameter(name, url=location.search) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(url);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+        let bearer_token_param = getUrlParameter('bearer_token');
+        if (bearer_token_param !== '') {
+            localStorage.setItem('bearer_token', bearer_token_param);
+            window.history.replaceState({}, document.title, window.location.pathname);
+        } else { bearer_token_param = localStorage.getItem('bearer_token'); }
+        if (bearer_token_param == null || bearer_token_param == '') {
+            document.getElementById("spotify-login-button").style.display = "inline-block";
+            document.getElementById("spotify-logout-button").style.display = "none";
+            document.getElementById("link-back").style.display = "block";
+            document.getElementById("new-habit-container").style.display = "none";
+        } else {
+            document.getElementById("spotify-login-button").style.display = "none";
+            document.getElementById("spotify-logout-button").style.display = "inline-block";
+            document.getElementById("link-back").style.display = "none";
+            document.getElementById("new-habit-container").style.display = "block";
+            bearer_token = localStorage.getItem('bearer_token');
+        }
+        let error_message = getUrlParameter('error');
+        if (error_message !== '') {
+            let error_element = document.getElementById("error_message");
+            error_element.style.display = "block";
+            error_element.innerHTML = error_message;
+            console.log(error_message);
+        }
+
+        async function fetchHabits() {
+            try {
+                const response = await fetch('https://api.hobbylos.online/get_habits');
+                if (!response.ok) {throw new Error('Failed to fetch habits');}
+                const data = await response.json();
+                return data;
+            } catch (error) {return {"fehler": ["2024-01-01"]};}
+        }
+
+        function habit_succeeded(name, date) {
+            const url = 'https://api.hobbylos.online/habit_succeeded';
+            const params = new URLSearchParams({ "name": name, "date": date, "bearer_token": bearer_token });
+            fetch(`${url}?${params}`, { method: 'GET' })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                updateCalendar();
+                return response.json();
+            })
+            .then(data => {
+                if (data.link) {
+                    window.location.href = data.link;
+                }
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+        }
+
+        function habit_failed(name, date) {
+            const url = 'https://api.hobbylos.online/habit_failed';
+            const params = new URLSearchParams({ "name": name, "date": date, "bearer_token": bearer_token });
+            fetch(`${url}?${params}`, { method: 'GET' })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                updateCalendar();
+                return response.json();
+            })
+            .then(data => {
+                if (data.link) {
+                    window.location.href = data.link;
+                }
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+        }
+
+        function spotify_logout() {
+            const url = 'https://api.hobbylos.online/logout?token=' + localStorage.getItem('bearer_token');
+            localStorage.removeItem("bearer_token");
+            fetch(`${url}`, { method: 'GET' })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+            location.reload();
+        }
+
+        function spotify_login() {
+            document.getElementById("spotify-login-button").style.display = "none";
+            const url = 'https://api.hobbylos.online/habit_login';
+            fetch(`${url}`, { method: 'GET' })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.link) {
+                    window.location.href = data.link;
+                }
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+        }
+
+        async function renderCalendar(habits) {
+            const calendarDiv = document.getElementById('calendar');
+            calendarDiv.innerHTML = ''; // Clear existing content
+            const daysSelect = document.getElementById('days-select');
+            const numberOfDays = parseInt(daysSelect.value, 10);
+            const today = new Date();
+            const daysToShow = [];
+            for (let i = 0; i < numberOfDays; i++) {
+                const date = new Date();
+                date.setDate(today.getDate() - i);
+                daysToShow.push(date);
+            }
+            daysToShow.reverse();
+            const habitNames = Object.keys(habits);
+            daysToShow.forEach(date => {
+                const dayDiv = document.createElement('div');
+                dayDiv.classList.add('day');
+                dayDiv.innerHTML = `<strong>${date.toLocaleDateString('de-DE', { month: 'short', day: 'numeric' })}</strong>`;
+                habitNames.forEach(habit => {
+                    const habitDates = habits[habit].map(d => new Date(d).toISOString().split('T')[0]);
+                    const habitDiv = document.createElement('div');
+                    habitDiv.innerHTML = habit;
+                    if (habitDates.includes(date.toISOString().split('T')[0])) {
+                        habitDiv.classList.add('completed');
+                        habitDiv.innerHTML += ' ✔';
+                    } else {
+                        habitDiv.classList.add('failed');
+                        habitDiv.innerHTML += ' ✘';
+                    }
+                    habitDiv.onclick = () => {
+                        if (habitDates.includes(date.toISOString().split('T')[0])) {
+                            habit_failed(habit, date.toISOString().split('T')[0]);
+                        } else {
+                            habit_succeeded(habit, date.toISOString().split('T')[0]);
+                        }
+                    };
+                    dayDiv.appendChild(habitDiv);
+                });
+                calendarDiv.appendChild(dayDiv);
+            });
+        }
+
+        async function addNewHabit() {
+            const habitName = document.getElementById('new-habit-input').value;
+            if (habitName.trim() === "") {
+                alert("Please enter a habit name.");
+                return;
+            }
+            const today = new Date().toISOString().split('T')[0];
+            habit_succeeded(habitName, today);
+        }
+
+        async function updateCalendar() {
+            const habits = await fetchHabits();
+            renderCalendar(habits);
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {updateCalendar();});
+    </script>
+</body>
+</html>
