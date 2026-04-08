@@ -910,7 +910,7 @@ async function loadEpisodes() {
     S.episodes = await res.json();
     renderEpisodeDropdown(S.episodes.folgen || []);
     if (S.episodes.total_indexed) {
-      DOM.episodeCount.textContent = S.episodes.total_indexed + ' Folgen durchsuchbar';
+      DOM.episodeCount.textContent = S.episodes.total_indexed + ' von ' + S.episodes.total_on_spotify + ' Folgen durchsuchbar';
     }
   } catch (e) {
     /* silent — episode filter just won't be populated */
