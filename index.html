@@ -1,373 +1,1376 @@
-<!----------------------------------
-@eleander56 eleander@hobbylos.online
------------------------------------>
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" data-theme="dark">
 <head>
-  <script rel="preconnect" src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta property="og:url" content="https://search.hobbylos.online/">
   <meta property="og:image" content="https://hobbylos.online/img/search.PNG">
-  <meta property="og:description" content="Hobbylos durchsuchen. Die Suchemaschine für alles, was bisher im Podcast gesagt wurde.">
-  <meta property="og:title" content="Hobbylos Suche - Search für Hobbylos, den Podcast Nr. 1">
-  <meta name="description" content="Hobbylos durchsuchen. Die Suchemaschine für alles, was bisher im Podcast gesagt wurde."/>
-  <meta name="keywords" content="Hobbylos Search, Suchmaschine, Search, Hobbylos, suchen, Hobbylos durchsuchen, Rezo, Julien Bam, Julien, Bam, Lobbyhoes, Nerds">
+  <meta property="og:description" content="Hobbylos durchsuchen. Die Suchmaschine für alles, was bisher im Podcast gesagt wurde.">
+  <meta property="og:title" content="Hobbylos Suche">
+  <meta name="description" content="Hobbylos durchsuchen. Die Suchmaschine für alles, was bisher im Podcast gesagt wurde.">
+  <meta name="keywords" content="Hobbylos Search, Suchmaschine, Hobbylos, suchen, Rezo, Julien Bam">
   <meta name="robots" content="index, follow">
-  <meta name="audience" content="Alle">
   <meta http-equiv="content-language" content="de">
-  <meta name="page-topic" content="entertainment">
-  <link href="css/init.css" rel="stylesheet" type="text/css">
-  <link href="css/main.css" rel="stylesheet" type="text/css">
-  <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon">
-  <link href="images/favicon.png" rel="apple-touch-icon">
-  <script>
-    function get_query_param(name) {
-      const urlSearchParams = new URLSearchParams(window.location.search);
-      return urlSearchParams.get(name);
-    }
-    function set_title_from_query_param() {
-      const qValue = get_query_param('q');
-      if (qValue !== null) {
-        document.title = qValue + " - Hobbylos Suche";
-      }
-      else{
-        document.title = "Hobbylos Suche - Search für Hobbylos, den Podcast Nr. 1";
-      }
-    }
-    window.onload = set_title_from_query_param;
-  </script>
-  <style>
-    #election-banner {
-      background-color: #a900ff52;
-      color: #039;
-      font-weight: bold;
-      text-align: center;
-      padding: 20px;
-      margin-bottom: 20px;
-      font-size: 24px;
-      text-shadow: 2px 2px 20px #00000063;
-      line-height: normal;
-      text-transform: none;
-    }
-    #election-banner a {
-      color: #000;
-      text-decoration: underline;
-    }
-    #election-subtitle {
-      color: #000;
-      font-size: 18px;
-      margin-top: 10px;
-    }
-    #demokratie {
-      color: #039;
-    }
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
-    .dropdown-content {
-        display: none;
-        /* position: absolute; */
-        font-size: medium;
-        background-color: #f1f1f1;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
-    }
-    .dropdown-content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-    }
-    .dropdown-content a:hover {background-color: #ddd;}
-    .dropbtn {
-        /* background-color: #4CAF50; */
-        /* color: white; */
-        padding: 5px;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
-    }
-    /* .dropdown:hover .dropbtn {background-color: #3e8e41;} */
-  </style>
+  <link rel="icon" href="images/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet">
+  <title>Hobbylos Suche</title>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<style>
+/* ========================================
+   RESET & BASE
+   ======================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: hidden; }
+body { font-family: var(--hs-font-body); font-size: var(--hs-text-base); line-height: 1.6; color: var(--hs-text-primary); background: var(--hs-bg-primary); min-height: 100vh; display: flex; flex-direction: column; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; transition: background var(--hs-duration-normal) ease, color var(--hs-duration-normal) ease; }
+a { color: inherit; text-decoration: none; }
+button { border: none; background: none; cursor: pointer; font: inherit; color: inherit; }
+input { font: inherit; color: inherit; }
+ul, ol { list-style: none; }
+img { max-width: 100%; height: auto; display: block; }
+
+/* ========================================
+   DESIGN TOKENS
+   ======================================== */
+:root {
+  /* Spacing */
+  --hs-space-1: 0.25rem;
+  --hs-space-2: 0.5rem;
+  --hs-space-3: 0.75rem;
+  --hs-space-4: 1rem;
+  --hs-space-5: 1.5rem;
+  --hs-space-6: 2rem;
+  --hs-space-8: 3rem;
+  --hs-space-10: 4rem;
+  --hs-space-12: 5rem;
+
+  /* Typography */
+  --hs-font-brand: 'Bebas Neue', 'Arial Narrow', sans-serif;
+  --hs-font-body: 'DM Sans', 'Helvetica Neue', sans-serif;
+  --hs-text-xs: 0.75rem;
+  --hs-text-sm: 0.875rem;
+  --hs-text-base: 1rem;
+  --hs-text-lg: 1.125rem;
+  --hs-text-xl: 1.25rem;
+  --hs-text-2xl: 1.5rem;
+  --hs-text-3xl: 2rem;
+  --hs-text-4xl: clamp(2rem, 5vw, 2.5rem);
+  --hs-text-5xl: clamp(2.5rem, 7vw, 3.5rem);
+
+  /* Radius */
+  --hs-radius-sm: 6px;
+  --hs-radius-md: 10px;
+  --hs-radius-lg: 16px;
+  --hs-radius-xl: 24px;
+  --hs-radius-full: 9999px;
+
+  /* Transitions */
+  --hs-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --hs-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --hs-duration-fast: 150ms;
+  --hs-duration-normal: 250ms;
+  --hs-duration-slow: 400ms;
+
+  /* Brand (constant) */
+  --hs-purple: #a900ff;
+  --hs-purple-dim: rgba(169, 0, 255, 0.15);
+  --hs-purple-glow: rgba(169, 0, 255, 0.35);
+  --hs-cyan: #00e5ff;
+  --hs-cyan-dim: rgba(0, 229, 255, 0.15);
+  --hs-cyan-glow: rgba(0, 229, 255, 0.35);
+  --hs-spotify-green: #1DB954;
+  --hs-spotify-green-hover: #1ed760;
+  --hs-spotify-green-dim: rgba(29, 185, 84, 0.12);
+
+  /* Z-index */
+  --hs-z-dropdown: 100;
+  --hs-z-header: 200;
+  --hs-z-mobile-menu: 300;
+  --hs-z-loading: 400;
+  --hs-z-toast: 500;
+}
+
+/* ========================================
+   DARK THEME
+   ======================================== */
+[data-theme="dark"] {
+  --hs-bg-primary: #0d0b0e;
+  --hs-bg-secondary: #16131a;
+  --hs-bg-tertiary: #1f1b24;
+  --hs-bg-card: rgba(255, 255, 255, 0.035);
+  --hs-bg-card-hover: rgba(255, 255, 255, 0.07);
+  --hs-bg-glass: rgba(13, 11, 14, 0.88);
+  --hs-text-primary: #f0eaf5;
+  --hs-text-secondary: #a299ad;
+  --hs-text-tertiary: #6b6474;
+  --hs-text-accent: var(--hs-purple);
+  --hs-border: rgba(255, 255, 255, 0.07);
+  --hs-border-strong: rgba(255, 255, 255, 0.14);
+  --hs-input-bg: rgba(255, 255, 255, 0.055);
+  --hs-input-border: rgba(255, 255, 255, 0.1);
+  --hs-shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+  --hs-shadow-md: 0 4px 16px rgba(0,0,0,0.45);
+  --hs-shadow-lg: 0 8px 32px rgba(0,0,0,0.55);
+  --hs-shadow-glow: 0 0 30px var(--hs-purple-dim), 0 0 60px var(--hs-cyan-dim);
+  --hs-highlight-bg: rgba(169, 0, 255, 0.25);
+  --hs-highlight-bg-cyan: rgba(0, 229, 255, 0.2);
+  --hs-hero-overlay: rgba(13, 11, 14, 0.75);
+}
+
+/* ========================================
+   LIGHT THEME
+   ======================================== */
+[data-theme="light"] {
+  --hs-bg-primary: #faf8fc;
+  --hs-bg-secondary: #f0ecf4;
+  --hs-bg-tertiary: #e6e0ec;
+  --hs-bg-card: rgba(0, 0, 0, 0.025);
+  --hs-bg-card-hover: rgba(0, 0, 0, 0.055);
+  --hs-bg-glass: rgba(250, 248, 252, 0.92);
+  --hs-text-primary: #1a0e24;
+  --hs-text-secondary: #5c4d6b;
+  --hs-text-tertiary: #8a7d96;
+  --hs-text-accent: #8a00cc;
+  --hs-border: rgba(0, 0, 0, 0.07);
+  --hs-border-strong: rgba(0, 0, 0, 0.13);
+  --hs-input-bg: rgba(0, 0, 0, 0.04);
+  --hs-input-border: rgba(0, 0, 0, 0.1);
+  --hs-shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --hs-shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+  --hs-shadow-lg: 0 8px 32px rgba(0,0,0,0.1);
+  --hs-shadow-glow: 0 0 30px rgba(169, 0, 255, 0.07), 0 0 60px rgba(0, 229, 255, 0.05);
+  --hs-highlight-bg: rgba(169, 0, 255, 0.12);
+  --hs-highlight-bg-cyan: rgba(0, 229, 255, 0.1);
+  --hs-hero-overlay: rgba(250, 248, 252, 0.82);
+}
+
+/* ========================================
+   SKIP LINK
+   ======================================== */
+.hs-skip {
+  position: absolute; left: -9999px; top: 0;
+  padding: var(--hs-space-3) var(--hs-space-5);
+  background: var(--hs-purple); color: #fff;
+  z-index: 9999; border-radius: 0 0 var(--hs-radius-md) 0;
+  font-weight: 600;
+}
+.hs-skip:focus { left: 0; }
+
+/* ========================================
+   HEADER / NAV
+   ======================================== */
+.hs-header {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: var(--hs-z-header);
+  background: var(--hs-bg-glass);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--hs-border);
+  transition: background var(--hs-duration-normal) ease;
+}
+.hs-nav {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: var(--hs-space-3) var(--hs-space-5);
+  height: 56px;
+}
+.hs-nav__logo { display: flex; align-items: center; flex-shrink: 0; }
+.hs-nav__logo-text {
+  font-family: var(--hs-font-brand); font-size: var(--hs-text-xl);
+  letter-spacing: 0.04em; line-height: 1;
+  background: linear-gradient(135deg, var(--hs-purple), var(--hs-cyan));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hs-nav__links { display: flex; gap: var(--hs-space-5); align-items: center; }
+.hs-nav__link {
+  font-size: var(--hs-text-sm); color: var(--hs-text-secondary);
+  transition: color var(--hs-duration-fast); font-weight: 500;
+  padding: var(--hs-space-1) 0;
+}
+.hs-nav__link:hover, .hs-nav__link--active { color: var(--hs-text-primary); }
+.hs-nav__actions { display: flex; align-items: center; gap: var(--hs-space-3); }
+
+/* Theme toggle */
+.hs-theme-toggle {
+  width: 40px; height: 40px; border-radius: var(--hs-radius-full);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--hs-text-secondary);
+  transition: color var(--hs-duration-fast), background var(--hs-duration-fast);
+}
+.hs-theme-toggle:hover { color: var(--hs-text-primary); background: var(--hs-bg-card-hover); }
+.hs-theme-toggle svg { width: 20px; height: 20px; transition: transform var(--hs-duration-normal) var(--hs-ease-spring); }
+.hs-theme-toggle:hover svg { transform: rotate(15deg); }
+
+/* Mobile burger */
+.hs-nav__burger {
+  display: none; width: 40px; height: 40px;
+  flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+  border-radius: var(--hs-radius-full);
+  transition: background var(--hs-duration-fast);
+}
+.hs-nav__burger:hover { background: var(--hs-bg-card-hover); }
+.hs-nav__burger span {
+  display: block; width: 18px; height: 2px;
+  background: var(--hs-text-secondary); border-radius: 2px;
+  transition: transform var(--hs-duration-normal) var(--hs-ease-out), opacity var(--hs-duration-fast);
+}
+.hs-nav__burger--open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hs-nav__burger--open span:nth-child(2) { opacity: 0; }
+.hs-nav__burger--open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile menu */
+.hs-mobile-menu {
+  position: fixed; top: 56px; right: 0; bottom: 0; width: 280px;
+  background: var(--hs-bg-secondary); z-index: var(--hs-z-mobile-menu);
+  transform: translateX(100%); transition: transform var(--hs-duration-slow) var(--hs-ease-out);
+  padding: var(--hs-space-6) var(--hs-space-5);
+  display: flex; flex-direction: column; gap: var(--hs-space-2);
+  border-left: 1px solid var(--hs-border);
+}
+.hs-mobile-menu--open { transform: translateX(0); }
+.hs-mobile-backdrop {
+  position: fixed; inset: 0; top: 56px;
+  background: rgba(0,0,0,0.5); z-index: calc(var(--hs-z-mobile-menu) - 1);
+  opacity: 0; pointer-events: none; transition: opacity var(--hs-duration-normal);
+}
+.hs-mobile-backdrop--visible { opacity: 1; pointer-events: auto; }
+.hs-mobile-menu__link {
+  display: block; padding: var(--hs-space-3) var(--hs-space-4);
+  border-radius: var(--hs-radius-md); font-size: var(--hs-text-lg);
+  color: var(--hs-text-secondary); font-weight: 500;
+  transition: background var(--hs-duration-fast), color var(--hs-duration-fast);
+}
+.hs-mobile-menu__link:hover { background: var(--hs-bg-card-hover); color: var(--hs-text-primary); }
+
+@media (max-width: 768px) {
+  .hs-nav__links { display: none; }
+  .hs-nav__burger { display: flex; }
+}
+
+/* ========================================
+   HERO SECTION
+   ======================================== */
+.hs-hero {
+  min-height: calc(100vh - 56px); padding-top: calc(56px + var(--hs-space-8));
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding-left: var(--hs-space-5); padding-right: var(--hs-space-5);
+  padding-bottom: var(--hs-space-10);
+  position: relative;
+  transition: min-height var(--hs-duration-slow) var(--hs-ease-out),
+              padding var(--hs-duration-slow) var(--hs-ease-out);
+}
+.hs-hero__bg {
+  position: absolute; inset: 0; z-index: -1; overflow: hidden;
+  background-image: url('images/Screenshot_20230626-052055_2-01.webp');
+  background-size: cover; background-position: center top;
+  filter: blur(60px) saturate(0.7); opacity: 0.25;
+  transform: scale(1.15);
+  transition: opacity var(--hs-duration-slow);
+}
+[data-theme="light"] .hs-hero__bg { opacity: 0.12; filter: blur(60px) saturate(0.5); }
+
+.hs-hero__brand {
+  text-align: center; margin-bottom: var(--hs-space-8);
+  max-height: 300px; overflow: hidden; opacity: 1;
+  transition: max-height var(--hs-duration-slow) var(--hs-ease-out),
+              opacity var(--hs-duration-normal) var(--hs-ease-out),
+              margin var(--hs-duration-slow) var(--hs-ease-out);
+}
+.hs-hero__title {
+  font-family: var(--hs-font-brand); font-size: var(--hs-text-5xl);
+  letter-spacing: 0.06em; line-height: 1; margin-bottom: var(--hs-space-3);
+  background: linear-gradient(135deg, var(--hs-purple) 0%, var(--hs-cyan) 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hs-hero__subtitle {
+  color: var(--hs-text-secondary); font-size: var(--hs-text-lg);
+}
+.hs-hero__episode-count {
+  color: var(--hs-cyan); font-weight: 600;
+}
+
+/* Hero collapsed state */
+.hs--has-results .hs-hero {
+  min-height: auto;
+  padding-top: calc(56px + var(--hs-space-6));
+  padding-bottom: var(--hs-space-5);
+  justify-content: flex-start;
+}
+.hs--has-results .hs-hero__bg { opacity: 0.1; }
+.hs--has-results .hs-hero__brand {
+  max-height: 0; opacity: 0; margin: 0; pointer-events: none; overflow: hidden;
+}
+
+/* ========================================
+   SEARCH BAR
+   ======================================== */
+.hs-search { width: 100%; max-width: 640px; }
+.hs-search__bar {
+  display: flex; align-items: center; gap: var(--hs-space-3);
+  width: 100%; padding: var(--hs-space-3) var(--hs-space-5);
+  background: var(--hs-input-bg); border: 1.5px solid var(--hs-input-border);
+  border-radius: var(--hs-radius-full);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  transition: border-color var(--hs-duration-fast), box-shadow var(--hs-duration-fast);
+}
+.hs-search__bar:focus-within {
+  border-color: var(--hs-purple);
+  box-shadow: 0 0 0 3px var(--hs-purple-dim), 0 0 30px var(--hs-purple-dim), 0 0 60px var(--hs-cyan-dim);
+}
+.hs-search__icon { width: 20px; height: 20px; flex-shrink: 0; color: var(--hs-text-tertiary); }
+.hs-search__input {
+  flex: 1; border: none; background: transparent; outline: none;
+  font-size: var(--hs-text-base); color: var(--hs-text-primary);
+  min-width: 0;
+}
+.hs-search__input::placeholder { color: var(--hs-text-tertiary); }
+.hs-search__submit {
+  width: 36px; height: 36px; border-radius: var(--hs-radius-full);
+  background: linear-gradient(135deg, var(--hs-purple), var(--hs-cyan)); color: #fff;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  transition: opacity var(--hs-duration-fast), transform var(--hs-duration-fast) var(--hs-ease-spring);
+}
+.hs-search__submit:hover { opacity: 0.85; transform: scale(1.06); }
+.hs-search__submit svg { width: 18px; height: 18px; }
+
+/* ========================================
+   FILTERS
+   ======================================== */
+.hs-filters {
+  display: flex; gap: var(--hs-space-3); margin-top: var(--hs-space-4);
+  justify-content: center; flex-wrap: wrap;
+}
+.hs-select { position: relative; }
+.hs-select__trigger {
+  display: flex; align-items: center; gap: var(--hs-space-2);
+  padding: var(--hs-space-2) var(--hs-space-4);
+  background: var(--hs-bg-card); border: 1px solid var(--hs-border);
+  border-radius: var(--hs-radius-full); font-size: var(--hs-text-sm);
+  color: var(--hs-text-secondary); white-space: nowrap;
+  transition: border-color var(--hs-duration-fast), background var(--hs-duration-fast);
+}
+.hs-select__trigger:hover { border-color: var(--hs-border-strong); background: var(--hs-bg-card-hover); }
+.hs-select--open .hs-select__trigger { border-color: var(--hs-cyan); }
+.hs-select__label { color: var(--hs-text-tertiary); margin-right: var(--hs-space-1); }
+.hs-select__value { color: var(--hs-text-primary); font-weight: 500; }
+.hs-select__chevron {
+  width: 14px; height: 14px; color: var(--hs-text-tertiary);
+  transition: transform var(--hs-duration-fast);
+}
+.hs-select--open .hs-select__chevron { transform: rotate(180deg); }
+
+/* Dropdown panel */
+.hs-select__dropdown {
+  position: absolute; top: calc(100% + var(--hs-space-2)); left: 0;
+  min-width: 220px; max-height: 340px; overflow-y: auto;
+  background: var(--hs-bg-secondary); border: 1px solid var(--hs-border-strong);
+  border-radius: var(--hs-radius-md); box-shadow: var(--hs-shadow-lg);
+  z-index: var(--hs-z-dropdown);
+  opacity: 0; transform: translateY(-6px); pointer-events: none;
+  transition: opacity var(--hs-duration-fast), transform var(--hs-duration-fast) var(--hs-ease-out);
+  scrollbar-width: thin; scrollbar-color: var(--hs-border-strong) transparent;
+}
+.hs-select--open .hs-select__dropdown { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+.hs-select__dropdown::-webkit-scrollbar { width: 6px; }
+.hs-select__dropdown::-webkit-scrollbar-track { background: transparent; }
+.hs-select__dropdown::-webkit-scrollbar-thumb { background: var(--hs-border-strong); border-radius: 3px; }
+
+.hs-select__option {
+  padding: var(--hs-space-3) var(--hs-space-4); font-size: var(--hs-text-sm);
+  color: var(--hs-text-secondary); cursor: pointer;
+  transition: background var(--hs-duration-fast), color var(--hs-duration-fast);
+}
+.hs-select__option:hover { background: var(--hs-bg-card-hover); color: var(--hs-text-primary); }
+.hs-select__option--selected { color: var(--hs-text-accent); font-weight: 600; }
+.hs-select__option-date { font-size: var(--hs-text-xs); color: var(--hs-text-tertiary); margin-left: var(--hs-space-2); }
+
+/* Episode dropdown search */
+.hs-select__search-wrap { padding: var(--hs-space-2) var(--hs-space-3); border-bottom: 1px solid var(--hs-border); position: sticky; top: 0; background: var(--hs-bg-secondary); z-index: 1; }
+.hs-select__search {
+  width: 100%; border: 1px solid var(--hs-border); background: var(--hs-input-bg);
+  border-radius: var(--hs-radius-sm); padding: var(--hs-space-2) var(--hs-space-3);
+  font-size: var(--hs-text-sm); outline: none; color: var(--hs-text-primary);
+}
+.hs-select__search:focus { border-color: var(--hs-purple); }
+.hs-select__search::placeholder { color: var(--hs-text-tertiary); }
+
+/* Episode dropdown wider */
+.hs-select--episode .hs-select__dropdown { min-width: 320px; right: 0; left: auto; }
+@media (max-width: 480px) {
+  .hs-select--episode .hs-select__dropdown { min-width: calc(100vw - 2 * var(--hs-space-5)); left: 50%; transform: translateX(-50%) translateY(-6px); }
+  .hs-select--episode.hs-select--open .hs-select__dropdown { transform: translateX(-50%) translateY(0); }
+}
+
+/* ========================================
+   RESULTS
+   ======================================== */
+.hs-results {
+  width: 100%; max-width: 760px; margin: 0 auto;
+  padding: 0 var(--hs-space-5) var(--hs-space-10);
+  display: none;
+}
+.hs--has-results .hs-results { display: block; }
+
+.hs-results__header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: var(--hs-space-5); flex-wrap: wrap; gap: var(--hs-space-3);
+}
+.hs-results__count {
+  font-size: var(--hs-text-sm); color: var(--hs-text-secondary); font-weight: 500;
+}
+.hs-results__share {
+  display: flex; align-items: center; gap: var(--hs-space-2);
+  font-size: var(--hs-text-sm); color: var(--hs-text-tertiary);
+  padding: var(--hs-space-2) var(--hs-space-3);
+  border-radius: var(--hs-radius-full); border: 1px solid var(--hs-border);
+  transition: color var(--hs-duration-fast), border-color var(--hs-duration-fast);
+}
+.hs-results__share:hover { color: var(--hs-text-primary); border-color: var(--hs-border-strong); }
+.hs-results__share svg { width: 14px; height: 14px; }
+
+/* Result cards */
+.hs-results__list { display: flex; flex-direction: column; gap: var(--hs-space-3); }
+
+.hs-card {
+  display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto;
+  gap: var(--hs-space-1) var(--hs-space-4);
+  padding: var(--hs-space-4) var(--hs-space-5);
+  background: var(--hs-bg-card); border: 1px solid var(--hs-border);
+  border-radius: var(--hs-radius-lg);
+  transition: background var(--hs-duration-fast), border-color var(--hs-duration-fast),
+              transform var(--hs-duration-fast) var(--hs-ease-spring), box-shadow var(--hs-duration-fast);
+  animation: hs-card-in var(--hs-duration-slow) var(--hs-ease-out) both;
+  animation-delay: calc(var(--hs-i, 0) * 40ms);
+  text-decoration: none;
+}
+.hs-card:hover {
+  background: var(--hs-bg-card-hover); border-color: var(--hs-border-strong);
+  transform: translateY(-2px); box-shadow: var(--hs-shadow-md);
+}
+
+.hs-card__meta { grid-column: 1; grid-row: 1; display: flex; align-items: center; gap: var(--hs-space-3); flex-wrap: wrap; min-width: 0; }
+.hs-card__episode {
+  font-size: var(--hs-text-sm); font-weight: 600; color: var(--hs-text-primary);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;
+}
+.hs-card__time {
+  font-size: var(--hs-text-xs); font-weight: 600; color: var(--hs-cyan);
+  background: var(--hs-highlight-bg-cyan); padding: 2px 8px;
+  border-radius: var(--hs-radius-full); white-space: nowrap; flex-shrink: 0;
+}
+
+.hs-card__text {
+  grid-column: 1; grid-row: 2; font-size: var(--hs-text-sm);
+  color: var(--hs-text-secondary); line-height: 1.65;
+  overflow: hidden; text-overflow: ellipsis;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+}
+.hs-card__text mark {
+  background: var(--hs-highlight-bg); color: var(--hs-text-accent);
+  border-radius: 2px; padding: 0 2px;
+}
+
+.hs-card__play {
+  grid-column: 2; grid-row: 1 / 3; align-self: center;
+  width: 44px; height: 44px; border-radius: var(--hs-radius-full);
+  background: var(--hs-spotify-green); color: #fff;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  transition: background var(--hs-duration-fast), transform var(--hs-duration-fast) var(--hs-ease-spring);
+}
+.hs-card:hover .hs-card__play { background: var(--hs-spotify-green-hover); transform: scale(1.08); }
+.hs-card__play svg { width: 20px; height: 20px; margin-left: 2px; }
+
+/* Pagination */
+.hs-pagination {
+  display: flex; align-items: center; justify-content: center; gap: var(--hs-space-4);
+  margin-top: var(--hs-space-6); padding: var(--hs-space-4) 0;
+}
+.hs-pagination__btn {
+  padding: var(--hs-space-2) var(--hs-space-5);
+  border: 1px solid var(--hs-border); border-radius: var(--hs-radius-full);
+  font-size: var(--hs-text-sm); font-weight: 500; color: var(--hs-text-secondary);
+  transition: color var(--hs-duration-fast), border-color var(--hs-duration-fast), background var(--hs-duration-fast);
+}
+.hs-pagination__btn:hover { color: var(--hs-text-primary); border-color: var(--hs-border-strong); background: var(--hs-bg-card-hover); }
+.hs-pagination__info { font-size: var(--hs-text-sm); color: var(--hs-text-tertiary); }
+
+/* ========================================
+   LOADING
+   ======================================== */
+.hs-loading {
+  display: none; flex-direction: column; align-items: center; justify-content: center;
+  padding: var(--hs-space-10) var(--hs-space-5); gap: var(--hs-space-5);
+}
+.hs-loading--visible { display: flex; }
+.hs-loading__orbs {
+  position: relative; width: 48px; height: 48px;
+}
+.hs-loading__orb {
+  position: absolute; width: 12px; height: 12px; border-radius: 50%;
+  top: 50%; left: 50%; margin: -6px 0 0 -6px;
+}
+.hs-loading__orb:nth-child(1) {
+  background: var(--hs-purple);
+  animation: hs-orbit 1.2s ease-in-out infinite;
+}
+.hs-loading__orb:nth-child(2) {
+  background: var(--hs-cyan);
+  animation: hs-orbit 1.2s ease-in-out infinite 0.6s;
+}
+.hs-loading__bar {
+  width: 120px; height: 3px; border-radius: 3px;
+  background: var(--hs-border); overflow: hidden;
+}
+.hs-loading__bar-fill {
+  height: 100%; width: 40%; border-radius: 3px;
+  background: linear-gradient(90deg, var(--hs-purple), var(--hs-cyan));
+  animation: hs-bar-slide 1s ease-in-out infinite;
+}
+.hs-loading__text { font-size: var(--hs-text-sm); color: var(--hs-text-tertiary); }
+
+/* ========================================
+   ERROR
+   ======================================== */
+.hs-error {
+  display: none; flex-direction: column; align-items: center; justify-content: center;
+  padding: var(--hs-space-10) var(--hs-space-5); gap: var(--hs-space-4); text-align: center;
+  max-width: 480px; margin: 0 auto;
+}
+.hs-error--visible { display: flex; }
+.hs-error__icon { width: 48px; height: 48px; color: var(--hs-text-tertiary); opacity: 0.5; }
+.hs-error__title { font-family: var(--hs-font-brand); font-size: var(--hs-text-3xl); letter-spacing: 0.04em; }
+.hs-error__message { font-size: var(--hs-text-sm); color: var(--hs-text-secondary); line-height: 1.7; }
+.hs-error__hint {
+  font-size: var(--hs-text-xs); color: var(--hs-text-tertiary); line-height: 1.6;
+  margin-top: var(--hs-space-2);
+}
+.hs-error__contact {
+  display: inline-flex; align-items: center; gap: var(--hs-space-2);
+  margin-top: var(--hs-space-4);
+  padding: var(--hs-space-2) var(--hs-space-5);
+  border: 1px solid var(--hs-border); border-radius: var(--hs-radius-full);
+  font-size: var(--hs-text-sm); font-weight: 500; color: var(--hs-text-secondary);
+  transition: color var(--hs-duration-fast), border-color var(--hs-duration-fast), background var(--hs-duration-fast);
+}
+.hs-error__contact:hover { color: var(--hs-text-primary); border-color: var(--hs-border-strong); background: var(--hs-bg-card-hover); }
+.hs-error__contact svg { width: 16px; height: 16px; }
+
+/* ========================================
+   TOAST
+   ======================================== */
+.hs-toast {
+  position: fixed; bottom: var(--hs-space-6); left: 50%; transform: translateX(-50%) translateY(20px);
+  background: var(--hs-bg-tertiary); color: var(--hs-text-primary);
+  padding: var(--hs-space-3) var(--hs-space-5);
+  border-radius: var(--hs-radius-full); font-size: var(--hs-text-sm); font-weight: 500;
+  box-shadow: var(--hs-shadow-lg); border: 1px solid var(--hs-border-strong);
+  z-index: var(--hs-z-toast); opacity: 0; pointer-events: none;
+  transition: opacity var(--hs-duration-normal), transform var(--hs-duration-normal) var(--hs-ease-out);
+}
+.hs-toast--visible { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+
+/* ========================================
+   FOOTER
+   ======================================== */
+.hs-footer {
+  margin-top: auto; border-top: 1px solid var(--hs-border);
+  padding: var(--hs-space-5) var(--hs-space-5);
+  background: var(--hs-bg-secondary);
+  transition: background var(--hs-duration-normal) ease;
+}
+.hs-footer__inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: var(--hs-space-3);
+}
+.hs-footer__credits {
+  display: flex; gap: var(--hs-space-4); flex-wrap: wrap;
+  font-size: var(--hs-text-xs); color: var(--hs-text-tertiary);
+}
+.hs-footer__credits a { color: var(--hs-text-secondary); transition: color var(--hs-duration-fast); }
+.hs-footer__credits a:hover { color: var(--hs-text-primary); }
+.hs-footer__links {
+  display: flex; gap: var(--hs-space-4);
+  font-size: var(--hs-text-xs); color: var(--hs-text-tertiary);
+}
+.hs-footer__links a { transition: color var(--hs-duration-fast); }
+.hs-footer__links a:hover { color: var(--hs-text-primary); }
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+@keyframes hs-card-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes hs-spin { to { transform: rotate(360deg); } }
+@keyframes hs-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+@keyframes hs-orbit {
+  0% { transform: translate(0, -16px) scale(1); opacity: 1; }
+  25% { transform: translate(16px, 0) scale(0.7); opacity: 0.6; }
+  50% { transform: translate(0, 16px) scale(1); opacity: 1; }
+  75% { transform: translate(-16px, 0) scale(0.7); opacity: 0.6; }
+  100% { transform: translate(0, -16px) scale(1); opacity: 1; }
+}
+@keyframes hs-bar-slide {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(200%); }
+  100% { transform: translateX(-100%); }
+}
+@keyframes hs-fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 768px) {
+  .hs-hero { padding-bottom: var(--hs-space-8); }
+  .hs-search__bar { padding: var(--hs-space-2) var(--hs-space-4); }
+  .hs-card { padding: var(--hs-space-3) var(--hs-space-4); gap: var(--hs-space-1) var(--hs-space-3); }
+  .hs-card__play { width: 40px; height: 40px; }
+  .hs-card__play svg { width: 18px; height: 18px; }
+  .hs-results { padding: 0 var(--hs-space-4) var(--hs-space-8); }
+  .hs-footer__inner { flex-direction: column; align-items: center; text-align: center; }
+  .hs-select--episode .hs-select__dropdown { min-width: 280px; }
+}
+
+@media (max-width: 480px) {
+  .hs-filters { flex-direction: column; align-items: stretch; }
+  .hs-select__trigger { justify-content: center; }
+  .hs-select__dropdown { left: 0 !important; right: 0 !important; transform: none !important; min-width: auto !important; width: 100%; }
+  .hs-select--open .hs-select__dropdown { transform: none !important; }
+  .hs-hero__title { font-size: clamp(2rem, 10vw, 2.5rem); }
+  .hs-card__meta { flex-direction: column; align-items: flex-start; gap: var(--hs-space-1); }
+}
+
+@media (min-width: 1024px) {
+  .hs-search { max-width: 680px; }
+  .hs-results { max-width: 800px; }
+}
+</style>
 </head>
-<body class="body" style="text-transform: uppercase;">
-  <section class="section-2">
-    <div class="navigation-wrapper">
-      <a href="./index.html" class="navi-link w-inline-block">
-        <h3 class="heading">Home</h3>
+<body class="hs" id="app">
+  <a class="hs-skip" href="#hs-search-input">Zum Suchfeld springen</a>
+
+  <!-- Header -->
+  <header class="hs-header">
+    <nav class="hs-nav">
+      <a class="hs-nav__logo" href="/" aria-label="Hobbylos Suche Startseite">
+        <span class="hs-nav__logo-text">Hobbylos Suche</span>
       </a>
-      <!-- <a href="https://search.hobbylos.online/higher-lower" target="_blank" class="navi-link w-inline-block">
-        <h3 class="heading">Zum Higher Lower Game (old)</h3>
-      </a> -->
-      <a href="#instagram" class="navi-link w-inline-block">
-        <h3 class="heading">Über uns </h3>
-      </a>
-      <a href="https://api.whatsapp.com/send?phone=+4915678159173&text=Hey%20ich%20war%20auf%20https://search.hobbylos.online/%20und%20habe%20eine%20Frage/Feedback/einen%20Fehler%20gefunden:%0A" target="_blank" class="navi-link w-inline-block">
-        <h3 class="heading">Kontakt</h3>
-      </a>
-    </div>
-  </section>
-  <section class="search-wrapper" style="font-family: sans-serif;">
-    <!-- <article class="container-fluid">
-      <div id="election-banner">
-        <a href="vote">Hobbylos wird 3 Jahre alt<br>
-          <div id="election-subtitle">
-            aus diesem Anlass wird der beste Hobbylos Moment gesucht. Falls du deinen besten Hobbylos Moment schon gefunden hast kannst du hier Abstimmen: <span style="color: #dff3ff;">Voting</span>
-          </div>
-        </a>
+      <div class="hs-nav__links">
+        <a href="/" class="hs-nav__link hs-nav__link--active">Suche</a>
+        <a href="status.html" class="hs-nav__link">Status</a>
+        <a href="https://api.whatsapp.com/send?phone=+4915678159173&text=Hey%20ich%20war%20auf%20https://search.hobbylos.online/%20und%20habe%20eine%20Frage/Feedback/einen%20Fehler%20gefunden:%0A" target="_blank" rel="noopener" class="hs-nav__link">Kontakt</a>
       </div>
-    </article> -->
-    <form action="/" class="search w-form" id="searchForm">
-      <input type="search" class="search-input w-input" maxlength="256" name="word" placeholder="Search…" id="search_term" required="" style="text-transform: uppercase;">
-    </form>
-    <div class="dropdown">
-        <button class="dropbtn" onclick="toggleDropdown()" id="dropdown-button">Sortieren nach:</button>
-        <div id="dropdownContent" class="dropdown-content">
-          <a href="#" onclick="selectOption('')">Relevanz</a>
-          <a href="#" onclick="selectOption('forward')">neu -> alt</a>
-          <a href="#" onclick="selectOption('reverse')">alt -> neu</a>
+      <div class="hs-nav__actions">
+        <button class="hs-theme-toggle" id="hs-theme-toggle" type="button" aria-label="Farbmodus wechseln">
+          <svg id="hs-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg id="hs-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="hs-nav__burger" id="hs-burger" type="button" aria-label="Navigation" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile backdrop -->
+  <div class="hs-mobile-backdrop" id="hs-mobile-backdrop"></div>
+  <!-- Mobile menu -->
+  <div class="hs-mobile-menu" id="hs-mobile-menu" aria-hidden="true">
+    <a href="/" class="hs-mobile-menu__link">Suche</a>
+    <a href="status.html" class="hs-mobile-menu__link">Status</a>
+    <a href="https://api.whatsapp.com/send?phone=+4915678159173&text=Hey%20ich%20war%20auf%20https://search.hobbylos.online/%20und%20habe%20eine%20Frage/Feedback/einen%20Fehler%20gefunden:%0A" target="_blank" rel="noopener" class="hs-mobile-menu__link">Kontakt</a>
+  </div>
+
+  <main class="hs-main" style="flex:1;display:flex;flex-direction:column;">
+    <!-- Hero / Search -->
+    <section class="hs-hero" id="hs-hero">
+      <div class="hs-hero__bg" aria-hidden="true"></div>
+      <div class="hs-hero__brand">
+        <h1 class="hs-hero__title">Hobbylos Suche</h1>
+        <p class="hs-hero__subtitle">Finde jeden Moment im Podcast. <span class="hs-hero__episode-count" id="hs-episode-count"></span></p>
+      </div>
+
+      <form class="hs-search" id="hs-search-form" role="search" aria-label="Podcast durchsuchen">
+        <div class="hs-search__bar">
+          <svg class="hs-search__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input class="hs-search__input" id="hs-search-input" type="search" name="word" placeholder="Was wurde gesagt?" maxlength="256" required autocomplete="off" aria-label="Suchbegriff">
+          <button class="hs-search__submit" type="submit" aria-label="Suchen">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
         </div>
+
+        <div class="hs-filters" id="hs-filters">
+          <!-- Sort -->
+          <div class="hs-select" id="hs-sort-select" data-type="sort">
+            <button class="hs-select__trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+              <span class="hs-select__label">Sortierung:</span>
+              <span class="hs-select__value" id="hs-sort-value">Relevanz</span>
+              <svg class="hs-select__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <ul class="hs-select__dropdown" role="listbox" aria-label="Sortierung">
+              <li class="hs-select__option hs-select__option--selected" role="option" data-value="" aria-selected="true">Relevanz</li>
+              <li class="hs-select__option" role="option" data-value="forward" aria-selected="false">Neueste zuerst</li>
+              <li class="hs-select__option" role="option" data-value="reverse" aria-selected="false">Älteste zuerst</li>
+            </ul>
+          </div>
+
+          <!-- Episode filter -->
+          <div class="hs-select hs-select--episode" id="hs-episode-select" data-type="episode">
+            <button class="hs-select__trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+              <span class="hs-select__label">Folge:</span>
+              <span class="hs-select__value" id="hs-episode-value">Alle Folgen</span>
+              <svg class="hs-select__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="hs-select__dropdown" role="listbox" aria-label="Folge wählen">
+              <div class="hs-select__search-wrap">
+                <input class="hs-select__search" type="text" placeholder="Folge suchen..." aria-label="Folgen filtern">
+              </div>
+              <ul class="hs-select__options" id="hs-episode-options">
+                <li class="hs-select__option hs-select__option--selected" role="option" data-value="" aria-selected="true">Alle Folgen</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <!-- Loading -->
+    <div class="hs-loading" id="hs-loading" aria-hidden="true">
+      <div class="hs-loading__orbs">
+        <div class="hs-loading__orb"></div>
+        <div class="hs-loading__orb"></div>
+      </div>
+      <div class="hs-loading__bar"><div class="hs-loading__bar-fill"></div></div>
+      <p class="hs-loading__text">Durchsuche den Podcast...</p>
     </div>
-  </section>
-  
-  <section class="season-text-box-wrapper" id="season-text-box-wrapper" style="font-family: sans-serif;">
-    <!--<div style="font-family: Arial, Helvetica, sans-serif; text-transform: none; line-height: normal; font-size: large; max-width: 550px; text-shadow: 0px 4px 9px black;">
-      Habe aktuell leider gar keine Zeit, die Folgen aufzunehmen und der Suche hinzuzufügen. Tut mir sehr leid. Sobald ich Zeit finde, füge ich auch die neuen Folgen hinzu. Die neueste Folge, die aktuell durchsucht werden kann, ist 'Das Turnier der Hoes'🏆.<br>
-    </div>-->
-  </section>
 
-  <section class="ende" id="ende">
-    <section id="instagram" class="section-4">
-      <div class="div-block">
-        <div class="text-block-2">made by</div>
-      </div>
-      <a href="https://www.instagram.com/emill.brt" target="_blank" class="link-block-16 w-inline-block">
-        <div class="text-block-3">@emill.brt</div>
+    <!-- Error -->
+    <div class="hs-error" id="hs-error" aria-hidden="true">
+      <svg class="hs-error__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <h2 class="hs-error__title" id="hs-error-title"></h2>
+      <p class="hs-error__message" id="hs-error-message"></p>
+      <p class="hs-error__hint" id="hs-error-hint"></p>
+      <a class="hs-error__contact" id="hs-error-contact" href="https://api.whatsapp.com/send?phone=+4915678159173&text=Hey%20die%20Hobbylos%20Suche%20scheint%20gerade%20nicht%20zu%20funktionieren.%20" target="_blank" rel="noopener" style="display:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <span>Bescheid sagen</span>
       </a>
-      <div class="text-block-2-0">designed by</div>
-      <a href="https://instagram.com/claudia.sofia_02" target="_blank" class="link-block-17 w-inline-block">
-        <div class="text-block-4">@claudia.sofia_02</div>
-      </a>
-    </section>
-    <section class="section-3">
-      <div class="last-section-text-wrapper">
-        <a href="https://api.whatsapp.com/send?phone=+4915678159173&amp;text=Hey%20ich%20war%20auf%20https://search.hobbylos.online/%20und%20habe%20eine%20Frage/Feedback/einen%20Fehler%20gefunden:%0A" target="_blank" class="link-block-5 w-inline-block">
-          <div class="text-block">Feedback</div>
-        </a>
-        <!-- <a href="https://search.hobbylos.online/rangliste" class="link-block-6 w-inline-block">
-          <div class="text-block">Rangliste </div>
-        </a> -->
-        <a href="datenschutz-impressum-usw.html" class="link-block-7 w-inline-block">
-          <div class="text-block">Datenschutz</div>
-        </a>
-        <a href="datenschutz-impressum-usw.html" class="link-block-8 link-block-9 link-block-10 link-block-11 link-block-12 link-block-13 link-block-14 link-block-15 w-inline-block">
-          <div class="text-block">impressum</div>
-        </a>
-      </div>
-    </section>
-  </section>
-  <!-- <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=64d162998caccdf1e6474b4e" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script> -->
-  <script>
-    let convert_to_text = {"": "Relevanz", "forward":"neu -> alt", "reverse":"alt -> neu"}
-    let selectedOption = '';
-    const results_container = document.getElementById('season-text-box-wrapper');
-    const ende_element = document.getElementById("ende");
-    const search_term = document.getElementById('search_term');
-    const api_url = "https://api.hobbylos.online/?word=";
-    let previous = "";
-    let next = "";
-    let offset_value = get_query_variable("offset");
-    let limit_value = get_query_variable("limit");
-    let query_Value = get_query_variable("q");
-    let sort_value = get_query_variable("sort_by_time");
+    </div>
 
-    if (!offset_value) {offset_value = 0;}
-    if (!limit_value) {limit_value = 25;}
-    if (query_Value) {
-      set_title_from_query_param();
-      search_term.value = query_Value.split("+").join(" ");
-      if (!sort_value) {api_request(api_url + query_Value + "&offset="+offset_value+"&limit="+limit_value);}
-      else {
-        api_request(api_url + query_Value + "&offset="+offset_value+"&limit="+limit_value+"&sort_by_time="+sort_value);
-        document.getElementById("dropdown-button").innerText = convert_to_text[sort_value];
-      }
+    <!-- Results -->
+    <section class="hs-results" id="hs-results" aria-label="Suchergebnisse">
+      <div class="hs-results__header" id="hs-results-header"></div>
+      <div class="hs-results__list" id="hs-results-list" aria-live="polite"></div>
+      <div class="hs-pagination" id="hs-pagination"></div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="hs-footer">
+    <div class="hs-footer__inner">
+      <div class="hs-footer__credits">
+        <span>made by <a href="https://www.instagram.com/emill.brt" target="_blank" rel="noopener">@emill.brt</a></span>
+      </div>
+      <div class="hs-footer__links">
+        <a href="https://api.whatsapp.com/send?phone=+4915678159173&text=Hey%20ich%20war%20auf%20https://search.hobbylos.online/%20und%20habe%20Feedback:%0A" target="_blank" rel="noopener">Feedback</a>
+        <a href="datenschutz-impressum-usw.html">Datenschutz</a>
+        <a href="datenschutz-impressum-usw.html">Impressum</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div class="hs-toast" id="hs-toast" aria-live="assertive"></div>
+
+<script>
+/* ========================================
+   STATE
+   ======================================== */
+const S = {
+  query: '',
+  sortBy: '',
+  folgeId: '',
+  offset: 0,
+  limit: 25,
+  results: null,
+  episodes: null,
+  theme: 'dark',
+  isLoading: false,
+  hasSearched: false,
+};
+
+const API = 'https://api.hobbylos.online/';
+
+/* ========================================
+   DOM CACHE
+   ======================================== */
+const $ = id => document.getElementById(id);
+const DOM = {
+  app: $('app'),
+  form: $('hs-search-form'),
+  input: $('hs-search-input'),
+  hero: $('hs-hero'),
+  results: $('hs-results'),
+  resultsList: $('hs-results-list'),
+  resultsHeader: $('hs-results-header'),
+  pagination: $('hs-pagination'),
+  loading: $('hs-loading'),
+  error: $('hs-error'),
+  errorTitle: $('hs-error-title'),
+  errorMsg: $('hs-error-message'),
+  errorHint: $('hs-error-hint'),
+  errorContact: $('hs-error-contact'),
+  sortValue: $('hs-sort-value'),
+  episodeValue: $('hs-episode-value'),
+  episodeOptions: $('hs-episode-options'),
+  episodeCount: $('hs-episode-count'),
+  themeToggle: $('hs-theme-toggle'),
+  iconSun: $('hs-icon-sun'),
+  iconMoon: $('hs-icon-moon'),
+  burger: $('hs-burger'),
+  mobileMenu: $('hs-mobile-menu'),
+  mobileBackdrop: $('hs-mobile-backdrop'),
+  toast: $('hs-toast'),
+};
+
+/* ========================================
+   THEME
+   ======================================== */
+function initTheme() {
+  const saved = localStorage.getItem('hs-theme');
+  if (saved) {
+    S.theme = saved;
+  } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+    S.theme = 'light';
+  }
+  applyTheme();
+}
+
+function applyTheme() {
+  document.documentElement.dataset.theme = S.theme;
+  DOM.iconSun.style.display = S.theme === 'dark' ? 'block' : 'none';
+  DOM.iconMoon.style.display = S.theme === 'light' ? 'block' : 'none';
+}
+
+function toggleTheme() {
+  S.theme = S.theme === 'dark' ? 'light' : 'dark';
+  localStorage.setItem('hs-theme', S.theme);
+  applyTheme();
+}
+
+/* ========================================
+   URL STATE
+   ======================================== */
+function readStateFromUrl() {
+  const p = new URLSearchParams(window.location.search);
+  S.query = p.get('q') || '';
+  S.sortBy = p.get('sort_by_time') || '';
+  S.folgeId = p.get('folge_id') || '';
+  S.offset = parseInt(p.get('offset') || '0', 10);
+  S.limit = parseInt(p.get('limit') || '25', 10);
+  DOM.input.value = S.query;
+  updateSortDisplay();
+}
+
+function syncUrlFromState() {
+  const p = new URLSearchParams();
+  if (S.query) p.set('q', S.query);
+  if (S.sortBy) p.set('sort_by_time', S.sortBy);
+  if (S.folgeId) p.set('folge_id', S.folgeId);
+  if (S.offset > 0) p.set('offset', S.offset);
+  if (S.limit !== 25) p.set('limit', S.limit);
+  const qs = p.toString();
+  const url = window.location.pathname + (qs ? '?' + qs : '');
+  history.pushState({ hs: true }, '', url);
+}
+
+function updateTitle() {
+  document.title = S.query
+    ? S.query + ' - Hobbylos Suche'
+    : 'Hobbylos Suche - Podcast Suchmaschine';
+}
+
+/* ========================================
+   EPISODES
+   ======================================== */
+async function loadEpisodes() {
+  try {
+    const res = await fetch(API + 'folgen');
+    if (!res.ok) return;
+    S.episodes = await res.json();
+    renderEpisodeDropdown(S.episodes.folgen || []);
+    if (S.episodes.total_indexed) {
+      DOM.episodeCount.textContent = S.episodes.total_indexed + ' Folgen durchsuchbar';
     }
-    document.getElementById('searchForm').addEventListener("submit", event => {
-      event.preventDefault();
-      value_submited();
+  } catch (e) {
+    /* silent — episode filter just won't be populated */
+  }
+}
+
+function renderEpisodeDropdown(folgen) {
+  /* Keep first "Alle Folgen" option */
+  while (DOM.episodeOptions.children.length > 1) {
+    DOM.episodeOptions.removeChild(DOM.episodeOptions.lastChild);
+  }
+  folgen.forEach(f => {
+    const li = document.createElement('li');
+    li.className = 'hs-select__option';
+    li.setAttribute('role', 'option');
+    li.dataset.value = f.id;
+    li.setAttribute('aria-selected', S.folgeId === f.id ? 'true' : 'false');
+    if (S.folgeId === f.id) li.classList.add('hs-select__option--selected');
+
+    li.textContent = f.name;
+    if (f.release_date) {
+      const dateSpan = document.createElement('span');
+      dateSpan.className = 'hs-select__option-date';
+      dateSpan.textContent = f.release_date;
+      li.appendChild(dateSpan);
+    }
+    DOM.episodeOptions.appendChild(li);
+  });
+  /* Update display if folgeId was set from URL */
+  if (S.folgeId) {
+    const match = folgen.find(f => f.id === S.folgeId);
+    if (match) DOM.episodeValue.textContent = match.name;
+  }
+}
+
+/* ========================================
+   CUSTOM DROPDOWNS
+   ======================================== */
+function initSelects() {
+  document.querySelectorAll('.hs-select').forEach(sel => {
+    const trigger = sel.querySelector('.hs-select__trigger');
+    const type = sel.dataset.type;
+
+    trigger.addEventListener('click', e => {
+      e.stopPropagation();
+      /* Close other selects */
+      document.querySelectorAll('.hs-select--open').forEach(s => {
+        if (s !== sel) closeSelect(s);
+      });
+      sel.classList.toggle('hs-select--open');
+      trigger.setAttribute('aria-expanded', sel.classList.contains('hs-select--open'));
+      /* Focus search input in episode dropdown */
+      if (sel.classList.contains('hs-select--open')) {
+        const searchInput = sel.querySelector('.hs-select__search');
+        if (searchInput) setTimeout(() => searchInput.focus(), 50);
+      }
     });
-    function escapeHtml(text) {
-      const div = document.createElement('div');
-      div.textContent = text;
-      return div.innerHTML;
-    }
-    function display_error(error_type, error_message) {
-      results_container.innerHTML = '';
-      const wrapper = document.createElement('div');
-      wrapper.style = "text-shadow: 1px 5px 10px rgba(100,0,0,0.75);";
-      const h1 = document.createElement('h1');
-      h1.className = 'error';
-      h1.textContent = error_type;
-      const p = document.createElement('p');
-      p.textContent = error_message;
-      wrapper.appendChild(h1);
-      wrapper.appendChild(p);
-      results_container.appendChild(wrapper);
-    }
-    function value_submited() {
-      results_container.innerHTML = '';
-      const searchingH1 = document.createElement('h1');
-      searchingH1.className = 'error';
-      searchingH1.style = 'text-shadow: 1px 5px 10px rgba(0,0,0,0.75);';
-      searchingH1.textContent = 'searching...';
-      results_container.appendChild(searchingH1);
-      update_get_url('q',search_term.value);
-      if (selectedOption) {api_request(api_url + search_term.value + "&sort_by_time=" + selectedOption);} 
-      else {api_request(api_url + search_term.value);}
-      set_title_from_query_param();
-    }
-    function update_get_url(key, value){
-      if (window.history && window.history.pushState) {
-        let current_url = new URL(window.location.href);
-        current_url.searchParams.set(key, value);
-        window.history.pushState({ path: current_url.href }, '', current_url.href);
-      } else {console.log("Your browser dose not support history pushState");}
-    }
-    function api_request(search_url) {
-      fetch(search_url)
-          .then(response => response.json())
-          .then(data => {display_search_results(data);})
-          .catch(error => {display_error("loading error...",error);}
-      );
-    }
-    function display_search_results(data) {
-      results_container.innerHTML = '';
-      if (!data.Error) {
-        const link = document.createElement('span');
-        link.textContent = "Teile das Ergebniss mit deinen Freunden";
-        link.style = "color: #fff;border: 1px #000;font-size: 1.5em;font-weight: 400;line-height: 1em;";
-        link.addEventListener("click", function() {
-          if (navigator.share) {
-          navigator.share({
-            title: 'search.hobbylos.online',
-            text: `Schau dir mal die erhabenen Suchergebnisse zu ${search_term.value} an. 너`,
-            url: new URL(window.location.href),
-          })
-            .then(() => console.log('Successful share'))
-            .catch((error) => console.log('Error sharing:', error));
-          } else {console.log('Web Share API is not supported in your browser');}
-        });
-        results_container.appendChild(link);
-        i = 0;
-        try {
-          const count_all = document.createElement('h1');
-          count_all.textContent = data.count_all;
-          count_all.style = "text-shadow: 1px 1px 10px rgba(0,0,0,0.75); font-size: 3.5vw;";
-          results_container.appendChild(count_all);
-        } catch (error) {console.log(error);}
-        try {
-          console.log(data);
-          data.search.forEach(function(result) {
-            const result_element = document.createElement('div');
-            result_element.classList = "season-text-box";
 
-            const textWrapper = document.createElement('div');
-            textWrapper.className = 'text-wrapper';
+    /* Option clicks */
+    sel.addEventListener('click', e => {
+      const opt = e.target.closest('.hs-select__option');
+      if (!opt) return;
+      const value = opt.dataset.value;
 
-            const h4 = document.createElement('h4');
-            h4.className = 'heading-text-box';
-            h4.textContent = result.n;
+      /* Update selection styling */
+      sel.querySelectorAll('.hs-select__option').forEach(o => {
+        o.classList.remove('hs-select__option--selected');
+        o.setAttribute('aria-selected', 'false');
+      });
+      opt.classList.add('hs-select__option--selected');
+      opt.setAttribute('aria-selected', 'true');
 
-            const innerWrapper = document.createElement('div');
-            innerWrapper.className = 'text-wrapper';
-
-            const sp_link = document.createElement('a');
-            sp_link.href = 'https://open.spotify.com/episode/' + encodeURIComponent(result.f) + '?go=1&t=' + encodeURIComponent(result.s) + '&utm_source=search.hobbylos.online';
-            sp_link.target = '_blank';
-            sp_link.className = 'w-inline-block';
-            sp_link.textContent = result.text;
-
-            innerWrapper.appendChild(sp_link);
-            h4.appendChild(innerWrapper);
-            textWrapper.appendChild(h4);
-            result_element.appendChild(textWrapper);
-            results_container.appendChild(result_element);
-            i = i + 1;
-          })
-        } catch (error) {
-          display_error("Vertippt?",search_term.value + " wurde nicht gefunden.");
-          return;
-        }
-        if ("previous" in data) {
-          previous = data.previous;
-          const previous_button = document.createElement('button');
-          previous_button.onclick = previous_results;
-          previous_button.textContent = "Previous";
-          previous_button.classList = "button";
-          previous_button.style = "font-size: 4vw; min-height: 5vw; max-height: 5vw; height: 30%; margin-top: 1vw; margin-bottom: 2vw;";
-          results_container.appendChild(previous_button);
-        }
-        try {
-          let von_wo_bis_wo;
-          if ("next" in data) {von_wo_bis_wo = document.createElement('span');}
-          else if ("previous" in data) {von_wo_bis_wo = document.createElement('span');}
-          else {von_wo_bis_wo = document.createElement('div');}
-          von_wo_bis_wo.textContent = " (" + data.v + " - " + data.b + ") ";
-          von_wo_bis_wo.style = "font-size: 4vw; min-height: 5vw; max-height: 5vw; height: 30%; margin-top: 1vw; margin-bottom: 2vw;";
-          results_container.appendChild(von_wo_bis_wo);
-        } catch (error) {console.log(error);}
-        try {
-          update_get_url("offset",data.v);
-          update_get_url("limit",data.b);
-        } catch (error) {console.log(error);}
-        if ("next" in data) {
-          next = data.next;
-          const next_button = document.createElement('button');
-          next_button.onclick = next_results;
-          next_button.textContent = "Next";
-          next_button.classList = "button";
-          next_button.style = "font-size: 4vw; min-height: 5vw; max-height: 5vw; height: 30%; margin-top: 1vw; margin-bottom: 2vw;";
-          results_container.appendChild(next_button);
-        }
-        ende_element.classList = "";
-      }else{
-        results_container.innerHTML = '';
-        const errorH1 = document.createElement('h1');
-        errorH1.className = 'error';
-        errorH1.style = 'text-shadow: 1px 5px 10px rgba(100,0,0,0.75);';
-        errorH1.textContent = data.Error;
-        results_container.appendChild(errorH1);
+      if (type === 'sort') {
+        S.sortBy = value;
+        DOM.sortValue.textContent = opt.textContent;
+      } else if (type === 'episode') {
+        S.folgeId = value;
+        DOM.episodeValue.textContent = value ? opt.childNodes[0].textContent : 'Alle Folgen';
       }
+      closeSelect(sel);
+
+      /* Re-trigger search if we have a query */
+      if (S.query) {
+        S.offset = 0;
+        performSearch();
+        syncUrlFromState();
+      }
+    });
+
+    /* Episode search filter */
+    const searchInput = sel.querySelector('.hs-select__search');
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        const term = searchInput.value.toLowerCase();
+        sel.querySelectorAll('.hs-select__option').forEach(opt => {
+          if (opt.dataset.value === '') { opt.style.display = ''; return; }
+          opt.style.display = opt.textContent.toLowerCase().includes(term) ? '' : 'none';
+        });
+      });
+      searchInput.addEventListener('click', e => e.stopPropagation());
     }
-    function previous_results() {api_request(previous);}
-    function next_results() {api_request(next);}
-    function get_query_variable(variable) {
-        let query = window.location.search.substring(1);
-        let vars = query.split("&");
-        for (let i = 0; i < vars.length; i++) {
-            let pair = vars[i].split("=");
-            if (decodeURIComponent(pair[0]) === variable) {return decodeURIComponent(pair[1]);}
-        }
-        return null;
+  });
+
+  /* Close on outside click */
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.hs-select--open').forEach(closeSelect);
+  });
+  /* Close on Escape */
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.hs-select--open').forEach(closeSelect);
+      closeMobileMenu();
     }
-    function toggleDropdown() {
-        var dropdownContent = document.getElementById("dropdownContent");
-        if (dropdownContent.style.display === "block") {
-            dropdownContent.style.display = "none";
-            document.getElementById("selectedOption").textContent = '';
-            selectedOption = '';} 
-        else {dropdownContent.style.display = "block";}
+  });
+}
+
+function closeSelect(sel) {
+  sel.classList.remove('hs-select--open');
+  sel.querySelector('.hs-select__trigger').setAttribute('aria-expanded', 'false');
+  const searchInput = sel.querySelector('.hs-select__search');
+  if (searchInput) {
+    searchInput.value = '';
+    sel.querySelectorAll('.hs-select__option').forEach(o => o.style.display = '');
+  }
+}
+
+function updateSortDisplay() {
+  const labels = { '': 'Relevanz', 'forward': 'Neueste zuerst', 'reverse': 'Älteste zuerst' };
+  DOM.sortValue.textContent = labels[S.sortBy] || 'Relevanz';
+  /* Update selected styling */
+  const sortSel = $('hs-sort-select');
+  sortSel.querySelectorAll('.hs-select__option').forEach(opt => {
+    const selected = opt.dataset.value === S.sortBy;
+    opt.classList.toggle('hs-select__option--selected', selected);
+    opt.setAttribute('aria-selected', selected);
+  });
+}
+
+/* ========================================
+   SEARCH
+   ======================================== */
+async function performSearch(fullUrl) {
+  if (!S.query && !fullUrl) return;
+  S.isLoading = true;
+  updateUI();
+
+  let url;
+  if (fullUrl) {
+    url = fullUrl;
+  } else {
+    const p = new URLSearchParams();
+    p.set('word', S.query);
+    p.set('offset', S.offset);
+    p.set('limit', S.offset + S.limit);
+    if (S.sortBy) p.set('sort_by_time', S.sortBy);
+    if (S.folgeId) p.set('folge_id', S.folgeId);
+    url = API + '?' + p.toString();
+  }
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    if (data.Error) {
+      showError('not-found', data.Error);
+    } else {
+      S.results = data;
+      S.hasSearched = true;
+      hideError();
+      renderResults();
     }
-    function selectOption(option) {
-        selectedOption = option;
-        update_get_url("sort_by_time",option);
-        document.getElementById("dropdown-button").innerText = convert_to_text[option];
-        document.getElementById("dropdownContent").style.display = "none";
-        value_submited();
+  } catch (err) {
+    showError('server');
+  }
+  S.isLoading = false;
+  updateUI();
+  updateTitle();
+}
+
+/* ========================================
+   RENDER RESULTS
+   ======================================== */
+function renderResults() {
+  const data = S.results;
+  if (!data) return;
+
+  /* Header */
+  DOM.resultsHeader.innerHTML = '';
+  const countEl = document.createElement('span');
+  countEl.className = 'hs-results__count';
+  countEl.textContent = data.count_all || '';
+  DOM.resultsHeader.appendChild(countEl);
+
+  const shareBtn = document.createElement('button');
+  shareBtn.className = 'hs-results__share';
+  shareBtn.type = 'button';
+  shareBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>';
+  const shareTxt = document.createElement('span');
+  shareTxt.textContent = 'Teilen';
+  shareBtn.appendChild(shareTxt);
+  shareBtn.addEventListener('click', shareResults);
+  DOM.resultsHeader.appendChild(shareBtn);
+
+  /* Cards */
+  DOM.resultsList.innerHTML = '';
+  if (data.search && data.search.length > 0) {
+    data.search.forEach((r, i) => {
+      DOM.resultsList.appendChild(createCard(r, i));
+    });
+  }
+
+  /* Pagination */
+  DOM.pagination.innerHTML = '';
+  const hasPrev = !!data.previous;
+  const hasNext = !!data.next;
+  if (hasPrev || hasNext) {
+    if (hasPrev) {
+      const btn = document.createElement('button');
+      btn.className = 'hs-pagination__btn';
+      btn.type = 'button';
+      btn.textContent = 'Zurück';
+      btn.addEventListener('click', () => goToPage(data.previous));
+      DOM.pagination.appendChild(btn);
     }
-    </script>
+    const info = document.createElement('span');
+    info.className = 'hs-pagination__info';
+    info.textContent = (data.v || 0) + ' – ' + (data.b || 0);
+    DOM.pagination.appendChild(info);
+    if (hasNext) {
+      const btn = document.createElement('button');
+      btn.className = 'hs-pagination__btn';
+      btn.type = 'button';
+      btn.textContent = 'Weiter';
+      btn.addEventListener('click', () => goToPage(data.next));
+      DOM.pagination.appendChild(btn);
+    }
+  }
+}
+
+function createCard(r, index) {
+  const link = document.createElement('a');
+  link.className = 'hs-card';
+  link.href = 'https://open.spotify.com/episode/' + encodeURIComponent(r.f) + '?go=1&t=' + encodeURIComponent(r.s) + '&utm_source=search.hobbylos.online';
+  link.target = '_blank';
+  link.rel = 'noopener';
+  link.style.setProperty('--hs-i', index);
+
+  /* Meta row */
+  const meta = document.createElement('div');
+  meta.className = 'hs-card__meta';
+
+  const episode = document.createElement('span');
+  episode.className = 'hs-card__episode';
+  episode.textContent = r.n || r.f;
+  meta.appendChild(episode);
+
+  const time = document.createElement('span');
+  time.className = 'hs-card__time';
+  time.textContent = formatTimestamp(r.s);
+  meta.appendChild(time);
+
+  link.appendChild(meta);
+
+  /* Text row */
+  const text = document.createElement('div');
+  text.className = 'hs-card__text';
+  highlightText(text, r.text || '', S.query);
+  link.appendChild(text);
+
+  /* Play button */
+  const play = document.createElement('div');
+  play.className = 'hs-card__play';
+  play.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+  play.setAttribute('aria-hidden', 'true');
+  link.appendChild(play);
+
+  return link;
+}
+
+/* ========================================
+   HIGHLIGHT (XSS-safe)
+   ======================================== */
+function highlightText(container, text, term) {
+  if (!term || !text) {
+    container.textContent = text;
+    return;
+  }
+  const lower = text.toLowerCase();
+  const termLower = term.toLowerCase();
+  let lastIndex = 0;
+  let pos = lower.indexOf(termLower);
+
+  if (pos === -1) {
+    container.textContent = text;
+    return;
+  }
+
+  while (pos !== -1) {
+    if (pos > lastIndex) {
+      container.appendChild(document.createTextNode(text.slice(lastIndex, pos)));
+    }
+    const mark = document.createElement('mark');
+    mark.textContent = text.slice(pos, pos + term.length);
+    container.appendChild(mark);
+    lastIndex = pos + term.length;
+    pos = lower.indexOf(termLower, lastIndex);
+  }
+  if (lastIndex < text.length) {
+    container.appendChild(document.createTextNode(text.slice(lastIndex)));
+  }
+}
+
+/* ========================================
+   HELPERS
+   ======================================== */
+function formatTimestamp(seconds) {
+  const s = Math.floor(seconds);
+  const h = Math.floor(s / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const sec = s % 60;
+  const pad = n => String(n).padStart(2, '0');
+  return h > 0 ? h + ':' + pad(m) + ':' + pad(sec) : m + ':' + pad(sec);
+}
+
+function goToPage(url) {
+  if (!url) return;
+  performSearch(url);
+  /* Scroll to top of results */
+  DOM.hero.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function shareResults() {
+  const url = window.location.href;
+  if (navigator.share) {
+    navigator.share({
+      title: 'Hobbylos Suche',
+      text: 'Suchergebnisse zu "' + S.query + '" im Hobbylos Podcast',
+      url: url,
+    }).catch(() => {});
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(url).then(() => showToast('Link kopiert!')).catch(() => {});
+  }
+}
+
+function showToast(msg) {
+  DOM.toast.textContent = msg;
+  DOM.toast.classList.add('hs-toast--visible');
+  setTimeout(() => DOM.toast.classList.remove('hs-toast--visible'), 2500);
+}
+
+/* ========================================
+   UI STATE
+   ======================================== */
+function updateUI() {
+  DOM.app.classList.toggle('hs--has-results', S.hasSearched || S.isLoading);
+  DOM.loading.classList.toggle('hs-loading--visible', S.isLoading);
+  DOM.loading.setAttribute('aria-hidden', !S.isLoading);
+  if (S.isLoading) {
+    DOM.results.style.display = 'none';
+  } else if (S.hasSearched) {
+    DOM.results.style.display = '';
+  }
+}
+
+function showError(type, apiMessage) {
+  S.hasSearched = false;
+  DOM.results.style.display = 'none';
+  DOM.app.classList.remove('hs--has-results');
+
+  if (type === 'server') {
+    DOM.errorTitle.textContent = 'Kurze Pause';
+    DOM.errorMsg.textContent = 'Die Suche ist gerade nicht erreichbar \u2014 wahrscheinlich wird kurz etwas verbessert. Normalerweise dauert das nur ein paar Minuten.';
+    DOM.errorHint.textContent = 'Falls es länger so bleibt, sag gerne Bescheid:';
+    DOM.errorContact.style.display = '';
+  } else if (type === 'not-found') {
+    DOM.errorTitle.textContent = 'Kein Treffer';
+    DOM.errorMsg.textContent = apiMessage || 'Dazu wurde leider nichts gefunden. Versuch\u2019s mal mit einem anderen Begriff oder einer anderen Schreibweise.';
+    DOM.errorHint.textContent = '';
+    DOM.errorContact.style.display = 'none';
+  } else {
+    DOM.errorTitle.textContent = 'Ups';
+    DOM.errorMsg.textContent = apiMessage || 'Da ist etwas schiefgelaufen.';
+    DOM.errorHint.textContent = 'Falls das öfter passiert, meld dich gerne:';
+    DOM.errorContact.style.display = '';
+  }
+
+  DOM.error.classList.add('hs-error--visible');
+  DOM.error.setAttribute('aria-hidden', 'false');
+}
+
+function hideError() {
+  DOM.error.classList.remove('hs-error--visible');
+  DOM.error.setAttribute('aria-hidden', 'true');
+}
+
+/* ========================================
+   MOBILE MENU
+   ======================================== */
+function toggleMobileMenu() {
+  const isOpen = DOM.mobileMenu.classList.toggle('hs-mobile-menu--open');
+  DOM.mobileBackdrop.classList.toggle('hs-mobile-backdrop--visible', isOpen);
+  DOM.burger.classList.toggle('hs-nav__burger--open', isOpen);
+  DOM.burger.setAttribute('aria-expanded', isOpen);
+  DOM.mobileMenu.setAttribute('aria-hidden', !isOpen);
+}
+
+function closeMobileMenu() {
+  DOM.mobileMenu.classList.remove('hs-mobile-menu--open');
+  DOM.mobileBackdrop.classList.remove('hs-mobile-backdrop--visible');
+  DOM.burger.classList.remove('hs-nav__burger--open');
+  DOM.burger.setAttribute('aria-expanded', 'false');
+  DOM.mobileMenu.setAttribute('aria-hidden', 'true');
+}
+
+/* ========================================
+   INIT
+   ======================================== */
+function init() {
+  initTheme();
+  readStateFromUrl();
+  initSelects();
+  loadEpisodes();
+
+  /* Search form submit */
+  DOM.form.addEventListener('submit', e => {
+    e.preventDefault();
+    S.query = DOM.input.value.trim();
+    if (!S.query) return;
+    S.offset = 0;
+    hideError();
+    performSearch();
+    syncUrlFromState();
+  });
+
+  /* Browser back/forward */
+  window.addEventListener('popstate', () => {
+    readStateFromUrl();
+    if (S.query) {
+      performSearch();
+    } else {
+      S.hasSearched = false;
+      updateUI();
+    }
+  });
+
+  /* Theme toggle */
+  DOM.themeToggle.addEventListener('click', toggleTheme);
+
+  /* Mobile menu */
+  DOM.burger.addEventListener('click', toggleMobileMenu);
+  DOM.mobileBackdrop.addEventListener('click', closeMobileMenu);
+
+  /* Auto-search if query in URL */
+  if (S.query) {
+    performSearch();
+  }
+
+  updateTitle();
+}
+
+init();
+</script>
 </body>
 </html>

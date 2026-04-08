@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="Status - Hobbylos Suche">
+  <meta property="og:description" content="Welche Hobbylos Folgen sind durchsuchbar?">
+  <meta name="description" content="Status der Hobbylos Suche: Welche Folgen sind durchsuchbar?">
+  <meta name="robots" content="index, follow">
+  <meta http-equiv="content-language" content="de">
+  <link rel="icon" href="images/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet">
+  <title>Status - Hobbylos Suche</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: hidden; }
+body { font-family: var(--hs-font-body); font-size: var(--hs-text-base); line-height: 1.6; color: var(--hs-text-primary); background: var(--hs-bg-primary); min-height: 100vh; display: flex; flex-direction: column; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; transition: background 250ms ease, color 250ms ease; }
+a { color: inherit; text-decoration: none; }
+button { border: none; background: none; cursor: pointer; font: inherit; color: inherit; }
+ul { list-style: none; }
+
+:root {
+  --hs-font-brand: 'Bebas Neue', 'Arial Narrow', sans-serif;
+  --hs-font-body: 'DM Sans', 'Helvetica Neue', sans-serif;
+  --hs-text-xs: 0.75rem; --hs-text-sm: 0.875rem; --hs-text-base: 1rem;
+  --hs-text-lg: 1.125rem; --hs-text-xl: 1.25rem; --hs-text-2xl: 1.5rem;
+  --hs-text-3xl: 2rem; --hs-text-4xl: clamp(2rem, 5vw, 2.5rem);
+  --hs-space-1: 0.25rem; --hs-space-2: 0.5rem; --hs-space-3: 0.75rem;
+  --hs-space-4: 1rem; --hs-space-5: 1.5rem; --hs-space-6: 2rem;
+  --hs-space-8: 3rem; --hs-space-10: 4rem;
+  --hs-radius-sm: 6px; --hs-radius-md: 10px; --hs-radius-lg: 16px; --hs-radius-full: 9999px;
+  --hs-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --hs-duration-fast: 150ms; --hs-duration-normal: 250ms; --hs-duration-slow: 400ms;
+  --hs-purple: #a900ff; --hs-purple-dim: rgba(169, 0, 255, 0.15);
+  --hs-cyan: #00e5ff; --hs-cyan-dim: rgba(0, 229, 255, 0.15);
+  --hs-z-header: 200;
+}
+
+[data-theme="dark"] {
+  --hs-bg-primary: #0d0b0e; --hs-bg-secondary: #16131a; --hs-bg-tertiary: #1f1b24;
+  --hs-bg-card: rgba(255,255,255,0.035); --hs-bg-card-hover: rgba(255,255,255,0.07);
+  --hs-bg-glass: rgba(13,11,14,0.88);
+  --hs-text-primary: #f0eaf5; --hs-text-secondary: #a299ad; --hs-text-tertiary: #6b6474;
+  --hs-border: rgba(255,255,255,0.07); --hs-border-strong: rgba(255,255,255,0.14);
+  --hs-input-bg: rgba(255,255,255,0.055); --hs-input-border: rgba(255,255,255,0.1);
+  --hs-shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+}
+[data-theme="light"] {
+  --hs-bg-primary: #faf8fc; --hs-bg-secondary: #f0ecf4; --hs-bg-tertiary: #e6e0ec;
+  --hs-bg-card: rgba(0,0,0,0.025); --hs-bg-card-hover: rgba(0,0,0,0.055);
+  --hs-bg-glass: rgba(250,248,252,0.92);
+  --hs-text-primary: #1a0e24; --hs-text-secondary: #5c4d6b; --hs-text-tertiary: #8a7d96;
+  --hs-border: rgba(0,0,0,0.07); --hs-border-strong: rgba(0,0,0,0.13);
+  --hs-input-bg: rgba(0,0,0,0.04); --hs-input-border: rgba(0,0,0,0.1);
+  --hs-shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+/* Header */
+.hs-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: var(--hs-z-header);
+  background: var(--hs-bg-glass); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--hs-border); transition: background 250ms ease;
+}
+.hs-nav {
+  max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between;
+  padding: var(--hs-space-3) var(--hs-space-5); height: 56px;
+}
+.hs-nav__logo { display: flex; align-items: center; }
+.hs-nav__logo-text {
+  font-family: var(--hs-font-brand); font-size: var(--hs-text-xl); letter-spacing: 0.04em; line-height: 1;
+  background: linear-gradient(135deg, var(--hs-purple), var(--hs-cyan));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hs-nav__links { display: flex; gap: var(--hs-space-5); align-items: center; }
+.hs-nav__link { font-size: var(--hs-text-sm); color: var(--hs-text-secondary); font-weight: 500; transition: color var(--hs-duration-fast); }
+.hs-nav__link:hover, .hs-nav__link--active { color: var(--hs-text-primary); }
+.hs-theme-toggle {
+  width: 40px; height: 40px; border-radius: var(--hs-radius-full);
+  display: flex; align-items: center; justify-content: center; color: var(--hs-text-secondary);
+  transition: color var(--hs-duration-fast), background var(--hs-duration-fast);
+}
+.hs-theme-toggle:hover { color: var(--hs-text-primary); background: var(--hs-bg-card-hover); }
+.hs-theme-toggle svg { width: 20px; height: 20px; }
+.hs-nav__actions { display: flex; align-items: center; gap: var(--hs-space-3); }
+
+/* Mobile burger */
+.hs-nav__burger {
+  display: none; width: 40px; height: 40px;
+  flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+  border-radius: var(--hs-radius-full); transition: background var(--hs-duration-fast);
+}
+.hs-nav__burger:hover { background: var(--hs-bg-card-hover); }
+.hs-nav__burger span {
+  display: block; width: 18px; height: 2px; background: var(--hs-text-secondary);
+  border-radius: 2px; transition: transform 250ms var(--hs-ease-out), opacity 150ms;
+}
+.hs-nav__burger--open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hs-nav__burger--open span:nth-child(2) { opacity: 0; }
+.hs-nav__burger--open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile menu */
+.hs-mobile-menu {
+  position: fixed; top: 56px; right: 0; bottom: 0; width: 280px;
+  background: var(--hs-bg-secondary); z-index: 300;
+  transform: translateX(100%); transition: transform var(--hs-duration-slow) var(--hs-ease-out);
+  padding: var(--hs-space-6) var(--hs-space-5);
+  display: flex; flex-direction: column; gap: var(--hs-space-2);
+  border-left: 1px solid var(--hs-border);
+}
+.hs-mobile-menu--open { transform: translateX(0); }
+.hs-mobile-backdrop {
+  position: fixed; inset: 0; top: 56px;
+  background: rgba(0,0,0,0.5); z-index: 299;
+  opacity: 0; pointer-events: none; transition: opacity 250ms;
+}
+.hs-mobile-backdrop--visible { opacity: 1; pointer-events: auto; }
+.hs-mobile-menu__link {
+  display: block; padding: var(--hs-space-3) var(--hs-space-4);
+  border-radius: var(--hs-radius-md); font-size: var(--hs-text-lg);
+  color: var(--hs-text-secondary); font-weight: 500;
+  transition: background var(--hs-duration-fast), color var(--hs-duration-fast);
+}
+.hs-mobile-menu__link:hover { background: var(--hs-bg-card-hover); color: var(--hs-text-primary); }
+
+@media (max-width: 768px) {
+  .hs-nav__links { display: none; }
+  .hs-nav__burger { display: flex; }
+}
+
+/* Main */
+.hs-main {
+  flex: 1; max-width: 800px; width: 100%; margin: 0 auto;
+  padding: calc(56px + var(--hs-space-8)) var(--hs-space-5) var(--hs-space-10);
+}
+
+/* Page header */
+.hs-page-title {
+  font-family: var(--hs-font-brand); font-size: var(--hs-text-4xl);
+  letter-spacing: 0.06em; line-height: 1; margin-bottom: var(--hs-space-2);
+  background: linear-gradient(135deg, var(--hs-purple), var(--hs-cyan));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hs-page-subtitle { color: var(--hs-text-secondary); font-size: var(--hs-text-sm); margin-bottom: var(--hs-space-8); }
+
+/* Stats */
+.hs-stats {
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--hs-space-4); margin-bottom: var(--hs-space-8);
+}
+.hs-stat {
+  padding: var(--hs-space-5); border-radius: var(--hs-radius-lg);
+  background: var(--hs-bg-card); border: 1px solid var(--hs-border);
+  text-align: center;
+}
+.hs-stat__number {
+  font-family: var(--hs-font-brand); font-size: var(--hs-text-4xl);
+  letter-spacing: 0.04em; line-height: 1; margin-bottom: var(--hs-space-1);
+}
+.hs-stat__number--purple { color: var(--hs-purple); }
+.hs-stat__number--cyan { color: var(--hs-cyan); }
+.hs-stat__label { font-size: var(--hs-text-sm); color: var(--hs-text-tertiary); }
+
+/* Progress bar */
+.hs-progress { margin-bottom: var(--hs-space-8); }
+.hs-progress__header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: var(--hs-space-3);
+}
+.hs-progress__label { font-size: var(--hs-text-sm); font-weight: 600; color: var(--hs-text-primary); }
+.hs-progress__pct { font-family: var(--hs-font-brand); font-size: var(--hs-text-xl); color: var(--hs-cyan); letter-spacing: 0.04em; }
+.hs-progress__track {
+  height: 8px; border-radius: 4px; background: var(--hs-border); overflow: hidden;
+}
+.hs-progress__fill {
+  height: 100%; border-radius: 4px; width: 0%;
+  background: linear-gradient(90deg, var(--hs-purple), var(--hs-cyan));
+  transition: width 0.8s var(--hs-ease-out);
+}
+
+/* Filter tabs */
+.hs-tabs {
+  display: flex; gap: var(--hs-space-2); margin-bottom: var(--hs-space-5); flex-wrap: wrap;
+}
+.hs-tab {
+  padding: var(--hs-space-2) var(--hs-space-4); border-radius: var(--hs-radius-full);
+  font-size: var(--hs-text-sm); font-weight: 500; color: var(--hs-text-secondary);
+  border: 1px solid var(--hs-border); transition: all var(--hs-duration-fast);
+}
+.hs-tab:hover { border-color: var(--hs-border-strong); color: var(--hs-text-primary); }
+.hs-tab--active { background: var(--hs-purple); border-color: var(--hs-purple); color: #fff; }
+.hs-tab__count { margin-left: var(--hs-space-1); opacity: 0.7; }
+
+/* Search */
+.hs-filter-bar {
+  display: flex; align-items: center; gap: var(--hs-space-3); margin-bottom: var(--hs-space-5);
+  padding: var(--hs-space-2) var(--hs-space-4);
+  background: var(--hs-input-bg); border: 1px solid var(--hs-input-border);
+  border-radius: var(--hs-radius-full);
+  transition: border-color var(--hs-duration-fast);
+}
+.hs-filter-bar:focus-within { border-color: var(--hs-purple); }
+.hs-filter-bar__icon { width: 18px; height: 18px; flex-shrink: 0; color: var(--hs-text-tertiary); }
+.hs-filter-bar__input {
+  flex: 1; border: none; background: transparent; outline: none;
+  font-size: var(--hs-text-sm); color: var(--hs-text-primary); min-width: 0;
+}
+.hs-filter-bar__input::placeholder { color: var(--hs-text-tertiary); }
+
+/* Episode list */
+.hs-episodes { display: flex; flex-direction: column; gap: var(--hs-space-2); }
+
+.hs-ep {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--hs-space-2) var(--hs-space-4);
+  padding: var(--hs-space-3) var(--hs-space-4);
+  border-radius: var(--hs-radius-md); background: var(--hs-bg-card);
+  border: 1px solid var(--hs-border);
+  animation: hs-fade-up var(--hs-duration-slow) var(--hs-ease-out) both;
+  animation-delay: calc(var(--i, 0) * 20ms);
+  transition: background var(--hs-duration-fast), border-color var(--hs-duration-fast);
+}
+.hs-ep:hover { background: var(--hs-bg-card-hover); border-color: var(--hs-border-strong); }
+
+.hs-ep__status { flex-shrink: 0; width: 10px; height: 10px; border-radius: 50%; }
+.hs-ep__status--indexed { background: var(--hs-cyan); box-shadow: 0 0 8px var(--hs-cyan-dim); }
+.hs-ep__status--missing { background: var(--hs-text-tertiary); opacity: 0.4; }
+
+.hs-ep__info { flex: 1; min-width: 0; }
+.hs-ep__name {
+  font-size: var(--hs-text-sm); font-weight: 500; color: var(--hs-text-primary);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.hs-ep__date { font-size: var(--hs-text-xs); color: var(--hs-text-tertiary); }
+
+.hs-ep__badge {
+  flex-shrink: 0; font-size: var(--hs-text-xs); font-weight: 600;
+  padding: 2px 10px; border-radius: var(--hs-radius-full);
+}
+.hs-ep__badge--indexed { color: var(--hs-cyan); background: var(--hs-cyan-dim); }
+.hs-ep__badge--missing { color: var(--hs-text-tertiary); background: var(--hs-bg-tertiary); }
+
+/* Status detail for non-indexed episodes */
+.hs-ep__detail {
+  grid-column: 1 / -1; font-size: var(--hs-text-xs); color: var(--hs-text-tertiary);
+  padding-left: calc(10px + var(--hs-space-4)); /* align with text after dot */
+  line-height: 1.5;
+}
+.hs-ep__detail-label { color: var(--hs-text-tertiary); }
+.hs-ep__detail-value { color: var(--hs-text-secondary); font-weight: 500; }
+.hs-ep__detail-value--pending { color: var(--hs-purple); }
+.hs-ep__detail-value--processing { color: var(--hs-cyan); }
+.hs-ep__detail-value--error { color: #ff6b6b; }
+
+/* Loading */
+.hs-loading {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: var(--hs-space-10); gap: var(--hs-space-4);
+}
+.hs-loading__spinner {
+  width: 32px; height: 32px; border: 3px solid var(--hs-border);
+  border-top-color: var(--hs-cyan); border-right-color: var(--hs-purple); border-radius: 50%;
+  animation: hs-spin 0.8s linear infinite;
+}
+.hs-loading__text { font-size: var(--hs-text-sm); color: var(--hs-text-tertiary); }
+
+/* Empty */
+.hs-empty { text-align: center; padding: var(--hs-space-8); color: var(--hs-text-tertiary); font-size: var(--hs-text-sm); }
+
+/* Footer */
+.hs-footer {
+  margin-top: auto; border-top: 1px solid var(--hs-border);
+  padding: var(--hs-space-5); background: var(--hs-bg-secondary); transition: background 250ms ease;
+}
+.hs-footer__inner {
+  max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: var(--hs-space-3);
+}
+.hs-footer__credits { font-size: var(--hs-text-xs); color: var(--hs-text-tertiary); }
+.hs-footer__credits a { color: var(--hs-text-secondary); transition: color var(--hs-duration-fast); }
+.hs-footer__credits a:hover { color: var(--hs-text-primary); }
+.hs-footer__links { display: flex; gap: var(--hs-space-4); font-size: var(--hs-text-xs); color: var(--hs-text-tertiary); }
+.hs-footer__links a { transition: color var(--hs-duration-fast); }
+.hs-footer__links a:hover { color: var(--hs-text-primary); }
+
+@keyframes hs-spin { to { transform: rotate(360deg); } }
+@keyframes hs-fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+@media (max-width: 480px) {
+  .hs-stats { grid-template-columns: 1fr; }
+  .hs-ep { gap: var(--hs-space-2) var(--hs-space-3); }
+  .hs-ep__badge { grid-column: 1 / -1; text-align: center; }
+  .hs-ep__detail { padding-left: 0; }
+  .hs-footer__inner { flex-direction: column; align-items: center; text-align: center; }
+}
+</style>
+</head>
+<body>
+  <header class="hs-header">
+    <nav class="hs-nav">
+      <a class="hs-nav__logo" href="index.html">
+        <span class="hs-nav__logo-text">Hobbylos Suche</span>
+      </a>
+      <div class="hs-nav__links">
+        <a href="index.html" class="hs-nav__link">Suche</a>
+        <a href="status.html" class="hs-nav__link hs-nav__link--active">Status</a>
+        <a href="https://api.whatsapp.com/send?phone=+4915678159173&text=Hey%20ich%20war%20auf%20https://search.hobbylos.online/%20und%20habe%20eine%20Frage:%0A" target="_blank" rel="noopener" class="hs-nav__link">Kontakt</a>
+      </div>
+      <div class="hs-nav__actions">
+        <button class="hs-theme-toggle" id="hs-theme-toggle" type="button" aria-label="Farbmodus wechseln">
+          <svg id="hs-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg id="hs-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="hs-nav__burger" id="hs-burger" type="button" aria-label="Navigation" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="hs-mobile-backdrop" id="hs-mobile-backdrop"></div>
+  <div class="hs-mobile-menu" id="hs-mobile-menu" aria-hidden="true">
+    <a href="index.html" class="hs-mobile-menu__link">Suche</a>
+    <a href="status.html" class="hs-mobile-menu__link">Status</a>
+    <a href="https://api.whatsapp.com/send?phone=+4915678159173&text=Hey%20ich%20war%20auf%20https://search.hobbylos.online/%20und%20habe%20eine%20Frage:%0A" target="_blank" rel="noopener" class="hs-mobile-menu__link">Kontakt</a>
+  </div>
+
+  <main class="hs-main">
+    <h1 class="hs-page-title">Status</h1>
+    <p class="hs-page-subtitle">Welche Hobbylos-Folgen sind aktuell durchsuchbar?</p>
+
+    <!-- Stats -->
+    <div class="hs-stats" id="hs-stats" style="display:none">
+      <div class="hs-stat">
+        <div class="hs-stat__number hs-stat__number--cyan" id="stat-indexed">–</div>
+        <div class="hs-stat__label">Folgen durchsuchbar</div>
+      </div>
+      <div class="hs-stat">
+        <div class="hs-stat__number hs-stat__number--purple" id="stat-total">–</div>
+        <div class="hs-stat__label">Folgen auf Spotify</div>
+      </div>
+    </div>
+
+    <!-- Progress -->
+    <div class="hs-progress" id="hs-progress" style="display:none">
+      <div class="hs-progress__header">
+        <span class="hs-progress__label">Abdeckung</span>
+        <span class="hs-progress__pct" id="progress-pct">0%</span>
+      </div>
+      <div class="hs-progress__track">
+        <div class="hs-progress__fill" id="progress-fill"></div>
+      </div>
+    </div>
+
+    <!-- Filter tabs -->
+    <div class="hs-tabs" id="hs-tabs" style="display:none">
+      <button class="hs-tab hs-tab--active" data-filter="all">Alle<span class="hs-tab__count" id="tab-all-count"></span></button>
+      <button class="hs-tab" data-filter="indexed">Durchsuchbar<span class="hs-tab__count" id="tab-indexed-count"></span></button>
+      <button class="hs-tab" data-filter="missing">Noch nicht<span class="hs-tab__count" id="tab-missing-count"></span></button>
+    </div>
+
+    <!-- Search filter -->
+    <div class="hs-filter-bar" id="hs-filter-bar" style="display:none">
+      <svg class="hs-filter-bar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="hs-filter-bar__input" id="hs-filter-input" type="text" placeholder="Folge suchen..." aria-label="Folgen filtern">
+    </div>
+
+    <!-- Loading -->
+    <div class="hs-loading" id="hs-loading">
+      <div class="hs-loading__spinner"></div>
+      <p class="hs-loading__text">Lade Folgenliste...</p>
+    </div>
+
+    <!-- Episode list -->
+    <div class="hs-episodes" id="hs-episodes"></div>
+
+    <!-- Empty -->
+    <div class="hs-empty" id="hs-empty" style="display:none">Keine Folgen gefunden.</div>
+  </main>
+
+  <footer class="hs-footer">
+    <div class="hs-footer__inner">
+      <div class="hs-footer__credits">
+        <span>made by <a href="https://www.instagram.com/emill.brt" target="_blank" rel="noopener">@emill.brt</a></span>
+      </div>
+      <div class="hs-footer__links">
+        <a href="https://api.whatsapp.com/send?phone=+4915678159173&text=Hey%20ich%20habe%20Feedback%20zur%20Hobbylos%20Suche:%0A" target="_blank" rel="noopener">Feedback</a>
+        <a href="datenschutz-impressum-usw.html">Datenschutz</a>
+        <a href="datenschutz-impressum-usw.html">Impressum</a>
+      </div>
+    </div>
+  </footer>
+
+<script>
+const API = 'https://api.hobbylos.online/';
+let allEpisodes = [];
+let activeFilter = 'all';
+
+const $ = id => document.getElementById(id);
+
+/* Theme */
+function initTheme() {
+  const saved = localStorage.getItem('hs-theme');
+  const theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  applyTheme(theme);
+}
+function applyTheme(t) {
+  document.documentElement.dataset.theme = t;
+  $('hs-icon-sun').style.display = t === 'dark' ? 'block' : 'none';
+  $('hs-icon-moon').style.display = t === 'light' ? 'block' : 'none';
+}
+function toggleTheme() {
+  const t = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  localStorage.setItem('hs-theme', t);
+  applyTheme(t);
+}
+
+/* Format date */
+function formatDate(dateStr) {
+  if (!dateStr) return '';
+  const parts = dateStr.split('-');
+  if (parts.length === 3) return parts[2] + '.' + parts[1] + '.' + parts[0];
+  return dateStr;
+}
+
+/* Render list */
+function renderEpisodes(episodes) {
+  const container = $('hs-episodes');
+  container.innerHTML = '';
+  if (episodes.length === 0) {
+    $('hs-empty').style.display = '';
+    return;
+  }
+  $('hs-empty').style.display = 'none';
+
+  episodes.forEach((ep, i) => {
+    const row = document.createElement('div');
+    row.className = 'hs-ep';
+    row.style.setProperty('--i', Math.min(i, 30)); /* Cap animation delay */
+
+    const dot = document.createElement('div');
+    dot.className = 'hs-ep__status ' + (ep.indexed ? 'hs-ep__status--indexed' : 'hs-ep__status--missing');
+
+    const info = document.createElement('div');
+    info.className = 'hs-ep__info';
+    const name = document.createElement('div');
+    name.className = 'hs-ep__name';
+    name.textContent = ep.name;
+    name.title = ep.name;
+    const date = document.createElement('div');
+    date.className = 'hs-ep__date';
+    date.textContent = formatDate(ep.release_date);
+    info.appendChild(name);
+    info.appendChild(date);
+
+    const badge = document.createElement('span');
+    badge.className = 'hs-ep__badge ' + (ep.indexed ? 'hs-ep__badge--indexed' : 'hs-ep__badge--missing');
+    badge.textContent = ep.indexed ? 'Durchsuchbar' : 'Ausstehend';
+
+    row.appendChild(dot);
+    row.appendChild(info);
+    row.appendChild(badge);
+
+    /* Status detail for non-indexed episodes */
+    if (!ep.indexed) {
+      const detail = document.createElement('div');
+      detail.className = 'hs-ep__detail';
+
+      /* ep.status comes from the API (future field).
+         Expected values: "pending" | "queued" | "transcribing" | "processing" | "error"
+         If not present, we show a generic "Steht aus" message. */
+      const status = ep.status || 'pending';
+      const statusMap = {
+        pending:      { text: 'Steht noch aus',        cls: 'pending' },
+        queued:       { text: 'In der Warteschlange',   cls: 'pending' },
+        transcribing: { text: 'Wird transkribiert...',  cls: 'processing' },
+        processing:   { text: 'Wird verarbeitet...',    cls: 'processing' },
+        error:        { text: 'Fehler bei Verarbeitung', cls: 'error' },
+      };
+      const s = statusMap[status] || statusMap.pending;
+
+      const label = document.createElement('span');
+      label.className = 'hs-ep__detail-label';
+      label.textContent = 'Status: ';
+      const value = document.createElement('span');
+      value.className = 'hs-ep__detail-value hs-ep__detail-value--' + s.cls;
+      value.textContent = s.text;
+      detail.appendChild(label);
+      detail.appendChild(value);
+
+      /* Show extra detail message from API if available */
+      if (ep.status_message) {
+        const msg = document.createElement('span');
+        msg.className = 'hs-ep__detail-label';
+        msg.textContent = ' \u2014 ' + ep.status_message;
+        detail.appendChild(msg);
+      }
+
+      row.appendChild(detail);
+    }
+
+    container.appendChild(row);
+  });
+}
+
+function applyFilters() {
+  const search = $('hs-filter-input').value.toLowerCase();
+  let filtered = allEpisodes;
+  if (activeFilter === 'indexed') filtered = filtered.filter(e => e.indexed);
+  else if (activeFilter === 'missing') filtered = filtered.filter(e => !e.indexed);
+  if (search) filtered = filtered.filter(e => e.name.toLowerCase().includes(search));
+  renderEpisodes(filtered);
+}
+
+/* Load data */
+async function load() {
+  try {
+    const res = await fetch(API + 'folgen');
+    if (!res.ok) throw new Error('API error');
+    const data = await res.json();
+    allEpisodes = data.folgen || [];
+
+    const indexed = data.total_indexed || allEpisodes.filter(e => e.indexed).length;
+    const total = data.total_on_spotify || allEpisodes.length;
+    const missing = total - indexed;
+    const pct = total > 0 ? Math.round((indexed / total) * 100) : 0;
+
+    /* Stats */
+    $('stat-indexed').textContent = indexed;
+    $('stat-total').textContent = total;
+    $('hs-stats').style.display = '';
+
+    /* Progress */
+    $('progress-pct').textContent = pct + '%';
+    $('hs-progress').style.display = '';
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        $('progress-fill').style.width = pct + '%';
+      });
+    });
+
+    /* Tab counts */
+    $('tab-all-count').textContent = ' (' + total + ')';
+    $('tab-indexed-count').textContent = ' (' + indexed + ')';
+    $('tab-missing-count').textContent = ' (' + missing + ')';
+    $('hs-tabs').style.display = '';
+    $('hs-filter-bar').style.display = '';
+
+    /* Hide loading, render */
+    $('hs-loading').style.display = 'none';
+    renderEpisodes(allEpisodes);
+
+  } catch (e) {
+    $('hs-loading').innerHTML = '<p style="color:var(--hs-text-tertiary);font-size:var(--hs-text-sm)">Folgenliste konnte nicht geladen werden. Probier\u2019s gleich nochmal.</p>';
+  }
+}
+
+/* Events */
+initTheme();
+$('hs-theme-toggle').addEventListener('click', toggleTheme);
+
+/* Mobile menu */
+const burger = $('hs-burger'), mobileMenu = $('hs-mobile-menu'), backdrop = $('hs-mobile-backdrop');
+function toggleMobile() {
+  const open = mobileMenu.classList.toggle('hs-mobile-menu--open');
+  backdrop.classList.toggle('hs-mobile-backdrop--visible', open);
+  burger.classList.toggle('hs-nav__burger--open', open);
+  burger.setAttribute('aria-expanded', open);
+  mobileMenu.setAttribute('aria-hidden', !open);
+}
+function closeMobile() {
+  mobileMenu.classList.remove('hs-mobile-menu--open');
+  backdrop.classList.remove('hs-mobile-backdrop--visible');
+  burger.classList.remove('hs-nav__burger--open');
+  burger.setAttribute('aria-expanded', 'false');
+  mobileMenu.setAttribute('aria-hidden', 'true');
+}
+burger.addEventListener('click', toggleMobile);
+backdrop.addEventListener('click', closeMobile);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobile(); });
+
+$('hs-tabs').addEventListener('click', e => {
+  const tab = e.target.closest('.hs-tab');
+  if (!tab) return;
+  document.querySelectorAll('.hs-tab').forEach(t => t.classList.remove('hs-tab--active'));
+  tab.classList.add('hs-tab--active');
+  activeFilter = tab.dataset.filter;
+  applyFilters();
+});
+
+$('hs-filter-input').addEventListener('input', applyFilters);
+
+load();
+</script>
+</body>
+</html>
