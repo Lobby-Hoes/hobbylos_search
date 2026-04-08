@@ -1,29 +1,298 @@
 <!DOCTYPE html>
-<html>
+<html lang="de" data-theme="dark">
 <head>
   <meta charset="utf-8">
-  <title>Datenschutz Impressum usw</title>
-  <meta content="Datenschutz Impressum usw" property="og:title">
-  <meta content="Datenschutz Impressum usw" property="twitter:title">
-  <meta content="width=device-width, initial-scale=1" name="viewport">
-  <link href="css/init.css" rel="stylesheet" type="text/css">
-  <link href="css/main.css" rel="stylesheet" type="text/css">
-  <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon">
-  <link href="images/favicon.png" rel="apple-touch-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Datenschutz & Impressum - Hobbylos Suche</title>
+  <meta property="og:title" content="Datenschutz & Impressum - Hobbylos Suche">
+  <meta name="robots" content="index, follow">
+  <meta http-equiv="content-language" content="de">
+  <link rel="icon" href="images/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: hidden; }
+body { font-family: var(--hs-font-body); font-size: var(--hs-text-base); line-height: 1.6; color: var(--hs-text-primary); background: var(--hs-bg-primary); min-height: 100vh; display: flex; flex-direction: column; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; transition: background 250ms ease, color 250ms ease; }
+a { color: var(--hs-link); text-decoration: none; transition: color 150ms; }
+a:hover { color: var(--hs-text-primary); text-decoration: underline; }
+button { border: none; background: none; cursor: pointer; font: inherit; color: inherit; }
+ul { list-style: none; }
+
+:root {
+  --hs-font-brand: 'Bebas Neue', 'Arial Narrow', sans-serif;
+  --hs-font-body: 'DM Sans', 'Helvetica Neue', sans-serif;
+  --hs-text-xs: 0.75rem; --hs-text-sm: 0.875rem; --hs-text-base: 1rem;
+  --hs-text-lg: 1.125rem; --hs-text-xl: 1.25rem; --hs-text-2xl: 1.5rem;
+  --hs-text-3xl: 2rem; --hs-text-4xl: clamp(2rem, 5vw, 2.5rem);
+  --hs-space-1: 0.25rem; --hs-space-2: 0.5rem; --hs-space-3: 0.75rem;
+  --hs-space-4: 1rem; --hs-space-5: 1.5rem; --hs-space-6: 2rem;
+  --hs-space-8: 3rem; --hs-space-10: 4rem;
+  --hs-radius-sm: 6px; --hs-radius-md: 10px; --hs-radius-lg: 16px; --hs-radius-full: 9999px;
+  --hs-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --hs-duration-fast: 150ms; --hs-duration-normal: 250ms; --hs-duration-slow: 400ms;
+  --hs-purple: #a900ff; --hs-cyan: #00e5ff;
+  --hs-z-header: 200;
+}
+
+[data-theme="dark"] {
+  --hs-bg-primary: #0d0b0e; --hs-bg-secondary: #16131a; --hs-bg-tertiary: #1f1b24;
+  --hs-bg-card: rgba(255,255,255,0.035); --hs-bg-card-hover: rgba(255,255,255,0.07);
+  --hs-bg-glass: rgba(13,11,14,0.88);
+  --hs-text-primary: #f0eaf5; --hs-text-secondary: #a299ad; --hs-text-tertiary: #6b6474;
+  --hs-border: rgba(255,255,255,0.07); --hs-border-strong: rgba(255,255,255,0.14);
+  --hs-link: var(--hs-cyan);
+}
+[data-theme="light"] {
+  --hs-bg-primary: #faf8fc; --hs-bg-secondary: #f0ecf4; --hs-bg-tertiary: #e6e0ec;
+  --hs-bg-card: rgba(0,0,0,0.025); --hs-bg-card-hover: rgba(0,0,0,0.055);
+  --hs-bg-glass: rgba(250,248,252,0.92);
+  --hs-text-primary: #1a0e24; --hs-text-secondary: #5c4d6b; --hs-text-tertiary: #8a7d96;
+  --hs-border: rgba(0,0,0,0.07); --hs-border-strong: rgba(0,0,0,0.13);
+  --hs-link: #8a00cc;
+}
+
+/* Header */
+.hs-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: var(--hs-z-header);
+  background: var(--hs-bg-glass); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--hs-border); transition: background 250ms ease;
+}
+.hs-nav {
+  max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between;
+  padding: var(--hs-space-3) var(--hs-space-5); height: 56px;
+}
+.hs-nav__logo { display: flex; align-items: center; text-decoration: none; }
+.hs-nav__logo:hover { text-decoration: none; }
+.hs-nav__logo-text {
+  font-family: var(--hs-font-brand); font-size: var(--hs-text-xl); letter-spacing: 0.04em; line-height: 1;
+  background: linear-gradient(135deg, var(--hs-purple), var(--hs-cyan));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hs-nav__links { display: flex; gap: var(--hs-space-5); align-items: center; }
+.hs-nav__link { font-size: var(--hs-text-sm); color: var(--hs-text-secondary); font-weight: 500; transition: color 150ms; text-decoration: none; }
+.hs-nav__link:hover, .hs-nav__link--active { color: var(--hs-text-primary); text-decoration: none; }
+.hs-nav__actions { display: flex; align-items: center; gap: var(--hs-space-3); }
+.hs-theme-toggle {
+  width: 40px; height: 40px; border-radius: var(--hs-radius-full);
+  display: flex; align-items: center; justify-content: center; color: var(--hs-text-secondary);
+  transition: color 150ms, background 150ms;
+}
+.hs-theme-toggle:hover { color: var(--hs-text-primary); background: var(--hs-bg-card-hover); }
+.hs-theme-toggle svg { width: 20px; height: 20px; }
+
+/* Mobile burger */
+.hs-nav__burger {
+  display: none; width: 40px; height: 40px;
+  flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+  border-radius: var(--hs-radius-full); transition: background 150ms;
+}
+.hs-nav__burger:hover { background: var(--hs-bg-card-hover); }
+.hs-nav__burger span {
+  display: block; width: 18px; height: 2px; background: var(--hs-text-secondary);
+  border-radius: 2px; transition: transform 250ms var(--hs-ease-out), opacity 150ms;
+}
+.hs-nav__burger--open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hs-nav__burger--open span:nth-child(2) { opacity: 0; }
+.hs-nav__burger--open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile menu */
+.hs-mobile-menu {
+  position: fixed; top: 56px; right: 0; bottom: 0; width: 280px;
+  background: var(--hs-bg-secondary); z-index: 300;
+  transform: translateX(100%); transition: transform var(--hs-duration-slow) var(--hs-ease-out);
+  padding: var(--hs-space-6) var(--hs-space-5);
+  display: flex; flex-direction: column; gap: var(--hs-space-2);
+  border-left: 1px solid var(--hs-border);
+}
+.hs-mobile-menu--open { transform: translateX(0); }
+.hs-mobile-backdrop {
+  position: fixed; inset: 0; top: 56px;
+  background: rgba(0,0,0,0.5); z-index: 299;
+  opacity: 0; pointer-events: none; transition: opacity 250ms;
+}
+.hs-mobile-backdrop--visible { opacity: 1; pointer-events: auto; }
+.hs-mobile-menu__link {
+  display: block; padding: var(--hs-space-3) var(--hs-space-4);
+  border-radius: var(--hs-radius-md); font-size: var(--hs-text-lg);
+  color: var(--hs-text-secondary); font-weight: 500; text-decoration: none;
+  transition: background 150ms, color 150ms;
+}
+.hs-mobile-menu__link:hover { background: var(--hs-bg-card-hover); color: var(--hs-text-primary); text-decoration: none; }
+
+@media (max-width: 768px) {
+  .hs-nav__links { display: none; }
+  .hs-nav__burger { display: flex; }
+}
+
+/* Content */
+.hs-main {
+  flex: 1; max-width: 720px; width: 100%; margin: 0 auto;
+  padding: calc(56px + var(--hs-space-8)) var(--hs-space-5) var(--hs-space-10);
+}
+.hs-page-title {
+  font-family: var(--hs-font-brand); font-size: var(--hs-text-4xl);
+  letter-spacing: 0.06em; line-height: 1; margin-bottom: var(--hs-space-8);
+  background: linear-gradient(135deg, var(--hs-purple), var(--hs-cyan));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.hs-section {
+  margin-bottom: var(--hs-space-8); padding: var(--hs-space-6);
+  background: var(--hs-bg-card); border: 1px solid var(--hs-border);
+  border-radius: var(--hs-radius-lg);
+}
+.hs-section__title {
+  font-family: var(--hs-font-brand); font-size: var(--hs-text-2xl);
+  letter-spacing: 0.04em; margin-bottom: var(--hs-space-4); color: var(--hs-text-primary);
+}
+.hs-section__text {
+  font-size: var(--hs-text-sm); color: var(--hs-text-secondary); line-height: 1.8;
+}
+.hs-section__text a { font-weight: 500; }
+
+/* Footer */
+.hs-footer {
+  margin-top: auto; border-top: 1px solid var(--hs-border);
+  padding: var(--hs-space-5); background: var(--hs-bg-secondary); transition: background 250ms ease;
+}
+.hs-footer__inner {
+  max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: var(--hs-space-3);
+}
+.hs-footer__credits { font-size: var(--hs-text-xs); color: var(--hs-text-tertiary); }
+.hs-footer__credits a { color: var(--hs-text-secondary); }
+.hs-footer__credits a:hover { color: var(--hs-text-primary); }
+.hs-footer__links { display: flex; gap: var(--hs-space-4); font-size: var(--hs-text-xs); color: var(--hs-text-tertiary); }
+.hs-footer__links a { color: var(--hs-text-tertiary); }
+.hs-footer__links a:hover { color: var(--hs-text-primary); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+@media (max-width: 480px) {
+  .hs-section { padding: var(--hs-space-4); }
+  .hs-footer__inner { flex-direction: column; align-items: center; text-align: center; }
+}
+</style>
 </head>
-<body class="body-2" style="margin: 50px;margin-top: 0px;">
-  <section>
-    <div class="w-layout-blockcontainer container-3 w-container">
-      <button type="button" class="button w-button" onclick="history.back()">Zurück</button>
+<body>
+  <header class="hs-header">
+    <nav class="hs-nav">
+      <a class="hs-nav__logo" href="index.html">
+        <span class="hs-nav__logo-text">Hobbylos Suche</span>
+      </a>
+      <div class="hs-nav__links">
+        <a href="index.html" class="hs-nav__link">Suche</a>
+        <a href="status.html" class="hs-nav__link">Status</a>
+        <a href="https://api.whatsapp.com/send?phone=+4915678159173&text=Hey%20ich%20war%20auf%20https://search.hobbylos.online/%20und%20habe%20eine%20Frage:%0A" target="_blank" rel="noopener" class="hs-nav__link">Kontakt</a>
+      </div>
+      <div class="hs-nav__actions">
+        <button class="hs-theme-toggle" id="hs-theme-toggle" type="button" aria-label="Farbmodus wechseln">
+          <svg id="hs-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg id="hs-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="hs-nav__burger" id="hs-burger" type="button" aria-label="Navigation" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="hs-mobile-backdrop" id="hs-mobile-backdrop"></div>
+  <div class="hs-mobile-menu" id="hs-mobile-menu" aria-hidden="true">
+    <a href="index.html" class="hs-mobile-menu__link">Suche</a>
+    <a href="status.html" class="hs-mobile-menu__link">Status</a>
+    <a href="https://api.whatsapp.com/send?phone=+4915678159173&text=Hey%20ich%20war%20auf%20https://search.hobbylos.online/%20und%20habe%20eine%20Frage:%0A" target="_blank" rel="noopener" class="hs-mobile-menu__link">Kontakt</a>
+  </div>
+
+  <main class="hs-main">
+    <h1 class="hs-page-title">Datenschutz & Impressum</h1>
+
+    <div class="hs-section">
+      <h2 class="hs-section__title">Datenschutzrichtlinie</h2>
+      <div class="hs-section__text">
+        <p>Die Webseiten werden von und für Privatpersonen betrieben. Deshalb bedarf es keiner Datenschutzerklärung. Im folgenden dennoch ein paar Informationen:</p>
+        <br>
+        <p>Alle Seiten laufen über den CDN Service von Cloudflare. Die Datenschutzregeln von Cloudflare finden Sie hier: <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">cloudflare.com/privacypolicy</a></p>
+        <br>
+        <p>Alle Suchanfragen auf search.hobbylos.online werden an unser Server-Cluster gesendet, wo Logs entstehen können.</p>
+        <br>
+        <p>Die Nachrichten, die wir über WhatsApp (<a href="https://www.whatsapp.com/privacy" target="_blank" rel="noopener">whatsapp.com/privacy</a>) bekommen, werden mit Diskretion behandelt.</p>
+        <br>
+        <p>Bei Fragen melden Sie sich gerne unter <a href="mailto:datenschutz@hobbylos.online?subject=Datenschutz">datenschutz@hobbylos.online</a>.</p>
+      </div>
     </div>
-    <div>
-      <h3 class="heading-page-2">Datenschutzrichtlinie</h3>
-      <p>Die Webseiten werden von und für Privatpersonen betrieben. Deshalb bedarf es keiner Datenschutzerklärung. Im folgenden dennoch ein paar Informationen:<br>Alle Seiten laufen über den CDN Service von Cloudflare. Die Datenschutzregeln von Cloudflare finden Sie hier: <a href="https://www.cloudflare.com/privacypolicy/" target="_blank">https://www.cloudflare.com/privacypolicy/</a><br>Alle Suchanfragen auf search.hobbylos.online werden an unser Server-cluster gesendet, wo logs entstehen können. <br>Die Nachrichten, die wir über Whatsapp (<a href="https://www.whatsapp.com/privacy" target="_blank">https://www.whatsapp.com/privacy</a>) bekommen, werden mit Diskretion behandelt/bearbeitet.<br>Bei Fragen melden Sie sich doch gerne unter <a href="mailto: datenschutz@hobbylos.online?subject=Datenschutz">datenschutz@hobbylos.online</a>.</p>
+
+    <div class="hs-section">
+      <h2 class="hs-section__title">Impressum</h2>
+      <div class="hs-section__text">
+        <p>&quot;Lobby Hoe Nerds&quot; ist keine juristische Person, kein eingetragenes Unternehmen und nicht gewerblich oder geschäftsmäßig tätig.</p>
+        <br>
+        <p>Die Internetseite <a href="https://hobbylos.online/" target="_blank" rel="noopener">hobbylos.online</a> sowie <a href="https://woistvulva.site/" target="_blank" rel="noopener">woistvulva.site</a> und alle Subdomains werden nicht geschäftsmäßig, sondern ausschließlich für private Zwecke angeboten und unterliegen daher nicht dem Anwendungsbereich des § 5 Telemediengesetz (TMG). Eine Impressumspflicht besteht mithin nicht.</p>
+        <br>
+        <p>Den Anbieter können Sie per E-Mail an <a href="mailto:impressum@hobbylos.online?subject=Impressum">impressum@hobbylos.online</a> erreichen.</p>
+      </div>
     </div>
-    <div>
-      <h3 class="heading-page-2">Impressum</h3>
-      <p>&quot;Lobby Hoe Nerds&quot; ist keine juristische Person, kein eingetragenes Unternehmen und nicht gewerblich oder geschäftsmäßig tätig.<br>Die Internetseite <a href="https://hobbylos.online/" target="_blank">hobbylos.online</a> sowie <a href="https://woistvulva.site/" target="_blank">woistvulva.site</a> und alle Subdomains werden nicht geschäftsmäßig, sondern ausschließlich für private Zwecke angeboten und unterliegen daher nicht dem Anwendungsbereich des § 5 Telemediengesetz (TMG). Eine Impressumspflicht besteht mithin nicht. Den Anbieter können Sie dennoch per E-Mail an <a href="mailto:impressum@hobbylos.online?subject=Impressum">impressum@hobbylos.online</a> erreichen. <br></p>
+  </main>
+
+  <footer class="hs-footer">
+    <div class="hs-footer__inner">
+      <div class="hs-footer__credits">
+        <span>made by <a href="https://www.instagram.com/emill.brt" target="_blank" rel="noopener">@emill.brt</a></span>
+      </div>
+      <div class="hs-footer__links">
+        <a href="https://api.whatsapp.com/send?phone=+4915678159173&text=Hey%20ich%20habe%20Feedback%20zur%20Hobbylos%20Suche:%0A" target="_blank" rel="noopener">Feedback</a>
+        <a href="datenschutz-impressum-usw.html">Datenschutz</a>
+        <a href="datenschutz-impressum-usw.html">Impressum</a>
+      </div>
     </div>
-  </section>
+  </footer>
+
+<script>
+const $ = id => document.getElementById(id);
+
+/* Theme */
+function initTheme() {
+  const saved = localStorage.getItem('hs-theme');
+  const theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  applyTheme(theme);
+}
+function applyTheme(t) {
+  document.documentElement.dataset.theme = t;
+  $('hs-icon-sun').style.display = t === 'dark' ? 'block' : 'none';
+  $('hs-icon-moon').style.display = t === 'light' ? 'block' : 'none';
+}
+function toggleTheme() {
+  const t = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  localStorage.setItem('hs-theme', t);
+  applyTheme(t);
+}
+
+/* Mobile menu */
+const burger = $('hs-burger'), mobileMenu = $('hs-mobile-menu'), backdrop = $('hs-mobile-backdrop');
+function toggleMobile() {
+  const open = mobileMenu.classList.toggle('hs-mobile-menu--open');
+  backdrop.classList.toggle('hs-mobile-backdrop--visible', open);
+  burger.classList.toggle('hs-nav__burger--open', open);
+  burger.setAttribute('aria-expanded', open);
+  mobileMenu.setAttribute('aria-hidden', !open);
+}
+function closeMobile() {
+  mobileMenu.classList.remove('hs-mobile-menu--open');
+  backdrop.classList.remove('hs-mobile-backdrop--visible');
+  burger.classList.remove('hs-nav__burger--open');
+  burger.setAttribute('aria-expanded', 'false');
+  mobileMenu.setAttribute('aria-hidden', 'true');
+}
+
+initTheme();
+$('hs-theme-toggle').addEventListener('click', toggleTheme);
+burger.addEventListener('click', toggleMobile);
+backdrop.addEventListener('click', closeMobile);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobile(); });
+</script>
 </body>
 </html>
