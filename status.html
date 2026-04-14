@@ -477,7 +477,7 @@ function renderEpisodes(episodes) {
          If not present, we show a generic "Steht aus" message. */
       const status = ep.status || 'pending';
       const statusMap = {
-        pending:      { text: 'Steht noch aus',        cls: 'pending' },
+        pending:      { text: 'Wartet auf Datei',      cls: 'pending' },
         queued:       { text: 'In der Warteschlange',   cls: 'pending' },
         transcribing: { text: 'Wird transkribiert...',  cls: 'processing' },
         processing:   { text: 'Wird verarbeitet...',    cls: 'processing' },
