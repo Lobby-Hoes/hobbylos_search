@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:url" content="https://search.hobbylos.online/higher-lower.html">
+  <meta property="og:image" content="https://hobbylos.online/img/search.PNG">
+  <meta property="og:description" content="Higher oder Lower: Welches Wort fällt in Hobbylos öfter? Spiel auf Rekord und trag dich in die Rangliste ein.">
+  <meta property="og:title" content="Hobbylos Higher-Lower">
+  <meta name="description" content="Higher oder Lower: Welches Wort fällt in Hobbylos öfter? Spiel auf Rekord und trag dich in die Rangliste ein.">
+  <meta name="keywords" content="Hobbylos, Higher Lower, Spiel, Rangliste, Rezo, Julien Bam">
+  <meta name="robots" content="index, follow">
+  <meta http-equiv="content-language" content="de">
+  <link rel="icon" href="images/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet">
+  <title>Hobbylos Higher-Lower</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: hidden; }
+body { font-family: var(--hs-font-body); font-size: var(--hs-text-base); line-height: 1.6; color: var(--hs-text-primary); background: var(--hs-bg-primary); min-height: 100vh; display: flex; flex-direction: column; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; transition: background var(--hs-duration-normal) ease, color var(--hs-duration-normal) ease; }
+a { color: inherit; text-decoration: none; }
+button { border: none; background: none; cursor: pointer; font: inherit; color: inherit; }
+input { font: inherit; color: inherit; }
+ul, ol { list-style: none; }
+[hidden] { display: none !important; }
+
+:root {
+  --hs-space-1: 0.25rem;
+  --hs-space-2: 0.5rem;
+  --hs-space-3: 0.75rem;
+  --hs-space-4: 1rem;
+  --hs-space-5: 1.5rem;
+  --hs-space-6: 2rem;
+  --hs-space-8: 3rem;
+  --hs-space-10: 4rem;
+
+  --hs-font-brand: 'Bebas Neue', 'Arial Narrow', sans-serif;
+  --hs-font-body: 'DM Sans', 'Helvetica Neue', sans-serif;
+  --hs-text-xs: 0.75rem;
+  --hs-text-sm: 0.875rem;
+  --hs-text-base: 1rem;
+  --hs-text-lg: 1.125rem;
+  --hs-text-xl: 1.25rem;
+  --hs-text-2xl: 1.5rem;
+  --hs-text-3xl: 2rem;
+  --hs-text-4xl: clamp(2rem, 5vw, 2.5rem);
+  --hs-text-5xl: clamp(2.5rem, 7vw, 3.5rem);
+
+  --hs-radius-sm: 6px;
+  --hs-radius-md: 10px;
+  --hs-radius-lg: 16px;
+  --hs-radius-xl: 24px;
+  --hs-radius-full: 9999px;
+
+  --hs-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --hs-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --hs-duration-fast: 150ms;
+  --hs-duration-normal: 250ms;
+  --hs-duration-slow: 400ms;
+
+  --hs-purple: #a900ff;
+  --hs-purple-dim: rgba(169, 0, 255, 0.15);
+  --hs-purple-glow: rgba(169, 0, 255, 0.35);
+  --hs-cyan: #00e5ff;
+  --hs-cyan-dim: rgba(0, 229, 255, 0.15);
+  --hs-cyan-glow: rgba(0, 229, 255, 0.35);
+  --hs-spotify-green: #1DB954;
+  --hs-spotify-green-dim: rgba(29, 185, 84, 0.12);
+  --hs-wrong: #ff4d6a;
+  --hs-wrong-dim: rgba(255, 77, 106, 0.14);
+
+  --hs-z-dropdown: 100;
+  --hs-z-header: 200;
+  --hs-z-mobile-menu: 300;
+  --hs-z-overlay: 450;
+}
+
+[data-theme="dark"] {
+  --hs-bg-primary: #0d0b0e;
+  --hs-bg-secondary: #16131a;
+  --hs-bg-tertiary: #1f1b24;
+  --hs-bg-card: rgba(255, 255, 255, 0.035);
+  --hs-bg-card-hover: rgba(255, 255, 255, 0.07);
+  --hs-bg-glass: rgba(13, 11, 14, 0.88);
+  --hs-text-primary: #f0eaf5;
+  --hs-text-secondary: #a299ad;
+  --hs-text-tertiary: #a29bab;
+  --hs-text-accent: #c266ff;
+  --hs-num: var(--hs-cyan);
+  --hs-wrong-text: var(--hs-wrong);
+  --hs-ok-text: var(--hs-spotify-green);
+  --hs-border: rgba(255, 255, 255, 0.07);
+  --hs-border-strong: rgba(255, 255, 255, 0.14);
+  --hs-input-bg: rgba(255, 255, 255, 0.055);
+  --hs-input-border: rgba(255, 255, 255, 0.1);
+  --hs-shadow-md: 0 4px 16px rgba(0,0,0,0.45);
+  --hs-shadow-lg: 0 8px 32px rgba(0,0,0,0.55);
+  --hs-backdrop: rgba(5, 3, 8, 0.78);
+}
+
+[data-theme="light"] {
+  --hs-bg-primary: #faf8fc;
+  --hs-bg-secondary: #f0ecf4;
+  --hs-bg-tertiary: #e6e0ec;
+  --hs-bg-card: rgba(0, 0, 0, 0.025);
+  --hs-bg-card-hover: rgba(0, 0, 0, 0.055);
+  --hs-bg-glass: rgba(250, 248, 252, 0.92);
+  --hs-text-primary: #1a0e24;
+  --hs-text-secondary: #5c4d6b;
+  --hs-text-tertiary: #5a4e66;
+  --hs-text-accent: #8a00cc;
+  --hs-num: #005866;
+  --hs-wrong-text: #c4163a;
+  --hs-ok-text: #0d7a34;
+  --hs-border: rgba(0, 0, 0, 0.07);
+  --hs-border-strong: rgba(0, 0, 0, 0.13);
+  --hs-input-bg: rgba(0, 0, 0, 0.04);
+  --hs-input-border: rgba(0, 0, 0, 0.1);
+  --hs-shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+  --hs-shadow-lg: 0 8px 32px rgba(0,0,0,0.1);
+  --hs-backdrop: rgba(26, 14, 36, 0.55);
+}
+
+.hs-skip {
+  position: absolute; left: -9999px; top: 0;
+  padding: var(--hs-space-3) var(--hs-space-5);
+  background: var(--hs-purple); color: #fff;
+  z-index: 9999; border-radius: 0 0 var(--hs-radius-md) 0;
+  font-weight: 600;
+}
+.hs-skip:focus { left: 0; }
+
+:focus-visible { outline: 2px solid var(--hs-cyan); outline-offset: 2px; }
+
+.hs-header {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: var(--hs-z-header);
+  background: var(--hs-bg-glass);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--hs-border);
+  transition: background var(--hs-duration-normal) ease;
+}
+.hs-nav {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: var(--hs-space-3) var(--hs-space-5);
+  height: 56px;
+}
+.hs-nav__logo { display: flex; align-items: center; flex-shrink: 0; }
+.hs-nav__logo-text {
+  font-family: var(--hs-font-brand); font-size: var(--hs-text-xl);
+  letter-spacing: 0.04em; line-height: 1;
+  background: linear-gradient(135deg, var(--hs-purple), var(--hs-cyan));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hs-nav__links { display: flex; gap: var(--hs-space-5); align-items: center; }
+.hs-nav__link {
+  font-size: var(--hs-text-sm); color: var(--hs-text-secondary);
+  transition: color var(--hs-duration-fast); font-weight: 500;
+  padding: var(--hs-space-1) 0;
+}
+.hs-nav__link:hover, .hs-nav__link--active { color: var(--hs-text-primary); }
+.hs-nav__actions { display: flex; align-items: center; gap: var(--hs-space-3); }
+
+.hs-theme-toggle {
+  width: 40px; height: 40px; border-radius: var(--hs-radius-full);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--hs-text-secondary);
+  transition: color var(--hs-duration-fast), background var(--hs-duration-fast);
+}
+.hs-theme-toggle:hover { color: var(--hs-text-primary); background: var(--hs-bg-card-hover); }
+.hs-theme-toggle svg { width: 20px; height: 20px; transition: transform var(--hs-duration-normal) var(--hs-ease-spring); }
+.hs-theme-toggle:hover svg { transform: rotate(15deg); }
+
+.hs-nav__burger {
+  display: none; width: 40px; height: 40px;
+  flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+  border-radius: var(--hs-radius-full);
+  transition: background var(--hs-duration-fast);
+}
+.hs-nav__burger:hover { background: var(--hs-bg-card-hover); }
+.hs-nav__burger span {
+  display: block; width: 18px; height: 2px;
+  background: var(--hs-text-secondary); border-radius: 2px;
+  transition: transform var(--hs-duration-normal) var(--hs-ease-out), opacity var(--hs-duration-fast);
+}
+.hs-nav__burger--open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hs-nav__burger--open span:nth-child(2) { opacity: 0; }
+.hs-nav__burger--open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.hs-mobile-menu {
+  position: fixed; top: 56px; right: 0; bottom: 0; width: min(280px, 100%);
+  background: var(--hs-bg-secondary); z-index: var(--hs-z-mobile-menu);
+  transform: translateX(100%); transition: transform var(--hs-duration-slow) var(--hs-ease-out);
+  padding: var(--hs-space-6) var(--hs-space-5);
+  display: flex; flex-direction: column; gap: var(--hs-space-2);
+  border-left: 1px solid var(--hs-border);
+}
+.hs-mobile-menu--open { transform: translateX(0); }
+.hs-mobile-backdrop {
+  position: fixed; inset: 0; top: 56px;
+  background: rgba(0,0,0,0.5); z-index: calc(var(--hs-z-mobile-menu) - 1);
+  opacity: 0; pointer-events: none; transition: opacity var(--hs-duration-normal);
+}
+.hs-mobile-backdrop--visible { opacity: 1; pointer-events: auto; }
+.hs-mobile-menu__link {
+  display: block; padding: var(--hs-space-3) var(--hs-space-4);
+  border-radius: var(--hs-radius-md); font-size: var(--hs-text-lg);
+  color: var(--hs-text-secondary); font-weight: 500;
+  transition: background var(--hs-duration-fast), color var(--hs-duration-fast);
+}
+.hs-mobile-menu__link:hover { background: var(--hs-bg-card-hover); color: var(--hs-text-primary); }
+
+@media (max-width: 768px) {
+  .hs-nav__links { display: none; }
+  .hs-nav__burger { display: flex; }
+}
+
+.hs-main {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  width: 100%; padding: calc(56px + var(--hs-space-6)) var(--hs-space-5) var(--hs-space-8);
+  position: relative;
+}
+.hs-main::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 0%, var(--hs-purple-dim), transparent 60%),
+              radial-gradient(ellipse at 80% 30%, var(--hs-cyan-dim), transparent 55%);
+  opacity: 0.6;
+}
+
+.hs-title-block { text-align: center; margin-bottom: var(--hs-space-5); }
+.hs-title {
+  font-family: var(--hs-font-brand); font-size: var(--hs-text-5xl);
+  letter-spacing: 0.06em; line-height: 1; margin-bottom: var(--hs-space-2);
+  background: linear-gradient(135deg, var(--hs-purple) 0%, var(--hs-cyan) 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hs-subtitle { color: var(--hs-text-secondary); font-size: var(--hs-text-base); }
+
+.hs-game { width: 100%; max-width: 920px; }
+
+.hs-hud {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--hs-space-3);
+  margin-bottom: var(--hs-space-5); flex-wrap: wrap;
+}
+.hs-hud__stats { display: flex; gap: var(--hs-space-5); }
+.hs-hud__stat { display: flex; flex-direction: column; line-height: 1.1; }
+.hs-hud__label { font-size: var(--hs-text-xs); color: var(--hs-text-tertiary); text-transform: uppercase; letter-spacing: 0.08em; }
+.hs-hud__value { font-family: var(--hs-font-brand); font-size: var(--hs-text-4xl); letter-spacing: 0.04em; }
+.hs-hud__value--score { color: var(--hs-num); }
+.hs-sound {
+  display: inline-flex; align-items: center; gap: var(--hs-space-2);
+  padding: var(--hs-space-2) var(--hs-space-4);
+  border: 1px solid var(--hs-border); border-radius: var(--hs-radius-full);
+  font-size: var(--hs-text-sm); color: var(--hs-text-secondary);
+  transition: color var(--hs-duration-fast), border-color var(--hs-duration-fast), background var(--hs-duration-fast);
+}
+.hs-sound:hover { color: var(--hs-text-primary); border-color: var(--hs-border-strong); background: var(--hs-bg-card-hover); }
+.hs-sound svg { width: 16px; height: 16px; }
+
+.hs-status {
+  display: flex; flex-direction: column; align-items: center; gap: var(--hs-space-4);
+  text-align: center; padding: var(--hs-space-6) var(--hs-space-4);
+  color: var(--hs-text-secondary); font-size: var(--hs-text-sm);
+}
+.hs-status--error {
+  background: var(--hs-wrong-dim); border: 1px solid var(--hs-wrong);
+  border-radius: var(--hs-radius-lg); margin-bottom: var(--hs-space-5);
+  color: var(--hs-text-primary);
+}
+
+.hs-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--hs-space-2);
+  padding: var(--hs-space-3) var(--hs-space-5);
+  border-radius: var(--hs-radius-full); font-weight: 600; font-size: var(--hs-text-base);
+  border: 1px solid var(--hs-border-strong); color: var(--hs-text-primary);
+  transition: background var(--hs-duration-fast), border-color var(--hs-duration-fast), transform var(--hs-duration-fast) var(--hs-ease-spring), opacity var(--hs-duration-fast);
+}
+.hs-btn:hover:not(:disabled) { background: var(--hs-bg-card-hover); transform: translateY(-1px); }
+.hs-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.hs-btn--primary {
+  background: var(--hs-purple); color: #fff; border-color: transparent;
+}
+.hs-btn--primary:hover:not(:disabled) { background: var(--hs-purple); opacity: 0.88; }
+
+.hs-arena {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: stretch;
+  gap: var(--hs-space-4);
+}
+.hs-vs {
+  align-self: center; width: 52px; height: 52px; border-radius: var(--hs-radius-full);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--hs-font-brand); font-size: var(--hs-text-xl); letter-spacing: 0.05em;
+  background: var(--hs-bg-tertiary); border: 1px solid var(--hs-border-strong);
+  color: var(--hs-text-secondary);
+}
+
+.hs-duel {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  gap: var(--hs-space-3); min-width: 0;
+  padding: var(--hs-space-6) var(--hs-space-5);
+  background: var(--hs-bg-card); border: 1px solid var(--hs-border);
+  border-radius: var(--hs-radius-xl);
+  transition: border-color var(--hs-duration-normal), background var(--hs-duration-normal), box-shadow var(--hs-duration-normal);
+}
+.hs-duel--enter { animation: hs-duel-in var(--hs-duration-slow) var(--hs-ease-out) both; }
+.hs-duel--right { border-color: var(--hs-spotify-green); background: var(--hs-spotify-green-dim); }
+.hs-duel--wrong { border-color: var(--hs-wrong); background: var(--hs-wrong-dim); }
+.hs-duel__tag { font-size: var(--hs-text-xs); color: var(--hs-text-tertiary); text-transform: uppercase; letter-spacing: 0.1em; }
+.hs-duel__word {
+  font-family: var(--hs-font-brand); font-size: clamp(1.75rem, 9vw, 3rem);
+  letter-spacing: 0.04em; line-height: 1.05; max-width: 100%;
+  overflow-wrap: anywhere; word-break: break-word;
+  transition: color var(--hs-duration-fast);
+}
+@media (min-width: 641px) {
+  .hs-duel__word { font-size: clamp(1.75rem, 4.2vw, 3rem); }
+}
+.hs-duel__word:hover { color: var(--hs-text-accent); }
+.hs-duel__count {
+  font-family: var(--hs-font-brand); font-size: clamp(2.5rem, 8vw, 4rem);
+  letter-spacing: 0.04em; line-height: 1; color: var(--hs-num);
+  font-variant-numeric: tabular-nums; max-width: 100%; overflow-wrap: anywhere;
+}
+.hs-duel__count--hidden { color: var(--hs-text-tertiary); }
+.hs-duel__caption { font-size: var(--hs-text-sm); color: var(--hs-text-secondary); max-width: 100%; overflow-wrap: anywhere; }
+
+.hs-choices { display: flex; gap: var(--hs-space-3); width: 100%; margin-top: var(--hs-space-2); }
+.hs-choice {
+  flex: 1; min-width: 0; padding: var(--hs-space-3) var(--hs-space-2);
+  display: flex; align-items: center; justify-content: center; gap: var(--hs-space-2);
+  border-radius: var(--hs-radius-lg); font-weight: 700; font-size: var(--hs-text-lg);
+  border: 1.5px solid var(--hs-border-strong); background: var(--hs-input-bg);
+  transition: border-color var(--hs-duration-fast), background var(--hs-duration-fast), transform var(--hs-duration-fast) var(--hs-ease-spring), opacity var(--hs-duration-fast);
+}
+.hs-choice svg { width: 20px; height: 20px; flex-shrink: 0; }
+.hs-choice--higher:hover:not(:disabled) { border-color: var(--hs-spotify-green); background: var(--hs-spotify-green-dim); transform: translateY(-2px); }
+.hs-choice--lower:hover:not(:disabled) { border-color: var(--hs-wrong); background: var(--hs-wrong-dim); transform: translateY(-2px); }
+.hs-choice:disabled { opacity: 0.4; cursor: not-allowed; }
+.hs-hint { margin-top: var(--hs-space-4); text-align: center; font-size: 0.8rem; color: var(--hs-text-tertiary); }
+
+.hs-board { width: 100%; max-width: 560px; margin-top: var(--hs-space-8); }
+.hs-board__title {
+  font-family: var(--hs-font-brand); font-size: var(--hs-text-3xl); letter-spacing: 0.05em;
+  margin-bottom: var(--hs-space-4); text-align: center;
+}
+.hs-board__list { display: flex; flex-direction: column; gap: var(--hs-space-2); }
+.hs-board__row {
+  display: grid; grid-template-columns: 2.25rem minmax(0, 1fr) auto auto; align-items: center;
+  gap: var(--hs-space-3); padding: var(--hs-space-3) var(--hs-space-4);
+  background: var(--hs-bg-card); border: 1px solid var(--hs-border); border-radius: var(--hs-radius-md);
+  font-size: var(--hs-text-sm);
+}
+.hs-board__rank { font-family: var(--hs-font-brand); font-size: var(--hs-text-xl); color: var(--hs-text-tertiary); }
+.hs-board__row:nth-child(-n+3) .hs-board__rank { color: var(--hs-num); }
+.hs-board__name { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hs-board__score { font-family: var(--hs-font-brand); font-size: var(--hs-text-xl); color: var(--hs-text-accent); letter-spacing: 0.04em; }
+.hs-board__date { font-size: var(--hs-text-xs); color: var(--hs-text-tertiary); font-variant-numeric: tabular-nums; }
+.hs-board__empty { text-align: center; color: var(--hs-text-tertiary); font-size: var(--hs-text-sm); padding: var(--hs-space-4); }
+
+.hs-overlay {
+  position: fixed; inset: 0; z-index: var(--hs-z-overlay);
+  display: flex; align-items: center; justify-content: center;
+  padding: var(--hs-space-4); background: var(--hs-backdrop);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  animation: hs-fade-in var(--hs-duration-normal) ease both;
+  overflow-y: auto;
+}
+.hs-over {
+  width: 100%; max-width: 440px; margin: auto; text-align: center;
+  background: var(--hs-bg-secondary); border: 1px solid var(--hs-border-strong);
+  border-radius: var(--hs-radius-xl); box-shadow: var(--hs-shadow-lg);
+  padding: var(--hs-space-6) var(--hs-space-5);
+  display: flex; flex-direction: column; gap: var(--hs-space-2);
+  animation: hs-duel-in var(--hs-duration-slow) var(--hs-ease-out) both;
+}
+.hs-over:focus { outline: none; }
+.hs-over__title { font-family: var(--hs-font-brand); font-size: var(--hs-text-4xl); letter-spacing: 0.05em; line-height: 1; }
+.hs-over__score { font-family: var(--hs-font-brand); font-size: clamp(3rem, 14vw, 4.5rem); line-height: 1; color: var(--hs-num); }
+.hs-over__best { font-size: var(--hs-text-sm); color: var(--hs-text-secondary); }
+.hs-over__saying { font-size: var(--hs-text-lg); font-weight: 600; }
+.hs-over__detail { font-size: var(--hs-text-sm); color: var(--hs-text-secondary); overflow-wrap: anywhere; }
+.hs-over__form { display: flex; flex-direction: column; gap: var(--hs-space-2); text-align: left; }
+.hs-over__label { font-size: var(--hs-text-sm); font-weight: 600; }
+.hs-over__input {
+  width: 100%; padding: var(--hs-space-3) var(--hs-space-4);
+  background: var(--hs-input-bg); border: 1.5px solid var(--hs-input-border);
+  border-radius: var(--hs-radius-md); outline: none;
+  transition: border-color var(--hs-duration-fast), box-shadow var(--hs-duration-fast);
+}
+.hs-over__input:focus { border-color: var(--hs-purple); box-shadow: 0 0 0 3px var(--hs-purple-dim); }
+.hs-over__input:disabled { opacity: 0.6; }
+.hs-over__help { font-size: 0.85rem; color: var(--hs-text-secondary); }
+.hs-over__msg { font-size: var(--hs-text-sm); min-height: 1.25em; overflow-wrap: anywhere; }
+.hs-over__msg--error { color: var(--hs-wrong-text); }
+.hs-over__msg--ok { color: var(--hs-ok-text); }
+.hs-over__actions { display: flex; flex-direction: column; gap: var(--hs-space-2); }
+
+.hs-footer {
+  margin-top: auto; border-top: 1px solid var(--hs-border);
+  padding: var(--hs-space-5);
+  background: var(--hs-bg-secondary);
+  transition: background var(--hs-duration-normal) ease;
+}
+.hs-footer__inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: var(--hs-space-3);
+}
+.hs-footer__credits {
+  display: flex; gap: var(--hs-space-4); flex-wrap: wrap;
+  font-size: var(--hs-text-xs); color: var(--hs-text-tertiary);
+}
+.hs-footer__credits a { color: var(--hs-text-secondary); transition: color var(--hs-duration-fast); }
+.hs-footer__credits a:hover { color: var(--hs-text-primary); }
+.hs-footer__links {
+  display: flex; gap: var(--hs-space-4);
+  font-size: var(--hs-text-xs); color: var(--hs-text-tertiary);
+}
+.hs-footer__links a { transition: color var(--hs-duration-fast); }
+.hs-footer__links a:hover { color: var(--hs-text-primary); }
+
+@keyframes hs-duel-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes hs-fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .hs-main { padding-left: var(--hs-space-4); padding-right: var(--hs-space-4); }
+  .hs-footer__inner { flex-direction: column; align-items: center; text-align: center; }
+}
+
+@media (max-width: 640px) {
+  .hs-arena { grid-template-columns: minmax(0, 1fr); gap: var(--hs-space-3); }
+  .hs-vs { justify-self: center; width: 44px; height: 44px; }
+  .hs-duel { padding: var(--hs-space-5) var(--hs-space-4); }
+  .hs-board__row { grid-template-columns: 2rem minmax(0, 1fr) auto; }
+  .hs-board__date { grid-column: 2 / -1; }
+}
+</style>
+</head>
+<body class="hs" id="app">
+  <a class="hs-skip" href="#hs-game">Zum Spiel springen</a>
+
+  <header class="hs-header">
+    <nav class="hs-nav">
+      <a class="hs-nav__logo" href="./index.html" aria-label="Hobbylos Suche Startseite">
+        <span class="hs-nav__logo-text">Hobbylos Suche</span>
+      </a>
+      <div class="hs-nav__links">
+        <a href="./index.html" class="hs-nav__link">Suche</a>
+        <a href="./higher-lower.html" class="hs-nav__link hs-nav__link--active" aria-current="page">Higher-Lower</a>
+        <a href="status.html" class="hs-nav__link">Status</a>
+        <a href="https://api.whatsapp.com/send?phone=+4915678159173&text=Hey%20ich%20war%20auf%20https://search.hobbylos.online/%20und%20habe%20eine%20Frage/Feedback/einen%20Fehler%20gefunden:%0A" target="_blank" rel="noopener" class="hs-nav__link">Kontakt</a>
+      </div>
+      <div class="hs-nav__actions">
+        <button class="hs-theme-toggle" id="hs-theme-toggle" type="button" aria-label="Farbmodus wechseln">
+          <svg id="hs-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg id="hs-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="hs-nav__burger" id="hs-burger" type="button" aria-label="Navigation" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="hs-mobile-backdrop" id="hs-mobile-backdrop"></div>
+  <div class="hs-mobile-menu" id="hs-mobile-menu" aria-hidden="true">
+    <a href="./index.html" class="hs-mobile-menu__link">Suche</a>
+    <a href="./higher-lower.html" class="hs-mobile-menu__link">Higher-Lower</a>
+    <a href="status.html" class="hs-mobile-menu__link">Status</a>
+    <a href="https://api.whatsapp.com/send?phone=+4915678159173&text=Hey%20ich%20war%20auf%20https://search.hobbylos.online/%20und%20habe%20eine%20Frage/Feedback/einen%20Fehler%20gefunden:%0A" target="_blank" rel="noopener" class="hs-mobile-menu__link">Kontakt</a>
+  </div>
+
+  <main class="hs-main">
+    <div class="hs-title-block">
+      <h1 class="hs-title">Higher-Lower</h1>
+      <p class="hs-subtitle">Welches Wort fällt in Hobbylos öfter? Ein Fehler und es ist vorbei.</p>
+    </div>
+
+    <section class="hs-game" id="hs-game" aria-label="Spiel" tabindex="-1">
+      <div class="hs-hud">
+        <div class="hs-hud__stats">
+          <div class="hs-hud__stat">
+            <span class="hs-hud__label">Score</span>
+            <span class="hs-hud__value hs-hud__value--score" id="hs-score" aria-live="polite">0</span>
+          </div>
+          <div class="hs-hud__stat">
+            <span class="hs-hud__label">Bestwert</span>
+            <span class="hs-hud__value" id="hs-best">0</span>
+          </div>
+        </div>
+        <button class="hs-sound" id="hs-sound" type="button" aria-pressed="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path id="hs-sound-wave" d="M15.54 8.46a5 5 0 0 1 0 7.07"/><line id="hs-sound-off" x1="17" y1="9" x2="23" y2="15" style="display:none"/><line id="hs-sound-off2" x1="23" y1="9" x2="17" y2="15" style="display:none"/></svg>
+          <span id="hs-sound-label">Ton an</span>
+        </button>
+      </div>
+
+      <div class="hs-status" id="hs-status" role="status">
+        <p id="hs-status-text">Spiel wird geladen...</p>
+        <button class="hs-btn" id="hs-retry" type="button" hidden>Erneut versuchen</button>
+      </div>
+
+      <div id="hs-playfield" hidden>
+        <div class="hs-arena">
+          <article class="hs-duel" id="hs-card-a" aria-label="Wort A">
+            <span class="hs-duel__tag">Wort A</span>
+            <a class="hs-duel__word" id="hs-word-a" href="#" target="_blank" rel="noopener"></a>
+            <span class="hs-duel__count" id="hs-count-a">0</span>
+            <span class="hs-duel__caption">so oft in Hobbylos gesagt</span>
+          </article>
+
+          <div class="hs-vs" aria-hidden="true">VS</div>
+
+          <article class="hs-duel" id="hs-card-b" aria-label="Wort B">
+            <span class="hs-duel__tag">Wort B</span>
+            <a class="hs-duel__word" id="hs-word-b" href="#" target="_blank" rel="noopener"></a>
+            <span class="hs-duel__count hs-duel__count--hidden" id="hs-count-b">?</span>
+            <span class="hs-duel__caption" id="hs-caption-b">Öfter oder seltener als Wort A?</span>
+            <div class="hs-choices">
+              <button class="hs-choice hs-choice--higher" id="hs-higher" type="button" aria-keyshortcuts="ArrowUp">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+                Higher
+              </button>
+              <button class="hs-choice hs-choice--lower" id="hs-lower" type="button" aria-keyshortcuts="ArrowDown">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+                Lower
+              </button>
+            </div>
+          </article>
+        </div>
+        <p class="hs-hint">Tastatur: Pfeil hoch = Higher, Pfeil runter = Lower. Gleichstand zählt als richtig.</p>
+      </div>
+    </section>
+
+    <section class="hs-board" aria-labelledby="hs-board-title">
+      <h2 class="hs-board__title" id="hs-board-title">Rangliste</h2>
+      <ol class="hs-board__list" id="hs-board-list" aria-live="polite">
+        <li class="hs-board__empty">Rangliste wird geladen...</li>
+      </ol>
+    </section>
+  </main>
+
+  <div class="hs-overlay" id="hs-overlay" hidden>
+    <div class="hs-over" id="hs-over" role="dialog" aria-modal="true" aria-labelledby="hs-over-title" tabindex="-1">
+      <h2 class="hs-over__title" id="hs-over-title">Game Over</h2>
+      <div class="hs-over__score" id="hs-over-score">0</div>
+      <p class="hs-over__best" id="hs-over-best"></p>
+      <p class="hs-over__saying" id="hs-over-saying"></p>
+      <p class="hs-over__detail" id="hs-over-detail"></p>
+
+      <form class="hs-over__form" id="hs-submit-form" autocomplete="off" hidden>
+        <label class="hs-over__label" for="hs-name">Dein Name für die Rangliste</label>
+        <input class="hs-over__input" id="hs-name" name="name" type="text" maxlength="20" autocomplete="nickname" spellcheck="false">
+        <span class="hs-over__help" id="hs-name-help">2 bis 20 Zeichen: A-Z, ä ö ü ß, Ziffern, Leerzeichen, _ . - (mindestens ein Buchstabe oder eine Ziffer)</span>
+        <button class="hs-btn hs-btn--primary" id="hs-submit" type="submit">In Rangliste eintragen</button>
+      </form>
+      <p class="hs-over__msg" id="hs-over-msg" role="status"></p>
+
+      <div class="hs-over__actions">
+        <button class="hs-btn" id="hs-again" type="button">Nochmal</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="hs-footer">
+    <div class="hs-footer__inner">
+      <div class="hs-footer__credits">
+        <span>made by <a href="https://www.instagram.com/emill.brt" target="_blank" rel="noopener">@emill.brt</a></span>
+      </div>
+      <div class="hs-footer__links">
+        <a href="./index.html">Zurück zur Suche</a>
+        <a href="https://api.whatsapp.com/send?phone=+4915678159173&text=Hey%20ich%20war%20auf%20https://search.hobbylos.online/%20und%20habe%20Feedback:%0A" target="_blank" rel="noopener">Feedback</a>
+        <a href="datenschutz-impressum-usw.html">Datenschutz</a>
+        <a href="datenschutz-impressum-usw.html">Impressum</a>
+      </div>
+    </div>
+  </footer>
+
+<script>
+const API = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+  ? 'http://localhost:8443/'
+  : 'https://api.hobbylos.online/';
+
+const AUDIO_DIR = './audio/higher-lower/';
+const NAME_PATTERN = /^[A-Za-z0-9äöüÄÖÜß _.-]{2,20}$/;
+const NAME_NEEDS = /[A-Za-z0-9äöüÄÖÜß]/;
+const COUNT_UP_MS = 900;
+const PAUSE_AFTER_RIGHT_MS = 600;
+const PAUSE_BEFORE_OVER_MS = 1000;
+const SOUND_DELAY_MS = 500;
+const SOUND_STOP_MS = 6000;
+
+const $ = id => document.getElementById(id);
+const DOM = {
+  themeToggle: $('hs-theme-toggle'), iconSun: $('hs-icon-sun'), iconMoon: $('hs-icon-moon'),
+  burger: $('hs-burger'), mobileMenu: $('hs-mobile-menu'), mobileBackdrop: $('hs-mobile-backdrop'),
+  score: $('hs-score'), best: $('hs-best'),
+  sound: $('hs-sound'), soundLabel: $('hs-sound-label'), soundWave: $('hs-sound-wave'),
+  soundOff: $('hs-sound-off'), soundOff2: $('hs-sound-off2'),
+  status: $('hs-status'), statusText: $('hs-status-text'), retry: $('hs-retry'),
+  playfield: $('hs-playfield'),
+  cardA: $('hs-card-a'), cardB: $('hs-card-b'),
+  wordA: $('hs-word-a'), wordB: $('hs-word-b'),
+  countA: $('hs-count-a'), countB: $('hs-count-b'), captionB: $('hs-caption-b'),
+  higher: $('hs-higher'), lower: $('hs-lower'),
+  boardList: $('hs-board-list'),
+  overlay: $('hs-overlay'), over: $('hs-over'),
+  overScore: $('hs-over-score'), overBest: $('hs-over-best'), overSaying: $('hs-over-saying'),
+  overDetail: $('hs-over-detail'), overMsg: $('hs-over-msg'),
+  form: $('hs-submit-form'), name: $('hs-name'), submit: $('hs-submit'),
+  again: $('hs-again'),
+};
+
+const G = {
+  id: null,
+  score: 0,
+  best: 0,
+  a: null,
+  b: null,
+  busy: false,
+  over: false,
+  submitted: false,
+  retryAction: null,
+  sound: true,
+  theme: 'dark',
+  audio: null,
+  soundStartTimer: null,
+  soundStopTimer: null,
+};
+
+class ApiError extends Error {}
+
+function storageGet(key) {
+  try { return localStorage.getItem(key); } catch (e) { return null; }
+}
+function storageSet(key, value) {
+  try { localStorage.setItem(key, value); } catch (e) { /* Speicher gesperrt, Wert gilt nur für diese Sitzung */ }
+}
+
+function formatNumber(n) {
+  return Number(n).toLocaleString('de-DE');
+}
+
+function formatDate(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(iso));
+  return m ? m[3] + '.' + m[2] + '.' + m[1] : '';
+}
+
+function initTheme() {
+  const saved = storageGet('hs-theme');
+  if (saved === 'dark' || saved === 'light') {
+    G.theme = saved;
+  } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+    G.theme = 'light';
+  }
+  applyTheme();
+}
+
+function applyTheme() {
+  document.documentElement.dataset.theme = G.theme;
+  DOM.iconSun.style.display = G.theme === 'dark' ? 'block' : 'none';
+  DOM.iconMoon.style.display = G.theme === 'light' ? 'block' : 'none';
+}
+
+function toggleTheme() {
+  G.theme = G.theme === 'dark' ? 'light' : 'dark';
+  storageSet('hs-theme', G.theme);
+  applyTheme();
+}
+
+function setMobileMenu(open) {
+  DOM.mobileMenu.classList.toggle('hs-mobile-menu--open', open);
+  DOM.mobileBackdrop.classList.toggle('hs-mobile-backdrop--visible', open);
+  DOM.burger.classList.toggle('hs-nav__burger--open', open);
+  DOM.burger.setAttribute('aria-expanded', String(open));
+  DOM.mobileMenu.setAttribute('aria-hidden', String(!open));
+}
+
+async function api(path, params) {
+  let res;
+  try {
+    const options = params ? { method: 'POST', body: new URLSearchParams(params) } : {};
+    res = await fetch(API + path, options);
+  } catch (e) {
+    throw new ApiError('network');
+  }
+  let data;
+  try {
+    if (!res.ok) throw new Error('http ' + res.status);
+    data = await res.json();
+  } catch (e) {
+    throw new ApiError('server');
+  }
+  if (!data || typeof data !== 'object') throw new ApiError('server');
+  if (data.error) throw new ApiError(String(data.error));
+  return data;
+}
+
+const NAME_RULE_TEXT = '2 bis 20 Zeichen: A-Z, ä ö ü ß, Ziffern, Leerzeichen, _ . - (mindestens ein Buchstabe oder eine Ziffer)';
+const ERROR_TEXTS = {
+  'network': 'Keine Verbindung',
+  'server': 'Server-Fehler',
+  'game unavailable': 'Spiel gerade nicht verfügbar',
+  'stale round': 'Spielstand war nicht aktuell',
+  'conflict': 'Spielstand war nicht aktuell',
+  'game over': 'Das Spiel ist bereits vorbei',
+  'unknown game': 'Spiel abgelaufen oder unbekannt, starte ein neues',
+  'invalid name': 'Ungültiger Name. ' + NAME_RULE_TEXT,
+  'already submitted': 'Schon eingetragen',
+  'game not over': 'Das Spiel läuft noch',
+  'score too low': 'Mit diesem Score ist kein Eintrag möglich',
+  'invalid guess': 'Ungültiger Zug',
+  'invalid round': 'Ungültige Runde',
+  'rate limited': 'Zu viele neue Spiele, kurz warten',
+};
+const RESYNC_ERRORS = ['network', 'server', 'stale round', 'conflict', 'game over'];
+
+function errorText(err) {
+  return ERROR_TEXTS[err.message] || 'Unerwarteter Fehler: ' + err.message;
+}
+
+function isValidName(name) {
+  return NAME_PATTERN.test(name) && NAME_NEEDS.test(name);
+}
+
+function showStatus(text, retryAction, isError) {
+  DOM.statusText.textContent = text;
+  DOM.status.classList.toggle('hs-status--error', Boolean(isError));
+  DOM.status.hidden = false;
+  G.retryAction = retryAction || null;
+  DOM.retry.hidden = !retryAction;
+  if (retryAction) DOM.retry.focus();
+}
+
+function hideStatus() {
+  DOM.status.hidden = true;
+  DOM.retry.hidden = true;
+  G.retryAction = null;
+}
+
+function setButtonsDisabled(disabled) {
+  DOM.higher.disabled = disabled;
+  DOM.lower.disabled = disabled;
+}
+
+function setWord(el, word) {
+  el.textContent = word;
+  el.href = './index.html?q=' + encodeURIComponent(word);
+}
+
+function setScore(score) {
+  G.score = score;
+  DOM.score.textContent = formatNumber(score);
+  if (score > G.best) {
+    G.best = score;
+    storageSet('hs-hl-best', String(score));
+  }
+  DOM.best.textContent = formatNumber(G.best);
+}
+
+function renderRound() {
+  setWord(DOM.wordA, G.a.word);
+  DOM.countA.textContent = formatNumber(G.a.count);
+  setWord(DOM.wordB, G.b.word);
+  DOM.countB.textContent = '?';
+  DOM.countB.classList.add('hs-duel__count--hidden');
+  DOM.captionB.textContent = 'Öfter oder seltener als ' + G.a.word + '?';
+  DOM.cardA.className = 'hs-duel';
+  DOM.cardB.className = 'hs-duel';
+}
+
+function playEnterAnimation(card) {
+  card.classList.remove('hs-duel--enter');
+  void card.offsetWidth;
+  card.classList.add('hs-duel--enter');
+}
+
+function countUp(el, target) {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) {
+    el.textContent = formatNumber(target);
+    return Promise.resolve();
+  }
+  return new Promise(resolve => {
+    const start = performance.now();
+    function frame(now) {
+      const t = Math.min(1, (now - start) / COUNT_UP_MS);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = formatNumber(Math.round(target * eased));
+      if (t < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        resolve();
+      }
+    }
+    requestAnimationFrame(frame);
+  });
+}
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+async function startGame() {
+  stopSound();
+  DOM.overlay.hidden = true;
+  DOM.playfield.hidden = true;
+  G.busy = true;
+  G.over = false;
+  G.submitted = false;
+  setScore(0);
+  showStatus('Spiel wird geladen...');
+  try {
+    const data = await api('game/start', {});
+    G.id = data.id;
+    G.a = { word: data.a.word, count: data.a.count };
+    G.b = { word: data.b.word };
+    setScore(Number(data.score) || 0);
+    renderRound();
+    hideStatus();
+    DOM.playfield.hidden = false;
+    playEnterAnimation(DOM.cardA);
+    playEnterAnimation(DOM.cardB);
+    setButtonsDisabled(false);
+    G.busy = false;
+    DOM.higher.focus({ preventScroll: true });
+  } catch (err) {
+    G.busy = false;
+    showStatus(errorText(err), startGame, true);
+  }
+}
+
+function applyState(state) {
+  G.a = { word: state.a.word, count: state.a.count };
+  G.b = { word: state.b.word };
+  G.submitted = state.submitted === true;
+  setScore(Number(state.score) || 0);
+  renderRound();
+  hideStatus();
+  DOM.playfield.hidden = false;
+  if (state.over === true) {
+    G.over = true;
+    DOM.countB.textContent = formatNumber(state.b.count);
+    DOM.countB.classList.remove('hs-duel__count--hidden');
+    DOM.cardB.classList.add('hs-duel--wrong');
+    showGameOver(G.b.word, state.b.count);
+    return;
+  }
+  G.over = false;
+  setButtonsDisabled(false);
+}
+
+async function resync(cause) {
+  G.busy = true;
+  showStatus(cause ? errorText(cause) + ', wird abgeglichen...' : 'Spielstand wird abgeglichen...');
+  try {
+    applyState(await api('game/state', { id: G.id }));
+  } catch (err) {
+    showStatus(errorText(err), err.message === 'unknown game' ? startGame : () => resync(err), true);
+  }
+  G.busy = false;
+}
+
+async function guess(direction) {
+  if (G.busy || G.over || !G.id) return;
+  G.busy = true;
+  setButtonsDisabled(true);
+  hideStatus();
+  let data;
+  try {
+    data = await api('game/guess', { id: G.id, guess: direction, round: String(G.score) });
+  } catch (err) {
+    G.busy = false;
+    setButtonsDisabled(false);
+    if (RESYNC_ERRORS.includes(err.message)) {
+      resync(err);
+    } else {
+      showStatus(errorText(err), err.message === 'unknown game' ? startGame : null, true);
+    }
+    return;
+  }
+
+  const wasCorrect = data.correct === true;
+  DOM.countB.classList.remove('hs-duel__count--hidden');
+  await countUp(DOM.countB, data.b_count);
+  DOM.cardB.classList.add(wasCorrect ? 'hs-duel--right' : 'hs-duel--wrong');
+
+  if (wasCorrect && data.next && data.next.word) {
+    setScore(Number(data.score));
+    await sleep(PAUSE_AFTER_RIGHT_MS);
+    G.a = { word: G.b.word, count: data.b_count };
+    G.b = { word: data.next.word };
+    renderRound();
+    playEnterAnimation(DOM.cardA);
+    playEnterAnimation(DOM.cardB);
+    setButtonsDisabled(false);
+    G.busy = false;
+    return;
+  }
+
+  setScore(Number(data.score));
+  G.over = true;
+  const lostWord = G.b.word;
+  await sleep(PAUSE_BEFORE_OVER_MS);
+  showGameOver(lostWord, data.b_count);
+  G.busy = false;
+}
+
+function saying(score) {
+  return score >= 10 ? 'Sehr erhaben' : 'Da geht noch was';
+}
+
+function soundFileFor(score) {
+  if (score >= 10) {
+    return score > 10 && score < 20 ? 'ey-krass.mp3' : 'sehr-edel.mp3';
+  }
+  return score > 5 ? 'schon-krass.mp3' : 'geht-noch-was.mp3';
+}
+
+function stopSound() {
+  clearTimeout(G.soundStartTimer);
+  clearTimeout(G.soundStopTimer);
+  if (G.audio) {
+    G.audio.pause();
+    G.audio = null;
+  }
+}
+
+function playGameOverSound(score) {
+  if (!G.sound) return;
+  stopSound();
+  const audio = new Audio(AUDIO_DIR + soundFileFor(score));
+  G.audio = audio;
+  G.soundStartTimer = setTimeout(() => {
+    const p = audio.play();
+    if (p && typeof p.catch === 'function') p.catch(() => {});
+  }, SOUND_DELAY_MS);
+  G.soundStopTimer = setTimeout(stopSound, SOUND_STOP_MS);
+}
+
+function applySoundSetting() {
+  DOM.sound.setAttribute('aria-pressed', String(G.sound));
+  DOM.soundLabel.textContent = G.sound ? 'Ton an' : 'Ton aus';
+  DOM.soundWave.style.display = G.sound ? '' : 'none';
+  DOM.soundOff.style.display = G.sound ? 'none' : '';
+  DOM.soundOff2.style.display = G.sound ? 'none' : '';
+}
+
+function toggleSound() {
+  G.sound = !G.sound;
+  storageSet('hs-hl-sound', G.sound ? '1' : '0');
+  if (!G.sound) stopSound();
+  applySoundSetting();
+}
+
+function showGameOver(word, count) {
+  DOM.overScore.textContent = formatNumber(G.score);
+  DOM.overBest.textContent = 'Bestwert: ' + formatNumber(G.best);
+  DOM.overSaying.textContent = saying(G.score);
+  DOM.overDetail.textContent = '"' + word + '" kommt ' + formatNumber(count) + ' Mal in Hobbylos vor.';
+  DOM.overMsg.textContent = '';
+  DOM.overMsg.className = 'hs-over__msg';
+  DOM.form.hidden = G.score < 1;
+  DOM.name.disabled = G.submitted;
+  DOM.name.value = '';
+  DOM.submit.disabled = G.submitted;
+  if (G.submitted) setOverMessage(ERROR_TEXTS['already submitted'], 'ok');
+  DOM.overlay.hidden = false;
+  DOM.over.focus();
+  playGameOverSound(G.score);
+}
+
+function setOverMessage(text, kind) {
+  DOM.overMsg.textContent = text;
+  DOM.overMsg.className = 'hs-over__msg' + (kind ? ' hs-over__msg--' + kind : '');
+}
+
+async function submitScore(event) {
+  event.preventDefault();
+  if (G.submitted || DOM.submit.disabled || G.score < 1) return;
+  const name = DOM.name.value.trim();
+  if (!isValidName(name)) {
+    setOverMessage(ERROR_TEXTS['invalid name'], 'error');
+    DOM.name.focus();
+    return;
+  }
+  DOM.submit.disabled = true;
+  DOM.name.disabled = true;
+  setOverMessage('Wird eingetragen...');
+  try {
+    const data = await api('game/submit', { id: G.id, name: name });
+    G.submitted = true;
+    setOverMessage(
+      data.rank === null || data.rank === undefined
+        ? 'Eingetragen, aber nicht in den Top 100.'
+        : 'Eingetragen auf Platz ' + formatNumber(data.rank) + '.',
+      'ok'
+    );
+    loadLeaderboard();
+  } catch (err) {
+    if (err.message === 'already submitted') {
+      G.submitted = true;
+      setOverMessage(errorText(err), 'ok');
+      loadLeaderboard();
+      return;
+    }
+    DOM.submit.disabled = false;
+    DOM.name.disabled = false;
+    setOverMessage(err.message === 'conflict' ? 'Gerade nicht möglich, bitte nochmal versuchen' : errorText(err), 'error');
+  }
+}
+
+async function loadLeaderboard() {
+  let entries;
+  try {
+    const data = await api('game/leaderboard');
+    entries = Array.isArray(data.leaderboard) ? data.leaderboard.slice(0, 20) : [];
+  } catch (err) {
+    DOM.boardList.replaceChildren(boardNote('Rangliste gerade nicht erreichbar.'));
+    return;
+  }
+  if (entries.length === 0) {
+    DOM.boardList.replaceChildren(boardNote('Noch keine Einträge'));
+    return;
+  }
+  DOM.boardList.replaceChildren(...entries.map((entry, i) => {
+    const row = document.createElement('li');
+    row.className = 'hs-board__row';
+    const rank = document.createElement('span');
+    rank.className = 'hs-board__rank';
+    rank.textContent = String(i + 1);
+    const name = document.createElement('span');
+    name.className = 'hs-board__name';
+    name.textContent = String(entry.name);
+    const score = document.createElement('span');
+    score.className = 'hs-board__score';
+    score.textContent = formatNumber(entry.score);
+    const date = document.createElement('span');
+    date.className = 'hs-board__date';
+    date.textContent = Number.isFinite(entry.ts)
+      ? new Date(entry.ts * 1000).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' })
+      : formatDate(entry.date);
+    row.append(rank, name, score, date);
+    return row;
+  }));
+}
+
+function boardNote(text) {
+  const li = document.createElement('li');
+  li.className = 'hs-board__empty';
+  li.textContent = text;
+  return li;
+}
+
+function trapFocus(event) {
+  const focusable = Array.from(DOM.over.querySelectorAll('input, button'))
+    .filter(el => !el.disabled && el.offsetParent !== null);
+  if (focusable.length === 0) {
+    event.preventDefault();
+    DOM.over.focus();
+    return;
+  }
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  const active = document.activeElement;
+  if (event.shiftKey && (active === first || active === DOM.over)) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && active === last) {
+    event.preventDefault();
+    first.focus();
+  }
+}
+
+function onKeydown(event) {
+  if (!DOM.overlay.hidden) {
+    if (event.key === 'Tab') trapFocus(event);
+    return;
+  }
+  if (event.altKey || event.ctrlKey || event.metaKey) return;
+  if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') return;
+  if (DOM.playfield.hidden) return;
+  event.preventDefault();
+  guess(event.key === 'ArrowUp' ? 'higher' : 'lower');
+}
+
+function init() {
+  initTheme();
+  const bestStored = parseInt(storageGet('hs-hl-best') || '0', 10);
+  G.best = Number.isFinite(bestStored) && bestStored > 0 ? bestStored : 0;
+  DOM.best.textContent = formatNumber(G.best);
+  G.sound = storageGet('hs-hl-sound') !== '0';
+  applySoundSetting();
+
+  DOM.themeToggle.addEventListener('click', toggleTheme);
+  DOM.burger.addEventListener('click', () => setMobileMenu(!DOM.mobileMenu.classList.contains('hs-mobile-menu--open')));
+  DOM.mobileBackdrop.addEventListener('click', () => setMobileMenu(false));
+  DOM.mobileMenu.addEventListener('click', event => { if (event.target.closest('a')) setMobileMenu(false); });
+  DOM.sound.addEventListener('click', toggleSound);
+  DOM.higher.addEventListener('click', () => guess('higher'));
+  DOM.lower.addEventListener('click', () => guess('lower'));
+  DOM.retry.addEventListener('click', () => { if (G.retryAction) G.retryAction(); });
+  DOM.form.addEventListener('submit', submitScore);
+  DOM.again.addEventListener('click', startGame);
+  document.addEventListener('keydown', onKeydown);
+
+  startGame();
+  loadLeaderboard();
+}
+
+init();
+</script>
+</body>
+</html>
