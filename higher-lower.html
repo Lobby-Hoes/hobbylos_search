@@ -337,8 +337,13 @@ ul, ol { list-style: none; }
   transition: border-color var(--hs-duration-fast), background var(--hs-duration-fast), transform var(--hs-duration-fast) var(--hs-ease-spring), opacity var(--hs-duration-fast);
 }
 .hs-choice svg { width: 20px; height: 20px; flex-shrink: 0; }
-.hs-choice--higher:hover:not(:disabled) { border-color: var(--hs-spotify-green); background: var(--hs-spotify-green-dim); transform: translateY(-2px); }
-.hs-choice--lower:hover:not(:disabled) { border-color: var(--hs-wrong); background: var(--hs-wrong-dim); transform: translateY(-2px); }
+/* Auf Touchgeräten bleibt :hover nach dem Tippen stehen, deshalb dort nur Farbe während des Drückens */
+@media (hover: hover) {
+  .hs-choice--higher:hover:not(:disabled) { border-color: var(--hs-spotify-green); background: var(--hs-spotify-green-dim); transform: translateY(-2px); }
+  .hs-choice--lower:hover:not(:disabled) { border-color: var(--hs-wrong); background: var(--hs-wrong-dim); transform: translateY(-2px); }
+}
+.hs-choice--higher:active:not(:disabled) { border-color: var(--hs-spotify-green); background: var(--hs-spotify-green-dim); }
+.hs-choice--lower:active:not(:disabled) { border-color: var(--hs-wrong); background: var(--hs-wrong-dim); }
 .hs-choice:disabled { opacity: 0.4; cursor: not-allowed; }
 .hs-hint { margin-top: var(--hs-space-4); text-align: center; font-size: 0.8rem; color: var(--hs-text-tertiary); }
 
